@@ -1,0 +1,32 @@
+@media print {
+  /* Hide non-essential elements */
+  .navbar, .mobile-menu, .custom-cursor, .mouse-spotlight,
+  .scanline-overlay, .noise-overlay, .page-transition, .loader,
+  .bg-animated, .back-to-top, .scroll-progress, .footer__cta,
+  .footer__marquee, .footer__socials, .footer__time,
+  .blog-progress, #commandPalette, .resume-actions,
+  .project-hero__back { display: none !important; }
+
+  /* Reset backgrounds */
+  body, html { background: white !important; color: black !important; }
+  * { color: black !important; background: transparent !important; border-color: #ddd !important; box-shadow: none !important; text-shadow: none !important; }
+
+  /* Typography */
+  body { font-size: 11pt; line-height: 1.5; }
+  h1 { font-size: 18pt; }
+  h2 { font-size: 14pt; }
+  h3 { font-size: 12pt; }
+
+  /* Layout */
+  .container { max-width: 100% !important; padding: 0 !important; }
+  main { padding: 0 !important; }
+  section { padding: 1rem 0 !important; break-inside: avoid; }
+
+  /* Links */
+  a[href^="http"]:after { content: " (" attr(href) ")"; font-size: 9pt; color: #666 !important; }
+  a { text-decoration: underline !important; }
+
+  /* Footer minimal */
+  .footer { padding: 1rem 0 !important; }
+  .footer__bottom { border-top: 1px solid #ddd; padding-top: 0.5rem; }
+}

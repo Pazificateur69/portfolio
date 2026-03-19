@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Alessandro - Portfolio | Étudiant en 3ème année de Cybersécurité & Développeur Full-Stack basé à Lyon.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Alessandro | Cybersécurité & Dev Full-Stack">
+    <meta property="og:description" content="Alessandro - Portfolio | Étudiant en 3ème année de Cybersécurité & Développeur Full-Stack basé à Lyon.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Alessandro | Cybersécurité & Dev Full-Stack">
+    <meta name="twitter:description" content="Alessandro - Portfolio | Étudiant en 3ème année de Cybersécurité & Développeur Full-Stack basé à Lyon.">
+  <meta name="theme-color" content="#050508">
+  <title>Alessandro | Cybersécurité & Dev Full-Stack</title>
+
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
+  <style>
+    :root{--bg-primary:#050508;--bg-secondary:#0a0a10;--purple:#8b5cf6;--pink:#ec4899;--text-primary:#f1f5f9;--font-main:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;--font-mono:'JetBrains Mono','Fira Code',monospace;--gradient-purple:linear-gradient(135deg,#8b5cf6,#ec4899)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:16px}body{font-family:var(--font-main);background:var(--bg-primary);color:var(--text-primary);line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    .loader{position:fixed;inset:0;background:var(--bg-primary);display:flex;align-items:center;justify-content:center;z-index:100001;transition:opacity .5s ease,visibility .5s ease}
+    .loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .loader__content{display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+    .loader__logo{font-family:var(--font-mono);font-size:2.5rem;font-weight:800;background:var(--gradient-purple);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .loader__progress{width:120px;height:2px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+    .loader__progress-bar{height:100%;background:var(--gradient-purple);border-radius:2px;width:0;transition:width .6s cubic-bezier(.4,0,.2,1)}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Alessandro",
+  "alternateName": "Pazificateur",
+  "url": "https://pazificateur.github.io/portfolio/",
+  "jobTitle": "Cybersecurity Student & Full-Stack Developer",
+  "worksFor": {"@type": "Organization", "name": "PAZENT Studio", "url": "https://pazent.fr"},
+  "alumniOf": {"@type": "EducationalOrganization", "name": "Lyon Cybersecurity Program"},
+  "knowsAbout": ["Cybersecurity", "Penetration Testing", "Full-Stack Development", "Web3", "Blockchain", "Smart Contracts", "OSINT"],
+  "sameAs": ["https://github.com/Pazificateur", "https://pazent.fr", "https://pazificateur.fr"]
+}
+</script>
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/">
+  <link rel="stylesheet" href="css/main.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="css/main.css"></noscript>
+  <link rel="stylesheet" href="css/command-palette.css">
+</head>
+
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Overlays -->
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition">
+    <div class="page-transition__panel"></div>
+    <div class="page-transition__panel"></div>
+    <div class="page-transition__panel"></div>
+    <div class="page-transition__panel"></div>
+    <div class="page-transition__panel"></div>
+  </div>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="m18 15-6-6-6 6" />
+    </svg>
+  </button>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="loader__content">
+      <div class="loader__logo">{A}</div>
+      <div class="loader__progress">
+        <div class="loader__progress-bar" id="loaderProgress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Animated Background -->
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+    <div class="bg-glow bg-glow--3"></div>
+    <canvas id="particlesCanvas"></canvas>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="#hero" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span>
+        <span class="navbar__logo-text">A</span>
+        <span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="resume.html" class="navbar__link">CV Technique</a>
+        <a href="#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-menu__link" data-i18n="nav.about">A propos</a>
+    <a href="resume.html" class="mobile-menu__link">CV Technique</a>
+    <a href="#skills" class="mobile-menu__link" data-i18n="nav.skills">Skills</a>
+    <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false">
+      <span data-i18n="nav.labs">Labs</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </button>
+    <div class="mobile-menu__labs-submenu">
+      <a href="security-sandbox.html" class="mobile-menu__link">Interactive Sandbox</a>
+      <a href="web3-engineering.html" class="mobile-menu__link">Web3 Engineering</a>
+      <a href="security-lab.html" class="mobile-menu__link">Security Lab</a>
+      <a href="engineering.html" class="mobile-menu__link">Engineering</a>
+      <a href="infrastructure.html" class="mobile-menu__link">Infrastructure</a>
+      <a href="portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+      <a href="publications.html" class="mobile-menu__link">Publications</a>
+      <a href="changelog.html" class="mobile-menu__link">Changelog</a>
+      <a href="veille.html" class="mobile-menu__link">Veille Techno</a>
+      <a href="ctf.html" class="mobile-menu__link">CTF Writeups</a>
+      <a href="uses.html" class="mobile-menu__link">Uses / Setup</a>
+      <a href="blog/" class="mobile-menu__link">Blog</a>
+      <a href="stats.html" class="mobile-menu__link">Stats</a>
+      <a href="now.html" class="mobile-menu__link">Now</a>
+    </div>
+    <a href="#projects" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+    <a href="#experience" class="mobile-menu__link" data-i18n="nav.experience">Parcours</a>
+    <a href="#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu__controls">
+      <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+      <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+      </button>
+      <button class="navbar__control-btn" id="langToggleMobile" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__content">
+        <div class="hero__badge hero-enter">
+          <span class="hero__badge-dot"></span>
+          <span data-i18n="hero.badge">Disponible pour opportunités</span>
+        </div>
+        <h1 class="hero__name">
+          <span class="hero__greeting hero-enter" data-i18n="hero.greeting">Salut, je suis</span>
+          <span class="hero__title-name">Alessandro</span>
+        </h1>
+        <div class="hero__roles hero-enter">
+          <span class="hero__role-static" data-i18n="hero.role">Étudiant en</span>
+          <span class="hero__role-dynamic" id="typingText"></span>
+          <span class="hero__role-cursor">|</span>
+        </div>
+        <p class="hero__description hero-enter" data-i18n="hero.description">
+          En 3ème année de Cybersécurité à Lyon, je conçois des applications web
+          modernes et sécurisées. Passionné par le pentest, l'OSINT, le
+          développement full-stack et l'écosystème Web3.
+        </p>
+        <div class="hero__actions hero-enter">
+          <a href="#projects" class="btn btn--primary magnetic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m16 18 6-6-6-6" />
+              <path d="m8 6-6 6 6 6" />
+            </svg>
+            <span data-i18n="hero.cta.projects">Voir mes projets</span>
+          </a>
+          <a href="#contact" class="btn btn--glass magnetic">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            <span data-i18n="hero.cta.contact">Me contacter</span>
+          </a>
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="btn btn--icon magnetic"
+            title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </a>
+        </div>
+        <div class="hero__stats hero-enter">
+          <div class="hero__stat">
+            <span class="hero__stat-number" data-count="15">0</span><span class="hero__stat-plus">+</span>
+            <span class="hero__stat-label" data-i18n="hero.stat.projects">Projets</span>
+          </div>
+          <div class="hero__stat-divider"></div>
+          <div class="hero__stat">
+            <span class="hero__stat-number" data-count="3">0</span><span class="hero__stat-plus">+</span>
+            <span class="hero__stat-label" data-i18n="hero.stat.years">Ans d'exp.</span>
+          </div>
+          <div class="hero__stat-divider"></div>
+          <div class="hero__stat">
+            <span class="hero__stat-number" data-count="8">0</span><span class="hero__stat-plus">+</span>
+            <span class="hero__stat-label" data-i18n="hero.stat.clients">Clients</span>
+          </div>
+        </div>
+        <div class="hero__github reveal" id="githubStats">
+          <div class="hero__github-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            <span id="ghRepos">--</span> repos
+          </div>
+          <div class="hero__github-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <span id="ghStars">--</span> stars
+          </div>
+        </div>
+      </div>
+      <!-- Floating code snippets -->
+      <div class="hero__floaters">
+        <div class="hero__float hero__float--1"><span class="hero__float-code">const secure = true;</span></div>
+        <div class="hero__float hero__float--2"><span class="hero__float-code">npm run deploy</span></div>
+        <div class="hero__float hero__float--3"><span class="hero__float-code">&lt;Encrypted /&gt;</span></div>
+        <div class="hero__float hero__float--4"><span class="hero__float-code">0x4a3b...f7e2</span></div>
+        <div class="hero__float hero__float--5"><span class="hero__float-code">chmod 600 key.pem</span></div>
+      </div>
+
+      <div class="scroll-indicator">
+        <div class="scroll-indicator__line"></div>
+        <span data-i18n="scroll.label">Scroll</span>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section__header reveal" data-number="01">
+          <span class="section__tag" data-i18n="section.about.tag">À propos</span>
+          <h2 class="section__title" data-i18n="section.about.title">Qui suis-je ?</h2>
+        </div>
+        <div class="about__grid">
+          <div class="about__text reveal-left">
+            <p>
+              Je suis <strong>Alessandro</strong>, étudiant en <strong>3ème année de Cybersécurité</strong> et
+              développeur full-stack passionné. Basé à <strong>Lyon</strong>, je suis actuellement en
+              <strong>alternance</strong> chez <a href="https://net-strategy.fr" target="_blank" rel="noopener"
+                class="link--accent">Net-Strategy</a>,
+              une agence de marketing digital où je contribue au développement web et à l'amélioration
+              des sites clients.
+            </p>
+            <p>
+              En parallèle, je gère <a href="https://pazent.fr" target="_blank" rel="noopener"
+                class="link--accent">PAZENT Studio</a>,
+              mon agence indépendante où je crée des expériences digitales sur mesure : sites web,
+              applications mobiles, solutions Web3 et audits de sécurité.
+            </p>
+            <p>
+              Ma double casquette sécurité/développement me permet de concevoir des applications
+              qui ne sont pas seulement belles et performantes, mais aussi robustes et sécurisées
+              dès la conception.
+            </p>
+            <!-- Terminal code block -->
+            <div class="about__terminal">
+              <div class="about__terminal-header">
+                <span class="about__terminal-dot"></span>
+                <span class="about__terminal-dot"></span>
+                <span class="about__terminal-dot"></span>
+                <span class="about__terminal-title">alessandro.json</span>
+              </div>
+              <div class="about__terminal-body">
+                <span class="line"><span class="bracket">{</span></span>
+                <span class="line"> <span class="key">"name"</span>: <span class="str">"Alessandro"</span>,</span>
+                <span class="line"> <span class="key">"alias"</span>: <span class="str">"Pazificateur"</span>,</span>
+                <span class="line"> <span class="key">"age"</span>: <span class="num">21</span>,</span>
+                <span class="line"> <span class="key">"location"</span>: <span class="str">"Lyon, France"</span>,</span>
+                <span class="line"> <span class="key">"role"</span>: <span class="str">"Cybersec Student & Full-Stack
+                    Dev"</span>,</span>
+                <span class="line"> <span class="key">"available"</span>: <span class="bool">true</span>,</span>
+                <span class="line"> <span class="key">"coffee_per_day"</span>: <span class="num">4</span></span>
+                <span class="line"><span class="bracket">}</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="about__details reveal-right">
+            <div class="about__detail-card">
+              <div class="about__detail-icon about__detail-icon--purple">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+              <div>
+                <span class="about__detail-label">Localisation</span>
+                <span class="about__detail-value">Lyon, France</span>
+              </div>
+            </div>
+            <div class="about__detail-card">
+              <div class="about__detail-icon about__detail-icon--blue">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                  <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                </svg>
+              </div>
+              <div>
+                <span class="about__detail-label">Formation</span>
+                <span class="about__detail-value">Bac+3 Cybersécurité</span>
+              </div>
+            </div>
+            <div class="about__detail-card">
+              <div class="about__detail-icon about__detail-icon--green">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+              </div>
+              <div>
+                <span class="about__detail-label">Alternance</span>
+                <span class="about__detail-value">Net-Strategy, Lyon</span>
+              </div>
+            </div>
+            <div class="about__detail-card">
+              <div class="about__detail-icon about__detail-icon--gold">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <div>
+                <span class="about__detail-label">Spécialité</span>
+                <span class="about__detail-value">Pentest & OSINT</span>
+              </div>
+            </div>
+            <div class="about__detail-card">
+              <div class="about__detail-icon about__detail-icon--purple">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2 2 7l10 5 10-5-10-5z" />
+                  <path d="m2 17 10 5 10-5" />
+                  <path d="m2 12 10 5 10-5" />
+                </svg>
+              </div>
+              <div>
+                <span class="about__detail-label">Agence</span>
+                <span class="about__detail-value">PAZENT Studio</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider: About → Skills -->
+    <div class="section-divider">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path class="section-divider__wave" d="M0,60 C480,0 960,80 1440,20 L1440,80 L0,80 Z"/>
+        <path class="section-divider__glow" d="M0,60 C480,0 960,80 1440,20" />
+      </svg>
+    </div>
+
+    <!-- SKILLS -->
+    <section class="section section--alt" id="skills">
+      <div class="container">
+        <div class="section__header reveal" data-number="02">
+          <span class="section__tag" data-i18n="section.skills.tag">Compétences</span>
+          <h2 class="section__title" data-i18n="section.skills.title">Stack technique</h2>
+        </div>
+        <div class="skills__grid">
+          <!-- Frontend -->
+          <div class="skill-card reveal" data-delay="1">
+            <div class="skill-card__header">
+              <div class="skill-card__icon skill-card__icon--purple">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="m9 8 3 3-3 3" />
+                  <path d="M13 16h4" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="skill-card__title">Frontend</h3>
+                <span class="skill-card__subtitle">UI / UX</span>
+              </div>
+            </div>
+            <div class="skill-card__items">
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">React / Next.js</span><span
+                    class="skill-item__value">95%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--purple" data-value="95"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">TypeScript</span><span
+                    class="skill-item__value">90%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--purple" data-value="90"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Tailwind CSS</span><span
+                    class="skill-item__value">92%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--purple" data-value="92"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">GSAP / Framer Motion</span><span
+                    class="skill-item__value">85%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--purple" data-value="85"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Backend -->
+          <div class="skill-card reveal" data-delay="2">
+            <div class="skill-card__header">
+              <div class="skill-card__icon skill-card__icon--blue">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
+                  <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="skill-card__title">Backend</h3>
+                <span class="skill-card__subtitle">Server / DB</span>
+              </div>
+            </div>
+            <div class="skill-card__items">
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Node.js / Express</span><span
+                    class="skill-item__value">88%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--blue" data-value="88"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Laravel / PHP</span><span
+                    class="skill-item__value">85%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--blue" data-value="85"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">PostgreSQL / MySQL</span><span
+                    class="skill-item__value">82%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--blue" data-value="82"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Docker / DevOps</span><span
+                    class="skill-item__value">78%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--blue" data-value="78"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Cybersecurity -->
+          <div class="skill-card reveal" data-delay="3">
+            <div class="skill-card__header">
+              <div class="skill-card__icon skill-card__icon--green">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="skill-card__title">Cybersécurité</h3>
+                <span class="skill-card__subtitle">Offensive / Defensive</span>
+              </div>
+            </div>
+            <div class="skill-card__items">
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Pentest / Audit</span><span
+                    class="skill-item__value">80%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--green" data-value="80"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Nmap / Wireshark</span><span
+                    class="skill-item__value">85%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--green" data-value="85"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Sécurité Web (OWASP)</span><span
+                    class="skill-item__value">88%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--green" data-value="88"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Cryptographie</span><span
+                    class="skill-item__value">75%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--green" data-value="75"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- OSINT -->
+          <div class="skill-card reveal" data-delay="4">
+            <div class="skill-card__header">
+              <div class="skill-card__icon skill-card__icon--gold">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="skill-card__title">OSINT</h3>
+                <span class="skill-card__subtitle">Intelligence</span>
+              </div>
+            </div>
+            <div class="skill-card__items">
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Maltego / TheHarvester</span><span
+                    class="skill-item__value">82%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--gold" data-value="82"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Social Engineering</span><span
+                    class="skill-item__value">78%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--gold" data-value="78"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Reconnaissance</span><span
+                    class="skill-item__value">85%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--gold" data-value="85"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-item__header"><span class="skill-item__name">Data Analysis</span><span
+                    class="skill-item__value">80%</span></div>
+                <div class="skill-item__bar">
+                  <div class="skill-item__progress skill-item__progress--gold" data-value="80"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tools reveal">
+          <h3 class="tools__title">// technologies & outils</h3>
+          <div class="marquee">
+            <div class="marquee__track">
+              <span class="tool-tag">React</span><span class="tool-tag">Next.js</span><span class="tool-tag">TypeScript</span><span class="tool-tag">Node.js</span><span class="tool-tag">Laravel</span><span class="tool-tag">PHP</span><span class="tool-tag">Python</span><span class="tool-tag">Docker</span><span class="tool-tag">Git</span><span class="tool-tag">Linux</span><span class="tool-tag">WordPress</span><span class="tool-tag">Tailwind</span><span class="tool-tag">Supabase</span><span class="tool-tag">Firebase</span>
+              <!-- Duplicate for seamless loop -->
+              <span class="tool-tag">React</span><span class="tool-tag">Next.js</span><span class="tool-tag">TypeScript</span><span class="tool-tag">Node.js</span><span class="tool-tag">Laravel</span><span class="tool-tag">PHP</span><span class="tool-tag">Python</span><span class="tool-tag">Docker</span><span class="tool-tag">Git</span><span class="tool-tag">Linux</span><span class="tool-tag">WordPress</span><span class="tool-tag">Tailwind</span><span class="tool-tag">Supabase</span><span class="tool-tag">Firebase</span>
+            </div>
+          </div>
+          <div class="marquee marquee--reverse">
+            <div class="marquee__track">
+              <span class="tool-tag">Figma</span><span class="tool-tag">React Native</span><span class="tool-tag">Solidity</span><span class="tool-tag">Ethers.js</span><span class="tool-tag">Hardhat</span><span class="tool-tag">Wagmi</span><span class="tool-tag">Web3</span><span class="tool-tag">Nmap</span><span class="tool-tag">Wireshark</span><span class="tool-tag">Burp Suite</span><span class="tool-tag">Maltego</span><span class="tool-tag">Metasploit</span><span class="tool-tag">Kali Linux</span><span class="tool-tag">Redis</span>
+              <!-- Duplicate for seamless loop -->
+              <span class="tool-tag">Figma</span><span class="tool-tag">React Native</span><span class="tool-tag">Solidity</span><span class="tool-tag">Ethers.js</span><span class="tool-tag">Hardhat</span><span class="tool-tag">Wagmi</span><span class="tool-tag">Web3</span><span class="tool-tag">Nmap</span><span class="tool-tag">Wireshark</span><span class="tool-tag">Burp Suite</span><span class="tool-tag">Maltego</span><span class="tool-tag">Metasploit</span><span class="tool-tag">Kali Linux</span><span class="tool-tag">Redis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CODE SHOWCASE -->
+    <section class="section section--alt" id="code">
+      <div class="container">
+        <div class="section__header reveal" data-number="03">
+          <span class="section__tag" data-i18n="section.code.tag">// live code</span>
+          <h2 class="section__title" data-i18n="section.code.title">Code en action</h2>
+        </div>
+
+        <div class="code-showcase">
+          <!-- Editor 1: React Component -->
+          <div class="code-editor reveal-left" data-accent="purple">
+            <div class="code-editor__header">
+              <div class="code-editor__dots">
+                <span class="code-editor__dot code-editor__dot--red"></span>
+                <span class="code-editor__dot code-editor__dot--yellow"></span>
+                <span class="code-editor__dot code-editor__dot--green"></span>
+              </div>
+              <span class="code-editor__filename">SecurityDashboard.tsx</span>
+              <span class="code-editor__lang">TypeScript React</span>
+            </div>
+            <div class="code-editor__body">
+              <div class="code-editor__lines" aria-hidden="true">
+                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+                <span>16</span>
+              </div>
+              <pre class="code-editor__code"><code><span class="ck">import</span> { <span class="cv">useState</span>, <span class="cv">useEffect</span> } <span class="ck">from</span> <span class="cs">'react'</span>;
+<span class="ck">import</span> { <span class="cv">ThreatAnalyzer</span> } <span class="ck">from</span> <span class="cs">'@/lib/security'</span>;
+
+<span class="ck">export const</span> <span class="cf">SecurityDashboard</span> = () =&gt; {
+  <span class="ck">const</span> [<span class="cv">threats</span>, <span class="cv">setThreats</span>] = <span class="cf">useState</span>&lt;<span class="ct">Threat</span>[]&gt;([]);
+  <span class="ck">const</span> <span class="cv">analyzer</span> = <span class="ck">new</span> <span class="ct">ThreatAnalyzer</span>();
+
+  <span class="cf">useEffect</span>(() =&gt; {
+    <span class="ck">const</span> <span class="cv">stream</span> = <span class="cv">analyzer</span>.<span class="cf">subscribe</span>({
+      <span class="cp">onThreat</span>: (<span class="cv">t</span>) =&gt; <span class="cf">setThreats</span>(<span class="cv">prev</span> =&gt; [...<span class="cv">prev</span>, <span class="cv">t</span>]),
+      <span class="cp">severity</span>: <span class="cs">'critical'</span>,
+    });
+    <span class="ck">return</span> () =&gt; <span class="cv">stream</span>.<span class="cf">unsubscribe</span>();
+  }, []);
+
+  <span class="ck">return</span> &lt;<span class="ct">ThreatGrid</span> <span class="cp">data</span>={<span class="cv">threats</span>} /&gt;;
+};</code></pre>
+            </div>
+          </div>
+
+          <!-- Editor 2: Python Security Script -->
+          <div class="code-editor reveal" data-accent="cyan">
+            <div class="code-editor__header">
+              <div class="code-editor__dots">
+                <span class="code-editor__dot code-editor__dot--red"></span>
+                <span class="code-editor__dot code-editor__dot--yellow"></span>
+                <span class="code-editor__dot code-editor__dot--green"></span>
+              </div>
+              <span class="code-editor__filename">vuln_scanner.py</span>
+              <span class="code-editor__lang">Python</span>
+            </div>
+            <div class="code-editor__body">
+              <div class="code-editor__lines" aria-hidden="true">
+                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+              </div>
+              <pre class="code-editor__code"><code><span class="ck">import</span> <span class="cv">asyncio</span>
+<span class="ck">from</span> <span class="cv">scanner</span> <span class="ck">import</span> <span class="cv">VulnEngine</span>, <span class="cv">Report</span>
+
+<span class="ck">async def</span> <span class="cf">scan_target</span>(<span class="cv">host</span>: <span class="ct">str</span>) -&gt; <span class="ct">Report</span>:
+    <span class="cc">"""Run full vulnerability assessment."""</span>
+    <span class="cv">engine</span> = <span class="ct">VulnEngine</span>(
+        <span class="cp">target</span>=<span class="cv">host</span>,
+        <span class="cp">modules</span>=[<span class="cs">'xss'</span>, <span class="cs">'sqli'</span>, <span class="cs">'rce'</span>],
+        <span class="cp">threads</span>=<span class="cn">50</span>,
+    )
+    <span class="cv">results</span> = <span class="ck">await</span> <span class="cv">engine</span>.<span class="cf">execute</span>()
+
+    <span class="ck">for</span> <span class="cv">vuln</span> <span class="ck">in</span> <span class="cv">results</span>.<span class="cf">critical</span>():
+        <span class="ck">await</span> <span class="cv">vuln</span>.<span class="cf">notify</span>(<span class="cp">channel</span>=<span class="cs">'#security'</span>)
+
+    <span class="ck">return</span> <span class="cv">results</span>.<span class="cf">to_report</span>()</code></pre>
+            </div>
+          </div>
+
+          <!-- Editor 3: Solidity Smart Contract -->
+          <div class="code-editor reveal-right" data-accent="green">
+            <div class="code-editor__header">
+              <div class="code-editor__dots">
+                <span class="code-editor__dot code-editor__dot--red"></span>
+                <span class="code-editor__dot code-editor__dot--yellow"></span>
+                <span class="code-editor__dot code-editor__dot--green"></span>
+              </div>
+              <span class="code-editor__filename">StableCoin.sol</span>
+              <span class="code-editor__lang">Solidity</span>
+            </div>
+            <div class="code-editor__body">
+              <div class="code-editor__lines" aria-hidden="true">
+                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                <span>11</span><span>12</span><span>13</span><span>14</span><span>15</span>
+              </div>
+              <pre class="code-editor__code"><code><span class="cc">// SPDX-License-Identifier: MIT</span>
+<span class="ck">pragma</span> solidity ^0.8.20;
+
+<span class="ck">import</span> <span class="cs">"@openzeppelin/contracts/token/ERC20.sol"</span>;
+
+<span class="ck">contract</span> <span class="ct">AEDSC</span> <span class="ck">is</span> <span class="ct">ERC20</span>, <span class="ct">Ownable</span> {
+    <span class="ct">uint256</span> <span class="ck">public</span> <span class="cv">reserveRatio</span>;
+    <span class="ck">mapping</span>(<span class="ct">address</span> =&gt; <span class="ct">bool</span>) <span class="cv">minters</span>;
+
+    <span class="ck">function</span> <span class="cf">mint</span>(
+        <span class="ct">address</span> <span class="cv">to</span>, <span class="ct">uint256</span> <span class="cv">amount</span>
+    ) <span class="ck">external</span> <span class="cf">onlyMinter</span> {
+        <span class="ck">require</span>(<span class="cv">amount</span> &lt;= <span class="cf">maxMint</span>(), <span class="cs">"cap"</span>);
+        <span class="cf">_mint</span>(<span class="cv">to</span>, <span class="cv">amount</span>);
+    }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider: Code → Web3 -->
+    <div class="section-divider">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path class="section-divider__wave" d="M0,20 C360,80 1080,0 1440,50 L1440,80 L0,80 Z" fill="var(--bg-primary)"/>
+        <path class="section-divider__glow" d="M0,20 C360,80 1080,0 1440,50" />
+      </svg>
+    </div>
+
+    <!-- WEB3 -->
+    <section class="section" id="web3">
+      <div class="container">
+        <div class="section__header reveal" data-number="04">
+          <span class="section__tag" data-i18n="section.web3.tag">Blockchain Engineering</span>
+          <h2 class="section__title" data-i18n="section.web3.title">Web3 &amp; DeFi Infrastructure</h2>
+        </div>
+        <div class="web3__grid">
+          <div class="web3__text reveal-left">
+            <p>
+              Ingénierie blockchain de bout en bout : du <strong>smart contract Solidity</strong> au
+              <strong>frontend Web3</strong>, en passant par l'architecture DeFi et la
+              <strong>sécurité des contrats</strong>. Je conçois des systèmes décentralisés
+              avec une approche security-by-design.
+            </p>
+
+            <!-- AEDSC Architecture -->
+            <div class="web3__architecture">
+              <h3 class="web3__arch-title">AEDSC — Stablecoin Architecture</h3>
+              <p class="web3__arch-desc">
+                Stablecoin ERC-20 adossé au Dirham (AED), déployé sur <strong>Arbitrum L2</strong>.
+                Architecture proxy upgradeable (OpenZeppelin), mint contrôlé, transparence des réserves.
+              </p>
+              <div class="web3__arch-flow">
+                <span class="web3__arch-node">User</span>
+                <span class="web3__arch-arrow">&rarr;</span>
+                <span class="web3__arch-node">Frontend</span>
+                <span class="web3__arch-arrow">&rarr;</span>
+                <span class="web3__arch-node">Wallet</span>
+                <span class="web3__arch-arrow">&rarr;</span>
+                <span class="web3__arch-node web3__arch-node--highlight">Proxy Contract</span>
+                <span class="web3__arch-arrow">&rarr;</span>
+                <span class="web3__arch-node">Implementation</span>
+              </div>
+            </div>
+
+            <!-- Stack Web3 -->
+            <div class="web3__stack-tags">
+              <span>Solidity</span>
+              <span>Hardhat</span>
+              <span>Arbitrum L2</span>
+              <span>Ethers.js</span>
+              <span>Wagmi</span>
+              <span>Web3Modal</span>
+              <span>OpenZeppelin</span>
+              <span>ERC-20</span>
+              <span>Upgradeable Contracts</span>
+            </div>
+
+            <!-- Concepts maîtrisés -->
+            <div class="web3__concepts">
+              <h3 class="web3__concepts-title">Concepts maîtrisés</h3>
+              <div class="web3__concepts-grid">
+                <span>Tokenomics</span>
+                <span>Governance &amp; DAO</span>
+                <span>Smart Contract Security</span>
+                <span>Gas Optimization</span>
+                <span>L2 Scaling</span>
+                <span>DeFi Mechanics</span>
+                <span>On-chain / Off-chain Logic</span>
+                <span>Oracle Integration</span>
+              </div>
+            </div>
+          </div>
+          <div class="web3__showcase reveal-right">
+            <div class="web3__card">
+              <div class="web3__card-header">
+                <div class="web3__card-icon">&#9830;</div>
+                <div>
+                  <h3 class="web3__card-title">AEDSC</h3>
+                  <span class="web3__card-subtitle">Stablecoin Architecture</span>
+                </div>
+              </div>
+              <p class="web3__card-desc">ERC-20 sur Arbitrum. Proxy upgradeable, mint contrôlé, oracle Chainlink,
+                transparence réserve.</p>
+              <a href="https://aedsc.xyz" target="_blank" rel="noopener" class="web3__card-link">aedsc.xyz &rarr;</a>
+            </div>
+            <div class="web3__card">
+              <div class="web3__card-header">
+                <div class="web3__card-icon">&#9733;</div>
+                <div>
+                  <h3 class="web3__card-title">Haunt3D</h3>
+                  <span class="web3__card-subtitle">Crypto Dashboard</span>
+                </div>
+              </div>
+              <p class="web3__card-desc">Dashboard multi-chain : suivi portefeuille, NFT gallery, DeFi tracker,
+                analytics temps réel.</p>
+              <a href="https://haunt3d.fr" target="_blank" rel="noopener" class="web3__card-link">haunt3d.fr &rarr;</a>
+            </div>
+            <div class="web3__card">
+              <div class="web3__card-header">
+                <div class="web3__card-icon">&#9670;</div>
+                <div>
+                  <h3 class="web3__card-title">Curs3D</h3>
+                  <span class="web3__card-subtitle">Token Analytics</span>
+                </div>
+              </div>
+              <p class="web3__card-desc">Analyse on-chain : token scanner, whale tracking, audit de sécurité, liquidity
+                monitoring.</p>
+              <a href="https://curs3d.fr" target="_blank" rel="noopener" class="web3__card-link">curs3d.fr &rarr;</a>
+            </div>
+
+            <!-- Smart Contract Security Bridge -->
+            <div class="web3__card web3__card--security">
+              <div class="web3__card-header">
+                <div class="web3__card-icon" style="background:var(--gradient-purple);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="web3__card-title">Smart Contract Security</h3>
+                  <span class="web3__card-subtitle">Cyber &times; Web3</span>
+                </div>
+              </div>
+              <p class="web3__card-desc">Reentrancy, integer overflow, access control, oracle manipulation, proxy risks.
+                Audit &amp; fix.</p>
+              <a href="security-lab.html#smartcontract-security" class="web3__card-link">Voir le Security Lab &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider: Web3 → Projects -->
+    <div class="section-divider">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path class="section-divider__wave" d="M0,40 C240,80 720,0 1200,60 C1320,70 1380,40 1440,30 L1440,80 L0,80 Z"/>
+        <path class="section-divider__glow" d="M0,40 C240,80 720,0 1200,60 C1320,70 1380,40 1440,30" />
+      </svg>
+    </div>
+
+    <!-- PROJECTS -->
+    <section class="section section--alt" id="projects">
+      <div class="container">
+        <div class="section__header reveal" data-number="05">
+          <span class="section__tag" data-i18n="section.projects.tag">Projets</span>
+          <h2 class="section__title" data-i18n="section.projects.title">Mes réalisations</h2>
+        </div>
+        <div class="projects__filters reveal">
+          <button class="filter-btn filter-btn--active" data-filter="all">Tous</button>
+          <button class="filter-btn" data-filter="personal">Projets perso</button>
+          <button class="filter-btn" data-filter="web3">Web3 / Crypto</button>
+          <button class="filter-btn" data-filter="client">Sites clients</button>
+          <button class="filter-btn" data-filter="agency">Agence</button>
+        </div>
+        <div class="projects__grid" id="projectsGrid">
+
+          <!-- Keyne -->
+          <article class="project-card reveal" data-category="personal">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--purple"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://github.com/Pazificateur" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="GitHub - Keyne"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">Keyne</h3>
+            <p class="project-card__desc">Gestionnaire de mots de passe sécurisé avec chiffrement de bout en bout et
+              synchronisation multi-appareils.</p>
+            <div class="project-card__tags">
+              <span>React</span><span>TypeScript</span><span>Node.js</span><span>Encryption</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">Terminé</span>
+              <a href="projects/keyne.html" class="project-card__detail-btn" aria-label="Détails du projet Keyne">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- Dashboard Crypto -->
+          <article class="project-card reveal" data-category="personal">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--green"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 3v18h18" />
+                  <path d="m19 9-5 5-4-4-3 3" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://github.com/Pazificateur" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="GitHub - Dashboard Crypto"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">Dashboard Crypto</h3>
+            <p class="project-card__desc">Tableau de bord en temps réel pour suivre les investissements crypto avec
+              graphiques interactifs.</p>
+            <div class="project-card__tags"><span>Next.js</span><span>Web3</span><span>Chart.js</span><span>API</span>
+            </div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">Terminé</span>
+              <a href="projects/crypto-dashboard.html" class="project-card__detail-btn" aria-label="Détails du projet Dashboard Crypto">Détails <svg width="16"
+                  height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- Extreme Alarm -->
+          <article class="project-card reveal" data-category="personal">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--blue"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="13" r="8" />
+                  <path d="M12 9v4l2 2" />
+                  <path d="M5 3 2 6" />
+                  <path d="m22 6-3-3" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://github.com/Pazificateur" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="GitHub - Extreme Alarm App"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">Extreme Alarm App</h3>
+            <p class="project-card__desc">Application mobile de réveil avec défi mathématique. Design premium et
+              animations fluides.</p>
+            <div class="project-card__tags"><span>React
+                Native</span><span>Expo</span><span>TypeScript</span><span>Supabase</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--progress">En cours</span>
+              <a href="projects/extreme-alarm.html" class="project-card__detail-btn" aria-label="Détails du projet Extreme Alarm">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- CRM -->
+          <article class="project-card reveal" data-category="personal">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--cyan"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://github.com/Pazificateur" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="GitHub - CRM Application"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path
+                      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">CRM Application</h3>
+            <p class="project-card__desc">Solution de gestion client complète avec tableaux de bord, facturation et
+              suivi en temps réel.</p>
+            <div class="project-card__tags">
+              <span>Laravel</span><span>Next.js</span><span>Docker</span><span>Redis</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--progress">En cours</span>
+              <a href="projects/crm.html" class="project-card__detail-btn" aria-label="Détails du projet CRM">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- PAZENT Studio -->
+          <article class="project-card reveal" data-category="agency">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--purple"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2 2 7l10 5 10-5-10-5z" />
+                  <path d="m2 17 10 5 10-5" />
+                  <path d="m2 12 10 5 10-5" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://pazent.fr" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="Voir le site - PAZENT Studio"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">PAZENT Studio</h3>
+            <p class="project-card__desc">Mon agence digitale indépendante. Design premium, dev web/mobile, Web3 et
+              cybersécurité.</p>
+            <div class="project-card__tags">
+              <span>Next.js</span><span>React</span><span>Tailwind</span><span>Supabase</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">En ligne</span>
+              <a href="projects/pazent-studio.html" class="project-card__detail-btn" aria-label="Détails du projet PAZENT Studio">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- Création de vos envies -->
+          <article class="project-card reveal" data-category="client">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--pink"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://creationsdevosenvies.pazificateur.fr/" target="_blank"
+                  rel="noopener" class="project-card__link" aria-label="Voir le site - Creation de vos envies"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">Création de vos envies</h3>
+            <p class="project-card__desc">Site vitrine moderne pour une entreprise de décoration intérieure avec
+              animations élégantes.</p>
+            <div class="project-card__tags">
+              <span>HTML/CSS</span><span>JavaScript</span><span>GSAP</span><span>Responsive</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">Terminé</span>
+              <a href="projects/creation-envies.html" class="project-card__detail-btn" aria-label="Détails du projet Création de vos envies">Détails <svg width="16"
+                  height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- Veriflamme -->
+          <article class="project-card reveal" data-category="client">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--gold"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
+                </svg></div>
+              <div class="project-card__links"><a href="#" class="project-card__link" aria-label="Voir le site - Veriflamme"><svg width="18" height="18"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">Veriflamme</h3>
+            <p class="project-card__desc">Plateforme de restauration de tapis avec expertise visuelle et suivi des
+              commandes.</p>
+            <div class="project-card__tags">
+              <span>WordPress</span><span>Elementor</span><span>PHP</span><span>Three.js</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--progress">En cours</span>
+              <a href="projects/veriflamme.html" class="project-card__detail-btn" aria-label="Détails du projet Veriflamme">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- Couvreur Deauville -->
+          <article class="project-card reveal" data-category="client">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--blue"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://couvreur-deauville.fr" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="Voir le site - MKC Couverture"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">MKC Couverture</h3>
+            <p class="project-card__desc">Site professionnel pour un couvreur en Normandie. SEO optimisé et schema.org
+              intégré.</p>
+            <div class="project-card__tags">
+              <span>WordPress</span><span>Elementor</span><span>SEO</span><span>Schema.org</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">En ligne</span>
+              <a href="projects/couvreur-deauville.html" class="project-card__detail-btn" aria-label="Détails du projet MKC Couverture">Détails <svg width="16"
+                  height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- Réunion Toiture -->
+          <article class="project-card reveal" data-category="client">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--green"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://reunion-toiture.fr" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="Voir le site - Zimmermann Toiture"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">Zimmermann Toiture</h3>
+            <p class="project-card__desc">Site vitrine pour un couvreur à La Réunion avec galerie avant/après et devis
+              en ligne.</p>
+            <div class="project-card__tags">
+              <span>WordPress</span><span>Elementor</span><span>SEO</span><span>Responsive</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">En ligne</span>
+              <a href="projects/reunion-toiture.html" class="project-card__detail-btn" aria-label="Détails du projet Zimmermann Toiture">Détails <svg width="16"
+                  height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- LuxCouvreur -->
+          <article class="project-card reveal" data-category="client">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--gold"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://luxcouvreur.lu" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="Voir le site - LuxCouvreur"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">LuxCouvreur</h3>
+            <p class="project-card__desc">Site professionnel pour une entreprise de couverture et étanchéité au
+              Luxembourg.</p>
+            <div class="project-card__tags"><span>WordPress</span><span>Elementor</span><span>SEO</span><span>WP
+                Rocket</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">En ligne</span>
+              <a href="projects/luxcouvreur.html" class="project-card__detail-btn" aria-label="Détails du projet LuxCouvreur">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- CLM -->
+          <article class="project-card reveal" data-category="client">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--cyan"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <rect width="18" height="18" x="3" y="3" rx="2" />
+                  <path d="M3 9h18" />
+                  <path d="M9 21V9" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://clm.net-dev2.fr" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="Voir le site - CLM"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">CLM</h3>
+            <p class="project-card__desc">Site web professionnel développé dans le cadre de mon alternance chez
+              Net-Strategy.</p>
+            <div class="project-card__tags"><span>WordPress</span><span>Elementor</span><span>PHP</span><span>SEO</span>
+            </div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">En ligne</span>
+              <a href="projects/clm.html" class="project-card__detail-btn" aria-label="Détails du projet CLM">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- Net-Strategy -->
+          <article class="project-card reveal" data-category="agency">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--pink"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://net-strategy.fr" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="Voir le site - Net-Strategy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">Net-Strategy (refonte)</h3>
+            <p class="project-card__desc">Amélioration et refonte d'une grande partie du site de l'agence digitale
+              lyonnaise.</p>
+            <div class="project-card__tags">
+              <span>WordPress</span><span>Design</span><span>SEO</span><span>Performance</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">En ligne</span>
+              <a href="projects/net-strategy.html" class="project-card__detail-btn" aria-label="Détails du projet Net-Strategy">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- AEDSC -->
+          <article class="project-card reveal" data-category="web3">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--green"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                  <path d="M12 18V6" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://aedsc.xyz" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="Voir le site - AEDSC"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">AEDSC</h3>
+            <p class="project-card__desc">Stablecoin conceptuel adossé au Dirham des Émirats (AED). Smart contracts
+              Solidity, oracle Chainlink et architecture DeFi.</p>
+            <div class="project-card__tags">
+              <span>Solidity</span><span>Ethers.js</span><span>Chainlink</span><span>DeFi</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--progress">Concept</span>
+              <a href="projects/aedsc.html" class="project-card__detail-btn" aria-label="Détails du projet AEDSC">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- Haunt3D -->
+          <article class="project-card reveal" data-category="web3">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--purple"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 3v18h18" />
+                  <path d="m19 9-5 5-4-4-3 3" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://haunt3d.fr" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="Voir le site - Haunt3D"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">Haunt3D</h3>
+            <p class="project-card__desc">Dashboard crypto immersif avec suivi de portefeuille Web3, NFT gallery et DeFi
+              tracker en temps réel.</p>
+            <div class="project-card__tags">
+              <span>Next.js</span><span>Wagmi</span><span>Web3</span><span>TradingView</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">Terminé</span>
+              <a href="projects/haunt3d.html" class="project-card__detail-btn" aria-label="Détails du projet Haunt3D">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+          <!-- Curs3D -->
+          <article class="project-card reveal" data-category="web3">
+            <div class="project-card__shine"></div>
+            <div class="project-card__top">
+              <div class="project-card__icon project-card__icon--cyan"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8" />
+                  <path d="m21 21-4.3-4.3" />
+                </svg></div>
+              <div class="project-card__links"><a href="https://curs3d.fr" target="_blank" rel="noopener"
+                  class="project-card__link" aria-label="Voir le site - Curs3D"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg></a></div>
+            </div>
+            <h3 class="project-card__title">Curs3D</h3>
+            <p class="project-card__desc">Plateforme Web3 d'analyse de tokens on-chain avec détection de tendances,
+              whale tracking et audit de sécurité.</p>
+            <div class="project-card__tags"><span>Next.js</span><span>Solidity</span><span>The
+                Graph</span><span>D3.js</span></div>
+            <div class="project-card__footer">
+              <span class="project-card__status project-card__status--done">En ligne</span>
+              <a href="projects/curs3d.html" class="project-card__detail-btn" aria-label="Détails du projet Curs3D">Détails <svg width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg></a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Divider: Projects → Experience -->
+    <div class="section-divider">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path class="section-divider__wave" d="M0,30 C360,80 720,0 1440,50 L1440,80 L0,80 Z" fill="var(--bg-primary)"/>
+        <path class="section-divider__glow" d="M0,30 C360,80 720,0 1440,50" />
+      </svg>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <div class="container">
+        <div class="section__header reveal" data-number="06">
+          <span class="section__tag" data-i18n="section.experience.tag">Parcours</span>
+          <h2 class="section__title" data-i18n="section.experience.title">Formation & Expérience</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline__item reveal">
+            <div class="timeline__dot timeline__dot--active"></div>
+            <div class="timeline__content">
+              <div class="timeline__date">2024 - Present</div>
+              <h3 class="timeline__title">Alternance - Développeur Web</h3>
+              <p class="timeline__company">Net-Strategy, Lyon</p>
+              <p class="timeline__desc">Développement et amélioration de sites clients (WordPress, Elementor, SEO).
+                Refonte partielle du site de l'agence. Travail sur des projets web variées pour des clients locaux et
+                internationaux.</p>
+              <div class="timeline__tags"><span>WordPress</span><span>SEO</span><span>PHP</span><span>Elementor</span>
+              </div>
+            </div>
+          </div>
+          <div class="timeline__item reveal">
+            <div class="timeline__dot timeline__dot--active"></div>
+            <div class="timeline__content">
+              <div class="timeline__date">2023 - Present</div>
+              <h3 class="timeline__title">Fondateur - PAZENT Studio</h3>
+              <p class="timeline__company">pazent.fr - Lyon</p>
+              <p class="timeline__desc">Agence digitale indépendante. Création d'expériences web/mobile premium,
+                solutions Web3, audits de cybersécurité et consulting technique pour startups et PME.</p>
+              <div class="timeline__tags">
+                <span>React</span><span>Next.js</span><span>Web3</span><span>Cybersécurité</span></div>
+            </div>
+          </div>
+          <div class="timeline__item reveal">
+            <div class="timeline__dot"></div>
+            <div class="timeline__content">
+              <div class="timeline__date">2023 - 2026</div>
+              <h3 class="timeline__title">Bachelor Cybersécurité (Bac+3)</h3>
+              <p class="timeline__company">3ème année en cours</p>
+              <p class="timeline__desc">Formation approfondie en sécurité informatique, cryptographie, analyse de
+                vulnérabilités, pentest et OSINT. Certifications en cours : CEH, CompTIA Security+.</p>
+              <div class="timeline__tags">
+                <span>Pentest</span><span>OSINT</span><span>Cryptographie</span><span>OWASP</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section" id="testimonials">
+      <div class="container">
+        <div class="section__header reveal" data-number="06.5">
+          <span class="section__tag" data-i18n="section.testimonials.tag">Recommandations</span>
+          <h2 class="section__title" data-i18n="section.testimonials.title">Ce qu'ils disent</h2>
+          <p class="section__subtitle" data-i18n="section.testimonials.subtitle">Retours de clients et collaborateurs avec qui j'ai eu le plaisir de travailler.</p>
+        </div>
+        <div class="testimonials__grid">
+          <div class="testimonial-card reveal" data-delay="1">
+            <div class="testimonial-card__stars">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="testimonial-card__text" data-i18n="testimonials.1.text">"Alessandro a complètement transformé notre présence en ligne. Son expertise technique et sa créativité ont dépassé nos attentes. Le site est rapide, élégant et parfaitement optimisé SEO."</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar">M</div>
+              <div>
+                <div class="testimonial-card__name" data-i18n="testimonials.1.name">Marc D.</div>
+                <div class="testimonial-card__role" data-i18n="testimonials.1.role">Gérant — Couverture Deauville</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal" data-delay="2">
+            <div class="testimonial-card__stars">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="testimonial-card__text" data-i18n="testimonials.2.text">"Travail impeccable sur notre application web. Alessandro maîtrise aussi bien le frontend que le backend, avec une vraie sensibilité pour la sécurité. Je recommande à 100%."</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar">S</div>
+              <div>
+                <div class="testimonial-card__name" data-i18n="testimonials.2.name">Sophie L.</div>
+                <div class="testimonial-card__role" data-i18n="testimonials.2.role">CTO — Startup Fintech</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card reveal" data-delay="3">
+            <div class="testimonial-card__stars">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--purple)" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="testimonial-card__text" data-i18n="testimonials.3.text">"Un développeur passionné qui livre toujours dans les temps. Son portfolio parle de lui-même — le niveau de détail et de polish est remarquable. Un vrai atout pour n'importe quelle équipe."</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar">T</div>
+              <div>
+                <div class="testimonial-card__name" data-i18n="testimonials.3.name">Thomas R.</div>
+                <div class="testimonial-card__role" data-i18n="testimonials.3.role">Lead Dev — Net-Strategy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section__header reveal" data-number="07">
+          <span class="section__tag" data-i18n="section.contact.tag">Contact</span>
+          <h2 class="section__title" data-i18n="section.contact.title">Travaillons ensemble</h2>
+          <p class="section__subtitle" data-i18n="section.contact.subtitle">Un projet en tête ? Une question ? N'hésitez
+            pas à me contacter.</p>
+        </div>
+        <div class="contact__grid">
+          <a href="mailto:contact@pazent.fr" class="contact-card reveal" data-delay="1">
+            <div class="contact-card__icon contact-card__icon--purple"><svg width="28" height="28" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <rect width="20" height="16" x="2" y="4" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg></div>
+            <h3 class="contact-card__title">Email</h3>
+            <p class="contact-card__value">contact@pazent.fr</p>
+          </a>
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="contact-card reveal"
+            data-delay="2">
+            <div class="contact-card__icon contact-card__icon--green"><svg width="28" height="28" viewBox="0 0 24 24"
+                fill="currentColor">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg></div>
+            <h3 class="contact-card__title">GitHub</h3>
+            <p class="contact-card__value">@Pazificateur</p>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="contact-card reveal" data-delay="3">
+            <div class="contact-card__icon contact-card__icon--blue"><svg width="28" height="28" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg></div>
+            <h3 class="contact-card__title">PAZENT Studio</h3>
+            <p class="contact-card__value">pazent.fr</p>
+          </a>
+          <a href="https://pazificateur.fr" target="_blank" rel="noopener" class="contact-card reveal" data-delay="4">
+            <div class="contact-card__icon contact-card__icon--gold"><svg width="28" height="28" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m16 18 6-6-6-6" />
+                <path d="m8 6-6 6 6 6" />
+              </svg></div>
+            <h3 class="contact-card__title">Site personnel</h3>
+            <p class="contact-card__value">pazificateur.fr</p>
+          </a>
+        </div>
+        <form class="contact-form reveal" id="contactForm" data-delay="5">
+          <div class="contact-form__group">
+            <input type="text" class="contact-form__input" id="contactName" placeholder="Votre nom" data-i18n-placeholder="contact.form.name" required>
+          </div>
+          <div class="contact-form__group">
+            <input type="email" class="contact-form__input" id="contactEmail" placeholder="Votre email" data-i18n-placeholder="contact.form.email" required>
+          </div>
+          <div class="contact-form__group">
+            <textarea class="contact-form__input contact-form__textarea" id="contactMessage" placeholder="Votre message..." data-i18n-placeholder="contact.form.message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary contact-form__submit">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span data-i18n="contact.form.send">Envoyer le message</span>
+          </button>
+          <p class="contact-form__status" id="contactStatus"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__pattern"></div>
+
+    <!-- Big CTA section -->
+    <div class="container">
+      <div class="footer__cta">
+        <span class="footer__cta-tag" data-i18n="footer.cta.tag">// prochain projet</span>
+        <h3 class="footer__cta-title" data-i18n="footer.cta.title">Let's work together</h3>
+        <p class="footer__cta-text" data-i18n="footer.cta.text">Un projet en tête ? Discutons de comment je peux vous aider.</p>
+        <a href="#contact" class="btn btn--primary magnetic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          <span data-i18n="footer.cta.btn">Me contacter</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Giant pseudo marquee -->
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="#hero" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer__social-link" title="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made" data-i18n="footer.made">// construit avec passion & cafe</p>
+          <div class="footer__time" id="footerTime"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n-data.js" defer></script>
+  <script src="js/sound-engine.js" defer></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/globals.js" defer></script>
+  <script src="js/easter-eggs.js" defer></script>
+  <script src="js/main.js?v=3" defer></script>
+  <script>
+(function(){
+  var form = document.getElementById('contactForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name = document.getElementById('contactName').value;
+    var email = document.getElementById('contactEmail').value;
+    var msg = document.getElementById('contactMessage').value;
+    var subject = encodeURIComponent('Portfolio Contact - ' + name);
+    var body = encodeURIComponent('From: ' + name + ' (' + email + ')\n\n' + msg);
+    window.location.href = 'mailto:contact@pazent.fr?subject=' + subject + '&body=' + body;
+    var status = document.getElementById('contactStatus');
+    status.textContent = 'Ouverture de votre client email...';
+    status.className = 'contact-form__status contact-form__status--success';
+  });
+})();
+</script>
+<script>
+(function(){
+  fetch('https://api.github.com/users/Pazificateur')
+    .then(function(r){return r.json()})
+    .then(function(d){
+      var el=document.getElementById('ghRepos');
+      if(el&&d.public_repos)el.textContent=d.public_repos;
+    }).catch(function(){});
+  fetch('https://api.github.com/users/Pazificateur/repos?per_page=100&sort=updated')
+    .then(function(r){return r.json()})
+    .then(function(repos){
+      var total=0;
+      if(Array.isArray(repos))repos.forEach(function(r){total+=r.stargazers_count||0});
+      var el=document.getElementById('ghStars');
+      if(el&&total>0)el.textContent=total;
+    }).catch(function(){});
+})();
+</script>
+</body>
+
+</html>

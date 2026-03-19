@@ -1,0 +1,129 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   USES / SETUP — Category cards + Items grid
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.uses-section {
+  padding: 4rem 0 6rem;
+}
+
+/* ─── Grid Layout ─── */
+.uses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.uses-grid--flat {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* ─── Category Card ─── */
+.uses-category {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.06));
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.uses-category:hover {
+  border-color: rgba(139, 92, 246, 0.2);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.06);
+}
+
+.uses-category__title {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--purple, #8b5cf6);
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+}
+
+.uses-category__items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* ─── Individual Item ─── */
+.uses-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  background: rgba(139, 92, 246, 0.04);
+  border: 1px solid rgba(139, 92, 246, 0.06);
+  border-radius: 10px;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.uses-item:hover {
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+.uses-item__name {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary, #f1f5f9);
+}
+
+.uses-item__desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary, #94a3b8);
+  line-height: 1.5;
+}
+
+/* ─── Flat grid items (outside category cards) ─── */
+.uses-grid--flat .uses-item {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.06));
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+.uses-grid--flat .uses-item:hover {
+  background: rgba(139, 92, 246, 0.06);
+  border-color: rgba(139, 92, 246, 0.2);
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.08);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .uses-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .uses-grid--flat {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .uses-section {
+    padding: 3rem 0 4rem;
+  }
+
+  .uses-category {
+    padding: 1.25rem;
+  }
+
+  .uses-item {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .uses-grid--flat .uses-item {
+    padding: 1rem 1.25rem;
+  }
+}

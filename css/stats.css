@@ -1,0 +1,184 @@
+/* ===============================================================================
+   STATS — Stat cards grid, progress bars, feature checklist
+   =============================================================================== */
+
+.stats-section {
+  padding: 4rem 0 6rem;
+}
+
+/* --- Stat Cards Grid --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.stats-card {
+  background: var(--glass-bg, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.06));
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.stats-card:hover {
+  border-color: rgba(139, 92, 246, 0.25);
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.08);
+  transform: translateY(-4px);
+}
+
+.stats-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  margin-bottom: 1rem;
+  color: var(--purple, #8b5cf6);
+}
+
+.stats-card__value {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: var(--gradient-purple, linear-gradient(135deg, #8b5cf6, #06b6d4));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.stats-card__sub {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.stats-card__label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary, #94a3b8);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* --- Tech Stack Bars --- */
+.stats-bars {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.stats-bar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.stats-bar__label {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary, #f1f5f9);
+}
+
+.stats-bar__value {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.8rem;
+  color: var(--text-secondary, #94a3b8);
+}
+
+.stats-bar__track {
+  width: 100%;
+  height: 10px;
+  background: rgba(139, 92, 246, 0.08);
+  border-radius: 999px;
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  overflow: hidden;
+}
+
+.stats-bar__fill {
+  height: 100%;
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+  transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.stats-bar__fill--animated {
+  /* width set via JS based on data-percent */
+}
+
+/* --- Feature Checklist --- */
+.stats-checklist {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.75rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.stats-check {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1.25rem;
+  background: var(--glass-bg, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.06));
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary, #94a3b8);
+  transition: border-color 0.3s ease, background 0.2s ease;
+}
+
+.stats-check:hover {
+  background: rgba(139, 92, 246, 0.06);
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.stats-check svg {
+  flex-shrink: 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stats-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .stats-card__value {
+    font-size: 2rem;
+  }
+
+  .stats-checklist {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-section {
+    padding: 3rem 0 4rem;
+  }
+}

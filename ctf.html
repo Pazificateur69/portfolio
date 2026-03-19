@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CTF Writeups — Solutions de challenges capture-the-flag par Alessandro.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CTF Writeups - Alessandro Portfolio">
+    <meta property="og:description" content="CTF Writeups — Solutions de challenges capture-the-flag par Alessandro.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/ctf.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CTF Writeups - Alessandro Portfolio">
+    <meta name="twitter:description" content="CTF Writeups — Solutions de challenges capture-the-flag par Alessandro.">
+  <meta name="theme-color" content="#050508">
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/ctf.html">
+  <title>CTF Writeups - Alessandro Portfolio</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/ctf.css">
+  <link rel="stylesheet" href="css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <!-- Overlays -->
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+
+  <!-- Animated Background -->
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="ctf.html" class="navbar__dropdown-item active">CTF Writeups</a>
+            <a href="uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#about" class="mobile-menu__link" data-i18n="nav.about">A propos</a>
+    <a href="index.html#skills" class="mobile-menu__link" data-i18n="nav.skills">Skills</a>
+    <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false">
+      <span data-i18n="nav.labs">Labs</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="mobile-menu__labs-submenu">
+      <a href="security-sandbox.html" class="mobile-menu__link">Interactive Sandbox</a>
+      <a href="web3-engineering.html" class="mobile-menu__link">Web3 Engineering</a>
+      <a href="security-lab.html" class="mobile-menu__link">Security Lab</a>
+      <a href="engineering.html" class="mobile-menu__link">Engineering</a>
+      <a href="infrastructure.html" class="mobile-menu__link">Infrastructure</a>
+      <a href="portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+      <a href="publications.html" class="mobile-menu__link">Publications</a>
+      <a href="changelog.html" class="mobile-menu__link">Changelog</a>
+      <a href="veille.html" class="mobile-menu__link">Veille Techno</a>
+      <a href="ctf.html" class="mobile-menu__link active">CTF Writeups</a>
+      <a href="uses.html" class="mobile-menu__link">Uses / Setup</a>
+      <a href="blog/" class="mobile-menu__link">Blog</a>
+      <a href="stats.html" class="mobile-menu__link">Stats</a>
+      <a href="now.html" class="mobile-menu__link">Now</a>
+    </div>
+    <a href="index.html#projects" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+    <a href="index.html#experience" class="mobile-menu__link" data-i18n="nav.experience">Parcours</a>
+    <a href="index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu__controls">
+      <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="langToggleMobile" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content" style="max-width:800px;">
+          <a href="index.html" class="project-hero__back reveal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span data-i18n="ctf.hero.back">Retour au portfolio</span>
+          </a>
+          <div class="project-hero__badge project-hero__badge--done reveal">
+            <span class="project-hero__badge-dot"></span>
+            <span data-i18n="ctf.hero.badge">Challenges resolus</span>
+          </div>
+          <h1 class="project-hero__title reveal">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#ctfGrad)" stroke-width="2">
+              <defs><linearGradient id="ctfGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+              <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>
+            </svg>
+            <span data-i18n="ctf.hero.title">CTF Writeups</span>
+          </h1>
+          <p class="project-hero__description reveal" data-i18n="ctf.hero.desc">Solutions detaillees de challenges capture-the-flag sur des plateformes comme HackTheBox, TryHackMe et Root-Me. De la reconnaissance a l'exploitation, chaque writeup documente la methodologie et les outils utilises.</p>
+          <div class="project-hero__meta reveal">
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label" data-i18n="ctf.hero.meta.platforms">Plateformes</span>
+              <span class="project-hero__meta-value">HackTheBox, TryHackMe, Root-Me</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label" data-i18n="ctf.hero.meta.categories">Categories</span>
+              <span class="project-hero__meta-value">Web, Crypto, Forensics, Reverse</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label" data-i18n="ctf.hero.meta.level">Niveau</span>
+              <span class="project-hero__meta-value">Easy &rarr; Insane</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Writeups Section -->
+    <section class="project-section ctf-section" id="ctfWriteups">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="ctf.section.tag">Writeups</span>
+          <h2 class="project-section__title" data-i18n="ctf.section.title">Challenges resolus</h2>
+        </div>
+
+        <!-- Filters -->
+        <div class="ctf-filters reveal">
+          <button class="ctf-filter active" data-filter="all" data-i18n="ctf.filter.all">Tous</button>
+          <button class="ctf-filter" data-filter="web" data-i18n="ctf.filter.web">Web</button>
+          <button class="ctf-filter" data-filter="crypto" data-i18n="ctf.filter.crypto">Crypto</button>
+          <button class="ctf-filter" data-filter="forensics" data-i18n="ctf.filter.forensics">Forensics</button>
+          <button class="ctf-filter" data-filter="pwn" data-i18n="ctf.filter.pwn">Pwn</button>
+          <button class="ctf-filter" data-filter="web3" data-i18n="ctf.filter.web3">Web3</button>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="ctf-grid" id="ctfGrid">
+
+          <!-- Card 1: Broken Auth -->
+          <div class="ctf-card reveal" data-category="web">
+            <div class="ctf-card__header">
+              <span class="ctf-card__platform ctf-card__platform--htb">HackTheBox</span>
+              <span class="ctf-card__difficulty ctf-card__difficulty--medium" data-i18n="ctf.difficulty.medium">Medium</span>
+            </div>
+            <h3 class="ctf-card__title" data-i18n="ctf.card1.title">Broken Auth</h3>
+            <span class="ctf-card__category">Web</span>
+            <p class="ctf-card__desc" data-i18n="ctf.card1.desc">Manipulation de tokens JWT pour contourner l'authentification et test de fixation de session sur une application web vulnérable.</p>
+            <div class="ctf-card__tags">
+              <span class="ctf-card__tag">JWT</span>
+              <span class="ctf-card__tag">Auth</span>
+              <span class="ctf-card__tag">Web</span>
+            </div>
+            <a href="#" class="ctf-card__btn" data-i18n="ctf.card.btn">Voir le writeup</a>
+          </div>
+
+          <!-- Card 2: CryptoVault -->
+          <div class="ctf-card reveal" data-category="crypto">
+            <div class="ctf-card__header">
+              <span class="ctf-card__platform ctf-card__platform--thm">TryHackMe</span>
+              <span class="ctf-card__difficulty ctf-card__difficulty--hard" data-i18n="ctf.difficulty.hard">Hard</span>
+            </div>
+            <h3 class="ctf-card__title" data-i18n="ctf.card2.title">CryptoVault</h3>
+            <span class="ctf-card__category">Crypto</span>
+            <p class="ctf-card__desc" data-i18n="ctf.card2.desc">Exploitation d'une clé RSA faible et attaque par padding oracle pour déchiffrer des messages chiffrés et récupérer le flag.</p>
+            <div class="ctf-card__tags">
+              <span class="ctf-card__tag">RSA</span>
+              <span class="ctf-card__tag">Padding Oracle</span>
+            </div>
+            <a href="#" class="ctf-card__btn" data-i18n="ctf.card.btn">Voir le writeup</a>
+          </div>
+
+          <!-- Card 3: Hidden Traces -->
+          <div class="ctf-card reveal" data-category="forensics">
+            <div class="ctf-card__header">
+              <span class="ctf-card__platform ctf-card__platform--rootme">Root-Me</span>
+              <span class="ctf-card__difficulty ctf-card__difficulty--medium" data-i18n="ctf.difficulty.medium">Medium</span>
+            </div>
+            <h3 class="ctf-card__title" data-i18n="ctf.card3.title">Hidden Traces</h3>
+            <span class="ctf-card__category">Forensics</span>
+            <p class="ctf-card__desc" data-i18n="ctf.card3.desc">Analyse de dump mémoire avec Volatility pour extraire des identifiants depuis la RAM et reconstituer la timeline d'un incident.</p>
+            <div class="ctf-card__tags">
+              <span class="ctf-card__tag">Volatility</span>
+              <span class="ctf-card__tag">Memory</span>
+              <span class="ctf-card__tag">DFIR</span>
+            </div>
+            <a href="#" class="ctf-card__btn" data-i18n="ctf.card.btn">Voir le writeup</a>
+          </div>
+
+          <!-- Card 4: Buffer Overflow 101 -->
+          <div class="ctf-card reveal" data-category="pwn">
+            <div class="ctf-card__header">
+              <span class="ctf-card__platform ctf-card__platform--htb">HackTheBox</span>
+              <span class="ctf-card__difficulty ctf-card__difficulty--easy" data-i18n="ctf.difficulty.easy">Easy</span>
+            </div>
+            <h3 class="ctf-card__title" data-i18n="ctf.card4.title">Buffer Overflow 101</h3>
+            <span class="ctf-card__category">Pwn</span>
+            <p class="ctf-card__desc" data-i18n="ctf.card4.desc">Exploitation classique d'un buffer overflow sur la stack avec technique ret2libc pour obtenir un shell root.</p>
+            <div class="ctf-card__tags">
+              <span class="ctf-card__tag">BOF</span>
+              <span class="ctf-card__tag">ret2libc</span>
+              <span class="ctf-card__tag">x86</span>
+            </div>
+            <a href="#" class="ctf-card__btn" data-i18n="ctf.card.btn">Voir le writeup</a>
+          </div>
+
+          <!-- Card 5: Web3 Reentrancy -->
+          <div class="ctf-card reveal" data-category="web3">
+            <div class="ctf-card__header">
+              <span class="ctf-card__platform ctf-card__platform--ethernaut">Ethernaut</span>
+              <span class="ctf-card__difficulty ctf-card__difficulty--medium" data-i18n="ctf.difficulty.medium">Medium</span>
+            </div>
+            <h3 class="ctf-card__title" data-i18n="ctf.card5.title">Web3 Reentrancy</h3>
+            <span class="ctf-card__category">Web3</span>
+            <p class="ctf-card__desc" data-i18n="ctf.card5.desc">Exploitation d'une vulnérabilité de réentrance dans un smart contract Solidity pour drainer les fonds du contrat cible.</p>
+            <div class="ctf-card__tags">
+              <span class="ctf-card__tag">Solidity</span>
+              <span class="ctf-card__tag">Reentrancy</span>
+              <span class="ctf-card__tag">DeFi</span>
+            </div>
+            <a href="#" class="ctf-card__btn" data-i18n="ctf.card.btn">Voir le writeup</a>
+          </div>
+
+          <!-- Card 6: SQL Injection Lab -->
+          <div class="ctf-card reveal" data-category="web">
+            <div class="ctf-card__header">
+              <span class="ctf-card__platform ctf-card__platform--rootme">Root-Me</span>
+              <span class="ctf-card__difficulty ctf-card__difficulty--easy" data-i18n="ctf.difficulty.easy">Easy</span>
+            </div>
+            <h3 class="ctf-card__title" data-i18n="ctf.card6.title">SQL Injection Lab</h3>
+            <span class="ctf-card__category">Web</span>
+            <p class="ctf-card__desc" data-i18n="ctf.card6.desc">Injection SQL basée sur UNION pour extraire les identifiants de la base de données et compromettre l'application.</p>
+            <div class="ctf-card__tags">
+              <span class="ctf-card__tag">SQLi</span>
+              <span class="ctf-card__tag">Union</span>
+              <span class="ctf-card__tag">Database</span>
+            </div>
+            <a href="#" class="ctf-card__btn" data-i18n="ctf.card.btn">Voir le writeup</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__cta reveal">
+        <span class="footer__cta-tag" data-i18n="footer.cta.tag">// prochain projet</span>
+        <h2 class="footer__cta-title" data-i18n="footer.cta.title">Travaillons ensemble</h2>
+        <p class="footer__cta-text" data-i18n="footer.cta.text">Un projet en tête ? Discutons de comment je peux vous aider.</p>
+        <a href="index.html#contact" class="btn btn--primary" data-i18n="footer.cta.btn">Me contacter</a>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy" data-i18n="footer.copy">&copy; 2026 Alessandro - Pazificateur</p>
+        <p class="footer__made" data-i18n="footer.made">// construit avec passion & cafe</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n-data.js"></script>
+  <script src="js/sound-engine.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/globals.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="js/ctf.js"></script>
+</body>
+</html>

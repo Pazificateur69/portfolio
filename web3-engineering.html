@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blockchain Engineering - DeFi Infrastructure, Smart Contract Security & Web3 Architecture par Alessandro.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Web3 Engineering - Alessandro Portfolio">
+    <meta property="og:description" content="Blockchain Engineering - DeFi Infrastructure, Smart Contract Security & Web3 Architecture par Alessandro.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/web3-engineering.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Web3 Engineering - Alessandro Portfolio">
+    <meta name="twitter:description" content="Blockchain Engineering - DeFi Infrastructure, Smart Contract Security & Web3 Architecture par Alessandro.">
+  <meta name="theme-color" content="#050508">
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/web3-engineering.html">
+  <title>Web3 Engineering - Alessandro Portfolio</title>
+
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="preload" href="css/main.css" as="style">
+  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/web3-engineering.css">
+  <link rel="stylesheet" href="css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <!-- Overlays -->
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+
+  <!-- Animated Background -->
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+
+  <!-- Network Canvas -->
+  <canvas id="networkCanvas"></canvas>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="web3-engineering.html" class="navbar__dropdown-item active">Web3 Engineering</a>
+            <a href="security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#about" class="mobile-menu__link" data-i18n="nav.about">A propos</a>
+    <a href="index.html#skills" class="mobile-menu__link" data-i18n="nav.skills">Skills</a>
+    <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false">
+      <span data-i18n="nav.labs">Labs</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="mobile-menu__labs-submenu">
+      <a href="security-sandbox.html" class="mobile-menu__link">Interactive Sandbox</a>
+      <a href="web3-engineering.html" class="mobile-menu__link active">Web3 Engineering</a>
+      <a href="security-lab.html" class="mobile-menu__link">Security Lab</a>
+      <a href="engineering.html" class="mobile-menu__link">Engineering</a>
+      <a href="infrastructure.html" class="mobile-menu__link">Infrastructure</a>
+      <a href="portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+      <a href="publications.html" class="mobile-menu__link">Publications</a>
+      <a href="changelog.html" class="mobile-menu__link">Changelog</a>
+      <a href="veille.html" class="mobile-menu__link">Veille Techno</a>
+      <a href="ctf.html" class="mobile-menu__link">CTF Writeups</a>
+      <a href="uses.html" class="mobile-menu__link">Uses / Setup</a>
+      <a href="blog/" class="mobile-menu__link">Blog</a>
+      <a href="stats.html" class="mobile-menu__link">Stats</a>
+      <a href="now.html" class="mobile-menu__link">Now</a>
+    </div>
+    <a href="index.html#projects" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+    <a href="index.html#experience" class="mobile-menu__link" data-i18n="nav.experience">Parcours</a>
+    <a href="index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu__controls">
+      <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+      <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="langToggleMobile" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         1. HERO — Immersive Web3
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="w3-hero" id="hero">
+      <div class="w3-hero__gradient"></div>
+      <div class="container">
+        <div class="w3-hero__content">
+          <a href="index.html" class="project-hero__back reveal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Retour au portfolio
+          </a>
+
+          <div class="project-hero__badge project-hero__badge--done reveal">
+            <span class="project-hero__badge-dot"></span>
+            Production ready
+          </div>
+
+          <h1 class="w3-hero__title reveal">
+            Blockchain<br>Engineering
+          </h1>
+          <p class="w3-hero__subtitle reveal">
+            DeFi Infrastructure &amp; Smart Contract Security
+          </p>
+          <p class="w3-hero__desc reveal">
+            From ERC-20 design to upgradeable proxy architecture. Building decentralized systems with security-first engineering.
+          </p>
+
+          <div class="w3-hero__actions reveal">
+            <a href="#aedsc" class="btn btn--primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Explorer AEDSC
+            </a>
+            <a href="security-lab.html#smartcontract-security" class="btn btn--glass">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              Smart Contract Security
+            </a>
+            <a href="https://github.com/Pazificateur" target="_blank" class="btn btn--glass">
+              GitHub
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="w3-hero__stats reveal">
+            <div class="w3-hero__stat">
+              <div class="w3-hero__stat-number" data-count="3">0</div>
+              <div class="w3-hero__stat-label">dApps déployées</div>
+            </div>
+            <div class="w3-hero__stat-divider"></div>
+            <div class="w3-hero__stat">
+              <div class="w3-hero__stat-number" data-count="5">0</div>
+              <div class="w3-hero__stat-label">Smart Contracts</div>
+            </div>
+            <div class="w3-hero__stat-divider"></div>
+            <div class="w3-hero__stat">
+              <div class="w3-hero__stat-number" data-count="22">0</div>
+              <div class="w3-hero__stat-label">Pages Whitepaper</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         2. AEDSC — Architecture Interactive
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="aedsc">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">AEDSC</span>
+          <h2 class="project-section__title">Stablecoin Architecture</h2>
+        </div>
+
+        <div class="w3-aedsc-intro reveal">
+          <p>
+            <strong>AEDSC</strong> est un stablecoin ERC-20 adossé au Dirham des Émirats Arabes Unis (AED),
+            déployé sur <strong>Arbitrum L2</strong>. Architecture proxy upgradeable (OpenZeppelin),
+            mint contrôlé par gouvernance, transparence des réserves on-chain.
+          </p>
+          <div class="w3-aedsc-badges">
+            <span class="w3-badge w3-badge--purple">ERC-20</span>
+            <span class="w3-badge w3-badge--blue">Arbitrum L2</span>
+            <span class="w3-badge w3-badge--green">Upgradeable Proxy</span>
+            <span class="w3-badge w3-badge--gold">Chainlink Oracle</span>
+          </div>
+        </div>
+
+        <!-- Architecture Diagram — Interactive -->
+        <div class="w3-arch reveal" id="archDiagram">
+          <div class="w3-arch__flow">
+
+            <div class="w3-arch__node" data-info="L'utilisateur interagit via le navigateur. Connexion wallet requise pour toute transaction on-chain.">
+              <div class="w3-arch__node-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <span class="w3-arch__node-label">User</span>
+            </div>
+
+            <div class="w3-arch__connector">
+              <div class="w3-arch__line"></div>
+              <svg class="w3-arch__arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+
+            <div class="w3-arch__node" data-info="Frontend React avec Wagmi pour les hooks Web3, Web3Modal pour la connexion wallet, et React Query pour le cache des données on-chain.">
+              <div class="w3-arch__node-icon" style="background:var(--gradient-blue);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <span class="w3-arch__node-label">Frontend</span>
+              <span class="w3-arch__node-tech">React + Wagmi</span>
+            </div>
+
+            <div class="w3-arch__connector">
+              <div class="w3-arch__line"></div>
+              <svg class="w3-arch__arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+
+            <div class="w3-arch__node" data-info="MetaMask ou tout wallet compatible EIP-1193. Signe les transactions côté client. Aucune clé privée ne transite par le serveur.">
+              <div class="w3-arch__node-icon" style="background:var(--gradient-gold);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </div>
+              <span class="w3-arch__node-label">Wallet</span>
+              <span class="w3-arch__node-tech">MetaMask / EIP-1193</span>
+            </div>
+
+            <div class="w3-arch__connector">
+              <div class="w3-arch__line"></div>
+              <svg class="w3-arch__arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+
+            <div class="w3-arch__node w3-arch__node--highlight" data-info="Proxy transparent (OpenZeppelin TransparentUpgradeableProxy). Sépare le storage de la logique. Permet les upgrades sans perdre l'état ni changer l'adresse du contrat.">
+              <div class="w3-arch__node-icon" style="background:var(--gradient-purple);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span class="w3-arch__node-label">Proxy Contract</span>
+              <span class="w3-arch__node-tech">OpenZeppelin Proxy</span>
+            </div>
+
+            <div class="w3-arch__connector">
+              <div class="w3-arch__line"></div>
+              <svg class="w3-arch__arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+
+            <div class="w3-arch__node" data-info="Contrat d'implémentation avec la logique métier : mint, burn, transfer, pause. Versionné (v1, v2...). Le proxy delegatecall vers cette adresse.">
+              <div class="w3-arch__node-icon" style="background:var(--gradient-green);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <span class="w3-arch__node-label">Implementation</span>
+              <span class="w3-arch__node-tech">Logic v1</span>
+            </div>
+
+          </div>
+
+          <!-- Popover -->
+          <div class="w3-arch__popover" id="archPopover">
+            <div class="w3-arch__popover-content" id="archPopoverContent"></div>
+          </div>
+        </div>
+
+        <!-- AEDSC Links -->
+        <div class="w3-aedsc-links reveal">
+          <a href="https://aedsc.xyz" target="_blank" class="btn btn--primary">
+            aedsc.xyz
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         3. SMART CONTRACT DEEP DIVE — Vuln/Secure Toggle
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" style="background:var(--bg-secondary);" id="deepdive">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Smart Contracts</span>
+          <h2 class="project-section__title">Security Deep Dive</h2>
+        </div>
+
+        <p class="w3-section-desc reveal">
+          Analyse interactive des vulnérabilités smart contract les plus critiques. Toggle entre le code vulnérable et la version sécurisée.
+        </p>
+
+        <!-- Toggle Cards -->
+        <div class="w3-deepdive-grid">
+
+          <!-- Reentrancy -->
+          <div class="w3-deepdive-card reveal">
+            <div class="w3-deepdive-card__header">
+              <h3>Reentrancy Attack</h3>
+              <div class="w3-deepdive-toggle">
+                <button class="w3-deepdive-toggle__btn w3-deepdive-toggle__btn--active" data-mode="vuln">Vulnerable</button>
+                <button class="w3-deepdive-toggle__btn" data-mode="secure">Secure</button>
+              </div>
+            </div>
+            <div class="w3-deepdive-card__body">
+              <div class="w3-deepdive-code w3-deepdive-code--vuln active">
+                <div class="code-block vuln-code">
+                  <div class="code-block__header">
+                    <span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__dot"></span>
+                    <span class="code-block__filename">Vulnerable.sol</span>
+                    <span class="vuln-label">VULNERABLE</span>
+                  </div>
+                  <div class="code-block__body">
+                    <div class="line"><span class="line-num"> 1</span><span class="comment">// External call before state update</span></div>
+                    <div class="line"><span class="line-num"> 2</span><span class="keyword">function</span> <span class="func">withdraw</span>() <span class="keyword">public</span> {</div>
+                    <div class="line"><span class="line-num"> 3</span>    <span class="type">uint</span> bal = balances[msg.sender];</div>
+                    <div class="line"><span class="line-num"> 4</span>    (bool ok, ) = msg.sender.<span class="func">call</span></div>
+                    <div class="line"><span class="line-num"> 5</span>        {value: bal}(<span class="string">""</span>);</div>
+                    <div class="line"><span class="line-num"> 6</span>    <span class="keyword">require</span>(ok);</div>
+                    <div class="line"><span class="line-num"> 7</span>    balances[msg.sender] = <span class="type">0</span>; <span class="comment">// Too late!</span></div>
+                    <div class="line"><span class="line-num"> 8</span>}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="w3-deepdive-code w3-deepdive-code--secure">
+                <div class="code-block fix-code">
+                  <div class="code-block__header">
+                    <span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__dot"></span>
+                    <span class="code-block__filename">Secure.sol</span>
+                    <span class="fix-label">SECURE</span>
+                  </div>
+                  <div class="code-block__body">
+                    <div class="line"><span class="line-num"> 1</span><span class="comment">// Checks-Effects-Interactions</span></div>
+                    <div class="line"><span class="line-num"> 2</span><span class="keyword">function</span> <span class="func">withdraw</span>() <span class="keyword">public</span></div>
+                    <div class="line"><span class="line-num"> 3</span>    <span class="func">nonReentrant</span> {</div>
+                    <div class="line"><span class="line-num"> 4</span>    <span class="type">uint</span> bal = balances[msg.sender];</div>
+                    <div class="line"><span class="line-num"> 5</span>    <span class="keyword">require</span>(bal &gt; <span class="type">0</span>);</div>
+                    <div class="line"><span class="line-num"> 6</span>    balances[msg.sender] = <span class="type">0</span>; <span class="comment">// Before!</span></div>
+                    <div class="line"><span class="line-num"> 7</span>    (bool ok, ) = msg.sender.<span class="func">call</span></div>
+                    <div class="line"><span class="line-num"> 8</span>        {value: bal}(<span class="string">""</span>);</div>
+                    <div class="line"><span class="line-num"> 9</span>    <span class="keyword">require</span>(ok);</div>
+                    <div class="line"><span class="line-num">10</span>}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="w3-deepdive-card__explain">L'attaquant rappelle <code>withdraw()</code> via <code>receive()</code> avant que le solde soit mis à 0. Le fix : mettre à jour l'état <strong>avant</strong> l'appel externe + ReentrancyGuard.</p>
+          </div>
+
+          <!-- Access Control -->
+          <div class="w3-deepdive-card reveal">
+            <div class="w3-deepdive-card__header">
+              <h3>Access Control</h3>
+              <div class="w3-deepdive-toggle">
+                <button class="w3-deepdive-toggle__btn w3-deepdive-toggle__btn--active" data-mode="vuln">Vulnerable</button>
+                <button class="w3-deepdive-toggle__btn" data-mode="secure">Secure</button>
+              </div>
+            </div>
+            <div class="w3-deepdive-card__body">
+              <div class="w3-deepdive-code w3-deepdive-code--vuln active">
+                <div class="code-block vuln-code">
+                  <div class="code-block__header">
+                    <span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__dot"></span>
+                    <span class="code-block__filename">Vulnerable.sol</span>
+                    <span class="vuln-label">VULNERABLE</span>
+                  </div>
+                  <div class="code-block__body">
+                    <div class="line"><span class="line-num"> 1</span><span class="comment">// No access control on critical function</span></div>
+                    <div class="line"><span class="line-num"> 2</span><span class="keyword">function</span> <span class="func">mint</span>(</div>
+                    <div class="line"><span class="line-num"> 3</span>    <span class="type">address</span> to, <span class="type">uint</span> amount</div>
+                    <div class="line"><span class="line-num"> 4</span>) <span class="keyword">public</span> {</div>
+                    <div class="line"><span class="line-num"> 5</span>    _mint(to, amount);</div>
+                    <div class="line"><span class="line-num"> 6</span>    <span class="comment">// Anyone can mint!</span></div>
+                    <div class="line"><span class="line-num"> 7</span>}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="w3-deepdive-code w3-deepdive-code--secure">
+                <div class="code-block fix-code">
+                  <div class="code-block__header">
+                    <span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__dot"></span>
+                    <span class="code-block__filename">Secure.sol</span>
+                    <span class="fix-label">SECURE</span>
+                  </div>
+                  <div class="code-block__body">
+                    <div class="line"><span class="line-num"> 1</span><span class="comment">// Role-based access control</span></div>
+                    <div class="line"><span class="line-num"> 2</span><span class="keyword">function</span> <span class="func">mint</span>(</div>
+                    <div class="line"><span class="line-num"> 3</span>    <span class="type">address</span> to, <span class="type">uint</span> amount</div>
+                    <div class="line"><span class="line-num"> 4</span>) <span class="keyword">public</span> <span class="func">onlyRole</span>(MINTER_ROLE) {</div>
+                    <div class="line"><span class="line-num"> 5</span>    <span class="keyword">require</span>(amount &lt;= maxMint);</div>
+                    <div class="line"><span class="line-num"> 6</span>    _mint(to, amount);</div>
+                    <div class="line"><span class="line-num"> 7</span>    <span class="keyword">emit</span> <span class="func">Minted</span>(to, amount);</div>
+                    <div class="line"><span class="line-num"> 8</span>}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="w3-deepdive-card__explain">Sans modifier <code>onlyOwner</code> ou <code>onlyRole</code>, n'importe qui peut appeler les fonctions critiques. Le fix : <strong>OpenZeppelin AccessControl</strong> avec roles granulaires.</p>
+          </div>
+
+          <!-- Proxy Init -->
+          <div class="w3-deepdive-card reveal">
+            <div class="w3-deepdive-card__header">
+              <h3>Proxy Initialization</h3>
+              <div class="w3-deepdive-toggle">
+                <button class="w3-deepdive-toggle__btn w3-deepdive-toggle__btn--active" data-mode="vuln">Vulnerable</button>
+                <button class="w3-deepdive-toggle__btn" data-mode="secure">Secure</button>
+              </div>
+            </div>
+            <div class="w3-deepdive-card__body">
+              <div class="w3-deepdive-code w3-deepdive-code--vuln active">
+                <div class="code-block vuln-code">
+                  <div class="code-block__header">
+                    <span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__dot"></span>
+                    <span class="code-block__filename">Vulnerable.sol</span>
+                    <span class="vuln-label">VULNERABLE</span>
+                  </div>
+                  <div class="code-block__body">
+                    <div class="line"><span class="line-num"> 1</span><span class="comment">// Unprotected initializer</span></div>
+                    <div class="line"><span class="line-num"> 2</span><span class="keyword">function</span> <span class="func">initialize</span>(</div>
+                    <div class="line"><span class="line-num"> 3</span>    <span class="type">string</span> name, <span class="type">string</span> symbol</div>
+                    <div class="line"><span class="line-num"> 4</span>) <span class="keyword">public</span> {</div>
+                    <div class="line"><span class="line-num"> 5</span>    _name = name;</div>
+                    <div class="line"><span class="line-num"> 6</span>    _symbol = symbol;</div>
+                    <div class="line"><span class="line-num"> 7</span>    owner = msg.sender;</div>
+                    <div class="line"><span class="line-num"> 8</span>    <span class="comment">// Can be called again!</span></div>
+                    <div class="line"><span class="line-num"> 9</span>}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="w3-deepdive-code w3-deepdive-code--secure">
+                <div class="code-block fix-code">
+                  <div class="code-block__header">
+                    <span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__dot"></span>
+                    <span class="code-block__filename">Secure.sol</span>
+                    <span class="fix-label">SECURE</span>
+                  </div>
+                  <div class="code-block__body">
+                    <div class="line"><span class="line-num"> 1</span><span class="comment">// Protected with initializer modifier</span></div>
+                    <div class="line"><span class="line-num"> 2</span><span class="keyword">function</span> <span class="func">initialize</span>(</div>
+                    <div class="line"><span class="line-num"> 3</span>    <span class="type">string</span> name, <span class="type">string</span> symbol</div>
+                    <div class="line"><span class="line-num"> 4</span>) <span class="keyword">public</span> <span class="func">initializer</span> {</div>
+                    <div class="line"><span class="line-num"> 5</span>    __ERC20_init(name, symbol);</div>
+                    <div class="line"><span class="line-num"> 6</span>    __Ownable_init(msg.sender);</div>
+                    <div class="line"><span class="line-num"> 7</span>    __UUPSUpgradeable_init();</div>
+                    <div class="line"><span class="line-num"> 8</span>}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="w3-deepdive-card__explain">Sans le modifier <code>initializer</code>, un attaquant peut re-initialiser le contrat et devenir owner. Le fix : <strong>OpenZeppelin Initializable</strong> qui empêche les appels multiples.</p>
+          </div>
+
+        </div>
+
+        <div class="w3-deepdive-cta reveal">
+          <a href="security-lab.html#smartcontract-security" class="btn btn--glass">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Audit &amp; Smart Contract Research
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         4. TOKENOMICS
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="tokenomics">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Tokenomics</span>
+          <h2 class="project-section__title">AEDSC Token Distribution</h2>
+        </div>
+
+        <div class="w3-tokenomics reveal">
+          <div class="w3-tokenomics__chart" id="tokenChart">
+            <div class="w3-tokenomics__ring">
+              <svg viewBox="0 0 200 200" class="w3-tokenomics__svg">
+                <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="20"/>
+                <!-- Reserve: 40% -->
+                <circle cx="100" cy="100" r="85" fill="none" stroke="var(--purple)" stroke-width="20"
+                  stroke-dasharray="213.6 534" stroke-dashoffset="0"
+                  class="w3-tokenomics__segment" data-label="Reserve" data-percent="40"/>
+                <!-- Circulation: 30% -->
+                <circle cx="100" cy="100" r="85" fill="none" stroke="var(--blue)" stroke-width="20"
+                  stroke-dasharray="160.2 534" stroke-dashoffset="-213.6"
+                  class="w3-tokenomics__segment" data-label="Circulation" data-percent="30"/>
+                <!-- Governance: 15% -->
+                <circle cx="100" cy="100" r="85" fill="none" stroke="var(--cyan)" stroke-width="20"
+                  stroke-dasharray="80.1 534" stroke-dashoffset="-373.8"
+                  class="w3-tokenomics__segment" data-label="Governance" data-percent="15"/>
+                <!-- Treasury: 15% -->
+                <circle cx="100" cy="100" r="85" fill="none" stroke="var(--gold)" stroke-width="20"
+                  stroke-dasharray="80.1 534" stroke-dashoffset="-453.9"
+                  class="w3-tokenomics__segment" data-label="Treasury" data-percent="15"/>
+              </svg>
+              <div class="w3-tokenomics__center">
+                <span class="w3-tokenomics__center-label" id="tokenLabel">AEDSC</span>
+                <span class="w3-tokenomics__center-value" id="tokenValue">100%</span>
+              </div>
+            </div>
+          </div>
+          <div class="w3-tokenomics__legend">
+            <div class="w3-tokenomics__legend-item" data-segment="Reserve">
+              <span class="w3-tokenomics__legend-color" style="background:var(--purple);"></span>
+              <div>
+                <strong>Reserve (40%)</strong>
+                <p>Réserve en AED pour garantir le peg 1:1. Auditable on-chain via proof-of-reserves.</p>
+              </div>
+            </div>
+            <div class="w3-tokenomics__legend-item" data-segment="Circulation">
+              <span class="w3-tokenomics__legend-color" style="background:var(--blue);"></span>
+              <div>
+                <strong>Circulation (30%)</strong>
+                <p>Tokens en circulation active. Mint/burn contrôlé pour maintenir le peg.</p>
+              </div>
+            </div>
+            <div class="w3-tokenomics__legend-item" data-segment="Governance">
+              <span class="w3-tokenomics__legend-color" style="background:var(--cyan);"></span>
+              <div>
+                <strong>Governance (15%)</strong>
+                <p>Tokens de gouvernance DAO. Vote sur les paramètres du protocole et les upgrades.</p>
+              </div>
+            </div>
+            <div class="w3-tokenomics__legend-item" data-segment="Treasury">
+              <span class="w3-tokenomics__legend-color" style="background:var(--gold);"></span>
+              <div>
+                <strong>Treasury (15%)</strong>
+                <p>Trésorerie du protocole. Financement du développement et des audits de sécurité.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         5. WEB3 STACK PYRAMID
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" style="background:var(--bg-secondary);" id="stack">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Stack</span>
+          <h2 class="project-section__title">Web3 Technology Stack</h2>
+        </div>
+
+        <div class="w3-pyramid reveal">
+          <div class="w3-pyramid__layer w3-pyramid__layer--1">
+            <div class="w3-pyramid__layer-label">Wallet Layer</div>
+            <div class="w3-pyramid__layer-bar">
+              <span>EIP-1193</span>
+              <span>MetaMask</span>
+              <span>WalletConnect</span>
+            </div>
+          </div>
+          <div class="w3-pyramid__layer w3-pyramid__layer--2">
+            <div class="w3-pyramid__layer-label">Frontend</div>
+            <div class="w3-pyramid__layer-bar">
+              <span>React</span>
+              <span>Wagmi</span>
+              <span>Web3Modal</span>
+              <span>Viem</span>
+            </div>
+          </div>
+          <div class="w3-pyramid__layer w3-pyramid__layer--3">
+            <div class="w3-pyramid__layer-label">Backend / RPC</div>
+            <div class="w3-pyramid__layer-bar">
+              <span>Node.js</span>
+              <span>Ethers.js</span>
+              <span>Alchemy RPC</span>
+            </div>
+          </div>
+          <div class="w3-pyramid__layer w3-pyramid__layer--4">
+            <div class="w3-pyramid__layer-label">Smart Contracts</div>
+            <div class="w3-pyramid__layer-bar">
+              <span>Solidity</span>
+              <span>Hardhat</span>
+              <span>OpenZeppelin</span>
+            </div>
+          </div>
+          <div class="w3-pyramid__layer w3-pyramid__layer--5">
+            <div class="w3-pyramid__layer-label">Layer 2</div>
+            <div class="w3-pyramid__layer-bar">
+              <span>Arbitrum</span>
+              <span>Optimistic Rollups</span>
+            </div>
+          </div>
+          <div class="w3-pyramid__layer w3-pyramid__layer--6">
+            <div class="w3-pyramid__layer-label">Layer 1</div>
+            <div class="w3-pyramid__layer-bar">
+              <span>Ethereum</span>
+              <span>EVM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Concepts maîtrisés -->
+        <div class="w3-concepts reveal">
+          <h3 class="w3-concepts__title">Concepts maîtrisés</h3>
+          <div class="w3-concepts__grid">
+            <div class="w3-concept-tag">Tokenomics</div>
+            <div class="w3-concept-tag">Governance &amp; DAO</div>
+            <div class="w3-concept-tag">Smart Contract Security</div>
+            <div class="w3-concept-tag">Gas Optimization</div>
+            <div class="w3-concept-tag">L2 Scaling</div>
+            <div class="w3-concept-tag">DeFi Mechanics</div>
+            <div class="w3-concept-tag">On-chain / Off-chain Logic</div>
+            <div class="w3-concept-tag">Oracle Integration</div>
+            <div class="w3-concept-tag">Upgradeable Contracts</div>
+            <div class="w3-concept-tag">Flash Loan Mechanics</div>
+            <div class="w3-concept-tag">MEV Protection</div>
+            <div class="w3-concept-tag">ERC Standards</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         6. PROJECTS SHOWCASE
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="projects">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Projets</span>
+          <h2 class="project-section__title">Web3 Projects</h2>
+        </div>
+
+        <div class="w3-projects-grid">
+          <div class="w3-project-card reveal">
+            <div class="w3-project-card__icon" style="background:var(--gradient-purple);">&#9830;</div>
+            <div class="w3-project-card__body">
+              <h3>AEDSC</h3>
+              <span class="w3-project-card__sub">Stablecoin Architecture</span>
+              <p>ERC-20 sur Arbitrum. Proxy upgradeable, mint contrôlé par gouvernance, oracle Chainlink, transparence des réserves on-chain. Whitepaper 22 pages.</p>
+              <div class="w3-project-card__tags">
+                <span>Solidity</span><span>Arbitrum</span><span>OpenZeppelin</span><span>Chainlink</span>
+              </div>
+              <a href="https://aedsc.xyz" target="_blank" class="w3-project-card__link">aedsc.xyz &rarr;</a>
+            </div>
+          </div>
+
+          <div class="w3-project-card reveal">
+            <div class="w3-project-card__icon" style="background:var(--gradient-cyan);">&#9733;</div>
+            <div class="w3-project-card__body">
+              <h3>Haunt3D</h3>
+              <span class="w3-project-card__sub">Crypto Dashboard</span>
+              <p>Dashboard multi-chain immersif : suivi portefeuille, NFT gallery, DeFi position tracker, analytics temps réel avec graphiques interactifs.</p>
+              <div class="w3-project-card__tags">
+                <span>React</span><span>Wagmi</span><span>Ethers.js</span><span>CoinGecko API</span>
+              </div>
+              <a href="https://haunt3d.fr" target="_blank" class="w3-project-card__link">haunt3d.fr &rarr;</a>
+            </div>
+          </div>
+
+          <div class="w3-project-card reveal">
+            <div class="w3-project-card__icon" style="background:var(--gradient-blue);">&#9670;</div>
+            <div class="w3-project-card__body">
+              <h3>Curs3D</h3>
+              <span class="w3-project-card__sub">Token Analytics Platform</span>
+              <p>Plateforme d'analyse on-chain : token scanner, whale tracking, liquidity monitoring, smart contract audit score.</p>
+              <div class="w3-project-card__tags">
+                <span>Next.js</span><span>Viem</span><span>The Graph</span><span>Dune Analytics</span>
+              </div>
+              <a href="https://curs3d.fr" target="_blank" class="w3-project-card__link">curs3d.fr &rarr;</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+    <footer class="footer">
+    <div class="footer__pattern"></div>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="index.html" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made">// construit avec passion & cafe</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n-data.js"></script>
+
+  <script src="js/sound-engine.js"></script>
+  <script src="js/command-palette.js"></script>
+
+  <script src="js/globals.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="js/web3-engineering.js"></script>
+</body>
+</html>

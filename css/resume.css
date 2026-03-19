@@ -1,0 +1,330 @@
+/* Resume Main Layout */
+.cv-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    padding: 4rem 0 8rem;
+}
+
+@media (max-width: 992px) {
+    .cv-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CV Main Content (Left) */
+.cv-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.cv-block {
+    width: 100%;
+}
+
+.cv-title {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 1rem;
+}
+
+.cv-title-icon {
+    font-size: 1.5rem;
+}
+
+/* Timeline Item */
+.cv-item {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 3rem;
+    border-left: 2px solid var(--glass-border);
+}
+
+.cv-item::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    border: 2px solid var(--cyan);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+}
+
+.cv-item:last-child {
+    margin-bottom: 0;
+}
+
+.cv-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.cv-item-header h3 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.cv-date {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--cyan);
+    background: rgba(6, 182, 212, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+}
+
+.cv-company {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.cv-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.cv-list {
+    padding-left: 1.2rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.cv-list li {
+    margin-bottom: 0.4rem;
+}
+
+.cv-list li strong {
+    color: var(--text-primary);
+}
+
+.cv-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.cv-tags span {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    padding: 0.3rem 0.6rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+}
+
+/* Expertise Grid */
+.expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    .expertise-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.expertise-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.expertise-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--glass-border-hover);
+}
+
+.exp-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.exp-icon.purple {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--purple);
+}
+
+.exp-icon.cyan {
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--cyan);
+}
+
+.exp-icon.gold {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--gold);
+}
+
+.exp-icon.green {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--green);
+}
+
+.expertise-card h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.expertise-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* CV Sidebar (Right) */
+.cv-side {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.cv-widget {
+    background: var(--bg-secondary);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+}
+
+.cv-widget h3 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 0.5rem;
+}
+
+/* Radar Chart */
+.radar-container {
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Progress Bars */
+.stack-category {
+    margin-bottom: 1.5rem;
+}
+
+.stack-category:last-child {
+    margin-bottom: 0;
+}
+
+.stack-category h4 {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.prog-row {
+    margin-bottom: 0.75rem;
+}
+
+.prog-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.3rem;
+    font-family: var(--font-mono);
+}
+
+.prog-bar-container {
+    width: 100%;
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.prog-bar {
+    height: 100%;
+    border-radius: 3px;
+    width: 0%;
+    /* Will be animated */
+    transition: width 1s ease-out;
+}
+
+.p-95 {
+    width: 95%;
+}
+
+.p-90 {
+    width: 90%;
+}
+
+.p-85 {
+    width: 85%;
+}
+
+.p-80 {
+    width: 80%;
+}
+
+.p-75 {
+    width: 75%;
+}
+
+/* Soft skills */
+.tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.soft-tag {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+}
+
+.lang-item {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.lang-item strong {
+    color: var(--text-primary);
+}
+
+.cv-dl-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}

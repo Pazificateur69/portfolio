@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Alessandro Blog — Cybersécurité &amp; Dev Full-Stack</title>
+  <subtitle>Articles techniques sur le développement, la cybersécurité et le Web3</subtitle>
+  <link href="https://pazificateur.github.io/portfolio/blog/feed.xml" rel="self"/>
+  <link href="https://pazificateur.github.io/portfolio/blog/"/>
+  <id>https://pazificateur.github.io/portfolio/blog/</id>
+  <updated>2026-03-02T00:00:00Z</updated>
+  <author><name>Alessandro</name></author>
+
+  <entry>
+    <title>Smart Contract Audit Checklist</title>
+    <link href="https://pazificateur.github.io/portfolio/blog/smart-contract-audit-checklist.html"/>
+    <id>https://pazificateur.github.io/portfolio/blog/smart-contract-audit-checklist.html</id>
+    <updated>2026-03-01T00:00:00Z</updated>
+    <summary>Checklist méthodique pour auditer un smart contract Solidity : vérifications de sécurité, patterns à risque et outils d'analyse statique.</summary>
+    <category term="Web3"/>
+  </entry>
+
+  <entry>
+    <title>Upgradeable Proxy Deep Dive</title>
+    <link href="https://pazificateur.github.io/portfolio/blog/proxy-deep-dive.html"/>
+    <id>https://pazificateur.github.io/portfolio/blog/proxy-deep-dive.html</id>
+    <updated>2026-02-15T00:00:00Z</updated>
+    <summary>Analyse complète du pattern proxy upgradeable en Solidity : UUPS vs Transparent, risques de collision de storage.</summary>
+    <category term="Web3"/>
+  </entry>
+
+  <entry>
+    <title>JWT Algorithm Confusion</title>
+    <link href="https://pazificateur.github.io/portfolio/blog/jwt-algorithm-confusion.html"/>
+    <id>https://pazificateur.github.io/portfolio/blog/jwt-algorithm-confusion.html</id>
+    <updated>2026-02-10T00:00:00Z</updated>
+    <summary>Exploitation de la confusion d'algorithme JWT pour contourner la vérification de signature.</summary>
+    <category term="Security"/>
+  </entry>
+
+  <entry>
+    <title>L2 Scaling Architecture</title>
+    <link href="https://pazificateur.github.io/portfolio/blog/l2-scaling-architecture.html"/>
+    <id>https://pazificateur.github.io/portfolio/blog/l2-scaling-architecture.html</id>
+    <updated>2026-01-20T00:00:00Z</updated>
+    <summary>Architecture des solutions Layer 2 : Optimistic Rollups vs ZK-Rollups, bridging et data availability.</summary>
+    <category term="Web3"/>
+  </entry>
+</feed>

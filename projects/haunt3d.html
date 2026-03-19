@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Haunt3D - Crypto Dashboard project by Alessandro.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Haunt3D - Crypto Dashboard | Alessandro">
+    <meta property="og:description" content="Haunt3D - Crypto Dashboard project by Alessandro.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/projects/haunt3d.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Haunt3D - Crypto Dashboard | Alessandro">
+    <meta name="twitter:description" content="Haunt3D - Crypto Dashboard project by Alessandro.">
+  <title>Haunt3D - Crypto Dashboard | Alessandro</title>
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/projects/haunt3d.html">
+
+  <link rel="manifest" href="../manifest.json">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="preload" href="../css/main.css" as="style">
+  <link rel="stylesheet" href="../css/project.css">
+  <link rel="stylesheet" href="../css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="../index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="../index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="../security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="../web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="../security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="../engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="../infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="../portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="../publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="../changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="../veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="../ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="../uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="../blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="../stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="../now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="../index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="../index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="../index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb__list">
+        <li class="breadcrumb__item"><a href="../index.html">Accueil</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item"><a href="../index.html#projects">Projets</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">Haunt3D</li>
+      </ol>
+    </nav>
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content">
+          <a href="../index.html#projects" class="project-hero__back reveal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+            Retour aux projets
+          </a>
+          <div class="project-hero__badge project-hero__badge--done reveal">
+            <span class="project-hero__badge-dot"></span>
+            Termine
+          </div>
+          <h1 class="project-hero__title reveal">Haunt3D</h1>
+          <p class="project-hero__description reveal">
+            Dashboard crypto immersif avec une esthetique sombre et futuriste.
+            Suivi en temps reel des portefeuilles Web3, visualisation avancee des
+            tokens, NFTs et protocoles DeFi. Interface intuitive pensee pour les
+            degens et les traders crypto.
+          </p>
+          <div class="project-hero__meta reveal">
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label">Role</span>
+              <span class="project-hero__meta-value">Full-Stack / Web3</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label">Type</span>
+              <span class="project-hero__meta-value">Crypto Dashboard</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label">Annee</span>
+              <span class="project-hero__meta-value">2024</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label">Stack</span>
+              <span class="project-hero__meta-value">Next.js / Web3</span>
+            </div>
+          </div>
+          <div class="project-hero__actions reveal">
+            <a href="https://haunt3d.fr" target="_blank" rel="noopener" class="btn btn--primary magnetic">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+              Voir le site
+            </a>
+            <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="btn btn--glass magnetic">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">STACK TECHNIQUE</span>
+          <h2 class="project-section__title">Technologies utilisees</h2>
+        </div>
+        <div class="stack-grid">
+          <div class="stack-card reveal">
+            <div class="stack-card__icon" style="background: rgba(139,92,246,0.15)">&#9830;</div>
+            <div><div class="stack-card__name">Next.js 14</div><div class="stack-card__role">Framework React</div></div>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon" style="background: rgba(59,130,246,0.15)">&#9733;</div>
+            <div><div class="stack-card__name">Ethers.js / Wagmi</div><div class="stack-card__role">Web3 Integration</div></div>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon" style="background: rgba(16,185,129,0.15)">&#9650;</div>
+            <div><div class="stack-card__name">TradingView</div><div class="stack-card__role">Charts avances</div></div>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon" style="background: rgba(245,158,11,0.15)">&#9679;</div>
+            <div><div class="stack-card__name">Tailwind CSS</div><div class="stack-card__role">Styling</div></div>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon" style="background: rgba(239,68,68,0.15)">&#9670;</div>
+            <div><div class="stack-card__name">Alchemy / Infura</div><div class="stack-card__role">RPC Providers</div></div>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon" style="background: rgba(99,102,241,0.15)">&#9724;</div>
+            <div><div class="stack-card__name">WalletConnect</div><div class="stack-card__role">Auth Web3</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">FONCTIONNALITES</span>
+          <h2 class="project-section__title">Caracteristiques cles</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-item reveal">
+            <div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+            <div>
+              <h4 class="feature-item__title">Portfolio Tracking</h4>
+              <p class="feature-item__desc">Suivi en temps reel de la valeur du portefeuille avec historique de performance et PnL detaille.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal">
+            <div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <div>
+              <h4 class="feature-item__title">Multi-Wallet</h4>
+              <p class="feature-item__desc">Connexion simultanée de plusieurs wallets (MetaMask, WalletConnect, Coinbase) avec vue agrégée.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal">
+            <div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></div>
+            <div>
+              <h4 class="feature-item__title">NFT Gallery</h4>
+              <p class="feature-item__desc">Galerie NFT avec metadonnees, floor price et estimation de la valeur de la collection.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal">
+            <div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+            <div>
+              <h4 class="feature-item__title">DeFi Tracker</h4>
+              <p class="feature-item__desc">Monitoring des positions DeFi : staking, lending, liquidity pools avec APY en temps reel.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal">
+            <div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div>
+              <h4 class="feature-item__title">Alertes & Notifications</h4>
+              <p class="feature-item__desc">Systeme d'alertes configurable sur les mouvements de prix, whale activity et gas tracker.</p>
+            </div>
+          </div>
+          <div class="feature-item reveal">
+            <div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            <div>
+              <h4 class="feature-item__title">Multi-Chain</h4>
+              <p class="feature-item__desc">Support des principales blockchains : Ethereum, Polygon, BSC, Arbitrum, Optimism, Solana.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">PROCESSUS</span>
+          <h2 class="project-section__title">Etapes de developpement</h2>
+        </div>
+        <div class="process-steps">
+          <div class="process-step reveal">
+            <h4 class="process-step__title">Research & UX</h4>
+            <p class="process-step__desc">Benchmark des dashboards crypto existants (Zapper, DeBank, Zerion). Definition de l'UX avec focus sur la lisibilite et le dark mode immersif.</p>
+          </div>
+          <div class="process-step reveal">
+            <h4 class="process-step__title">Architecture Web3</h4>
+            <p class="process-step__desc">Integration des providers RPC, configuration de Wagmi/Ethers.js, gestion des connexions wallet et des appels multi-chain.</p>
+          </div>
+          <div class="process-step reveal">
+            <h4 class="process-step__title">Data & Visualisation</h4>
+            <p class="process-step__desc">Mise en place des flux de donnees en temps reel, graphiques TradingView, tables de tokens et portfolio analytics.</p>
+          </div>
+          <div class="process-step reveal">
+            <h4 class="process-step__title">Deploy & Optimisation</h4>
+            <p class="process-step__desc">Deploiement sur Vercel avec SSR, optimisation des requetes blockchain avec caching et rate limiting intelligent.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">CODE</span>
+          <h2 class="project-section__title">Apercu technique</h2>
+        </div>
+        <div class="code-block reveal">
+          <div class="code-block__header">
+            <span class="code-block__dot"></span>
+            <span class="code-block__dot"></span>
+            <span class="code-block__dot"></span>
+            <span class="code-block__filename">hooks/usePortfolio.ts</span>
+          </div>
+          <div class="code-block__body">
+            <div class="line"><span class="line-num">01</span><span class="keyword">import</span> { <span class="func">useAccount</span>, <span class="func">useBalance</span> } <span class="keyword">from</span> <span class="string">'wagmi'</span>;</div>
+            <div class="line"><span class="line-num">02</span><span class="keyword">import</span> { <span class="func">useQuery</span> } <span class="keyword">from</span> <span class="string">'@tanstack/react-query'</span>;</div>
+            <div class="line"><span class="line-num">03</span></div>
+            <div class="line"><span class="line-num">04</span><span class="keyword">export function</span> <span class="func">usePortfolio</span>() {</div>
+            <div class="line"><span class="line-num">05</span>  <span class="keyword">const</span> { address, isConnected } = <span class="func">useAccount</span>();</div>
+            <div class="line"><span class="line-num">06</span>  <span class="keyword">const</span> { data: balance } = <span class="func">useBalance</span>({ address });</div>
+            <div class="line"><span class="line-num">07</span></div>
+            <div class="line"><span class="line-num">08</span>  <span class="keyword">const</span> { data: tokens } = <span class="func">useQuery</span>({</div>
+            <div class="line"><span class="line-num">09</span>    queryKey: [<span class="string">'tokens'</span>, address],</div>
+            <div class="line"><span class="line-num">10</span>    queryFn: () => <span class="func">fetchTokenBalances</span>(address!),</div>
+            <div class="line"><span class="line-num">11</span>    enabled: isConnected && !!address,</div>
+            <div class="line"><span class="line-num">12</span>  });</div>
+            <div class="line"><span class="line-num">13</span></div>
+            <div class="line"><span class="line-num">14</span>  <span class="keyword">const</span> totalValue = tokens?.<span class="func">reduce</span>(</div>
+            <div class="line"><span class="line-num">15</span>    (sum, t) => sum + t.balance * t.price, <span class="type">0</span></div>
+            <div class="line"><span class="line-num">16</span>  );</div>
+            <div class="line"><span class="line-num">17</span></div>
+            <div class="line"><span class="line-num">18</span>  <span class="keyword">return</span> { balance, tokens, totalValue, isConnected };</div>
+            <div class="line"><span class="line-num">19</span>}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <nav class="project-nav">
+          <a href="aedsc.html" class="project-nav__link project-nav__link--prev">
+            <svg class="project-nav__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+            <div><span class="project-nav__label">Precedent</span><span class="project-nav__name">AEDSC</span></div>
+          </a>
+          <a href="curs3d.html" class="project-nav__link project-nav__link--next">
+            <div><span class="project-nav__label">Suivant</span><span class="project-nav__name">Curs3D</span></div>
+            <svg class="project-nav__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+        </nav>
+      </div>
+    </section>
+  </main>
+
+    <footer class="footer">
+    <div class="footer__pattern"></div>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="index.html" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made">// construit avec passion & cafe</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/i18n-data.js"></script>
+
+  <script src="../js/sound-engine.js"></script>
+  <script src="../js/command-palette.js"></script>
+
+  <script src="../js/globals.js"></script>
+  <script src="../js/easter-eggs.js"></script>
+  <script src="../js/project.js"></script>
+</body>
+</html>

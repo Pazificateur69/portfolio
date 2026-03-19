@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Site web professionnel CLM developpe en alternance chez Net-Strategy. Conception et integration WordPress sur mesure.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CLM - Alessandro Portfolio">
+    <meta property="og:description" content="Site web professionnel CLM developpe en alternance chez Net-Strategy. Conception et integration WordPress sur mesure.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/projects/clm.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CLM - Alessandro Portfolio">
+    <meta name="twitter:description" content="Site web professionnel CLM developpe en alternance chez Net-Strategy. Conception et integration WordPress sur mesure.">
+  <title>CLM - Alessandro Portfolio</title>
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/projects/clm.html">
+
+  <link rel="manifest" href="../manifest.json">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="preload" href="../css/main.css" as="style">
+  <link rel="stylesheet" href="../css/project.css">
+  <link rel="stylesheet" href="../css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+  <div class="bg-animated"><div class="bg-grid"></div><div class="bg-glow bg-glow--1"></div><div class="bg-glow bg-glow--2"></div></div>
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="../index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="../index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="../security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="../web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="../security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="../engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="../infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="../portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="../publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="../changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="../veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="../ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="../uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="../blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="../stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="../now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="../index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="../index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="../index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb__list">
+        <li class="breadcrumb__item"><a href="../index.html">Accueil</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item"><a href="../index.html#projects">Projets</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">CLM</li>
+      </ol>
+    </nav>
+    <section class="project-hero"><div class="container"><div class="project-hero__content">
+      <a href="../index.html#projects" class="project-hero__back reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Retour aux projets</a>
+      <div class="project-hero__badge project-hero__badge--done reveal"><span class="project-hero__badge-dot"></span>En ligne</div>
+      <h1 class="project-hero__title reveal">CLM</h1>
+      <p class="project-hero__description reveal">Site web professionnel developpe dans le cadre de mon alternance chez Net-Strategy. Conception complete et integration sur mesure avec WordPress et Elementor. Le projet a permis d'appliquer les bonnes pratiques SEO et d'optimisation de performance apprises en agence.</p>
+      <div class="project-hero__meta reveal">
+        <div class="project-hero__meta-item"><span class="project-hero__meta-label">Annee</span><span class="project-hero__meta-value">2024</span></div>
+        <div class="project-hero__meta-item"><span class="project-hero__meta-label">Role</span><span class="project-hero__meta-value">Developpeur Web (Alternance)</span></div>
+        <div class="project-hero__meta-item"><span class="project-hero__meta-label">Type</span><span class="project-hero__meta-value">Site vitrine client</span></div>
+      </div>
+      <div class="project-hero__actions reveal"><a href="https://clm.net-dev2.fr" target="_blank" rel="noopener" class="btn btn--primary">Visiter le site <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg></a></div>
+    </div></div></section>
+    <section class="project-section"><div class="container"><div class="project-section__header reveal"><span class="project-section__tag">Stack technique</span><h2 class="project-section__title">Technologies utilisees</h2></div><div class="stack-grid"><div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-blue);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="stack-card__name">WordPress</div><div class="stack-card__role">CMS principal</div></div></div><div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-purple);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div><div><div class="stack-card__name">Elementor Pro</div><div class="stack-card__role">Page builder avance</div></div></div><div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-orange);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="stack-card__name">PHP Custom</div><div class="stack-card__role">Fonctions personnalisees</div></div></div><div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-green);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><div><div class="stack-card__name">Yoast SEO</div><div class="stack-card__role">Optimisation referencement</div></div></div><div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-cyan);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div><div><div class="stack-card__name">Google Analytics</div><div class="stack-card__role">Suivi et statistiques</div></div></div><div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-red);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><div><div class="stack-card__name">MySQL</div><div class="stack-card__role">Base de donnees</div></div></div></div></div></section>
+    <section class="project-section" style="background:var(--bg-secondary);"><div class="container"><div class="project-section__header reveal"><span class="project-section__tag">Fonctionnalites</span><h2 class="project-section__title">Points cles</h2></div><div class="features-grid"><div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div><div><div class="feature-item__title">Design sur mesure</div><div class="feature-item__desc">Maquettes validees avec le client</div></div></div><div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><div><div class="feature-item__title">SEO on-page</div><div class="feature-item__desc">Optimisation de chaque page</div></div></div><div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><div><div class="feature-item__title">Performance</div><div class="feature-item__desc">Images optimisees et lazy loading</div></div></div><div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="feature-item__title">Responsive</div><div class="feature-item__desc">Mobile-first approach</div></div></div><div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div><div><div class="feature-item__title">Integration analytics</div><div class="feature-item__desc">Suivi du comportement utilisateur</div></div></div><div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><div><div class="feature-item__title">Maintenance</div><div class="feature-item__desc">Formation client pour la gestion</div></div></div></div></div></section>
+    <section class="project-section"><div class="container"><div class="project-section__header reveal"><span class="project-section__tag">Approche</span><h2 class="project-section__title">Processus de developpement</h2></div><div class="process-steps"><div class="process-step reveal"><h3 class="process-step__title">Brief client avec l'agence</h3><p class="process-step__desc">Reunion de cadrage avec le client et l'equipe Net-Strategy pour definir les objectifs, le cahier des charges et les contraintes techniques du projet.</p></div><div class="process-step reveal"><h3 class="process-step__title">Maquettage et validation</h3><p class="process-step__desc">Creation des maquettes desktop et mobile, presentation au client avec iterations jusqu'a validation finale du design et de l'arborescence.</p></div><div class="process-step reveal"><h3 class="process-step__title">Integration WordPress</h3><p class="process-step__desc">Developpement sur WordPress avec Elementor Pro, creation de fonctions PHP personnalisees et integration des bonnes pratiques SEO on-page.</p></div><div class="process-step reveal"><h3 class="process-step__title">Tests, formation et livraison</h3><p class="process-step__desc">Tests cross-browser et responsive complets, formation du client a la gestion du contenu via WordPress, puis mise en production.</p></div></div></div></section>
+    <section class="project-section" style="background:var(--bg-secondary);"><div class="container"><div class="project-section__header reveal"><span class="project-section__tag">Code</span><h2 class="project-section__title">Apercu technique</h2></div><div class="code-block reveal"><div class="code-block__header"><span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__filename">custom-functions.php</span></div><div class="code-block__body"><div class="line"><span class="line-num">1</span><span class="comment">// Custom shortcode for service cards</span></div><div class="line"><span class="line-num">2</span><span class="keyword">function</span> <span class="func">clm_service_card</span>( <span class="type">$atts</span>, <span class="type">$content</span> = <span class="keyword">null</span> ) {</div><div class="line"><span class="line-num">3</span>  <span class="type">$atts</span> = <span class="func">shortcode_atts</span>( <span class="keyword">array</span>(</div><div class="line"><span class="line-num">4</span>    <span class="string">'title'</span> => <span class="string">''</span>,</div><div class="line"><span class="line-num">5</span>    <span class="string">'icon'</span>  => <span class="string">'dashicons-admin-tools'</span>,</div><div class="line"><span class="line-num">6</span>    <span class="string">'link'</span>  => <span class="string">'#'</span>,</div><div class="line"><span class="line-num">7</span>  ), <span class="type">$atts</span>, <span class="string">'service_card'</span> );</div><div class="line"><span class="line-num">8</span></div><div class="line"><span class="line-num">9</span>  <span class="type">$output</span>  = <span class="string">'&lt;div class="clm-service-card"&gt;'</span>;</div><div class="line"><span class="line-num">10</span>  <span class="type">$output</span> .= <span class="string">'&lt;span class="dashicons '</span> . <span class="func">esc_attr</span>(<span class="type">$atts</span>[<span class="string">'icon'</span>]) . <span class="string">'"&gt;&lt;/span&gt;'</span>;</div><div class="line"><span class="line-num">11</span>  <span class="type">$output</span> .= <span class="string">'&lt;h3&gt;'</span> . <span class="func">esc_html</span>(<span class="type">$atts</span>[<span class="string">'title'</span>]) . <span class="string">'&lt;/h3&gt;'</span>;</div><div class="line"><span class="line-num">12</span>  <span class="type">$output</span> .= <span class="string">'&lt;p&gt;'</span> . <span class="func">wp_kses_post</span>(<span class="type">$content</span>) . <span class="string">'&lt;/p&gt;'</span>;</div><div class="line"><span class="line-num">13</span>  <span class="type">$output</span> .= <span class="string">'&lt;a href="'</span> . <span class="func">esc_url</span>(<span class="type">$atts</span>[<span class="string">'link'</span>]) . <span class="string">'"&gt;En savoir plus&lt;/a&gt;'</span>;</div><div class="line"><span class="line-num">14</span>  <span class="type">$output</span> .= <span class="string">'&lt;/div&gt;'</span>;</div><div class="line"><span class="line-num">15</span></div><div class="line"><span class="line-num">16</span>  <span class="keyword">return</span> <span class="type">$output</span>;</div><div class="line"><span class="line-num">17</span>}</div><div class="line"><span class="line-num">18</span><span class="func">add_shortcode</span>( <span class="string">'service_card'</span>, <span class="string">'clm_service_card'</span> );</div></div></div></div></section>
+    <div class="container"><nav class="project-nav"><a href="luxcouvreur.html" class="project-nav__link project-nav__link--prev"><svg class="project-nav__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><div><span class="project-nav__label">Precedent</span><span class="project-nav__name">LuxCouvreur</span></div></a><a href="net-strategy.html" class="project-nav__link project-nav__link--next"><div><span class="project-nav__label">Suivant</span><span class="project-nav__name">Net-Strategy</span></div><svg class="project-nav__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a></nav></div>
+  </main>
+    <footer class="footer">
+    <div class="footer__pattern"></div>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="index.html" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made">// construit avec passion & cafe</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/i18n-data.js"></script>
+  <script src="../js/sound-engine.js"></script>
+  <script src="../js/command-palette.js"></script>
+  <script src="../js/globals.js"></script>
+  <script src="../js/easter-eggs.js"></script>
+  <script src="../js/project.js"></script>
+</body>
+</html>

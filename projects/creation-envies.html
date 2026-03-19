@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creation de vos envies - Site vitrine elegant pour une entreprise de decoration interieure avec animations GSAP et design responsive.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Creation de vos envies - Alessandro Portfolio">
+    <meta property="og:description" content="Creation de vos envies - Site vitrine elegant pour une entreprise de decoration interieure avec animations GSAP et design responsive.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/projects/creation-envies.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Creation de vos envies - Alessandro Portfolio">
+    <meta name="twitter:description" content="Creation de vos envies - Site vitrine elegant pour une entreprise de decoration interieure avec animations GSAP et design responsive.">
+  <title>Creation de vos envies - Alessandro Portfolio</title>
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/projects/creation-envies.html">
+
+  <link rel="manifest" href="../manifest.json">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="preload" href="../css/main.css" as="style">
+  <link rel="stylesheet" href="../css/project.css">
+  <link rel="stylesheet" href="../css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+  <div class="bg-animated"><div class="bg-grid"></div><div class="bg-glow bg-glow--1"></div><div class="bg-glow bg-glow--2"></div></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="../index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="../index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="../security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="../web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="../security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="../engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="../infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="../portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="../publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="../changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="../veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="../ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="../uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="../blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="../stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="../now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="../index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="../index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="../index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb__list">
+        <li class="breadcrumb__item"><a href="../index.html">Accueil</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item"><a href="../index.html#projects">Projets</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">Creation de vos envies</li>
+      </ol>
+    </nav>
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content">
+          <a href="../index.html#projects" class="project-hero__back reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Retour aux projets</a>
+          <div class="project-hero__badge project-hero__badge--done reveal"><span class="project-hero__badge-dot"></span>Termine</div>
+          <h1 class="project-hero__title reveal">Creation de vos envies</h1>
+          <p class="project-hero__description reveal">Site vitrine elegant pour une entreprise de decoration interieure. Le projet met en avant le savoir-faire du client a travers des animations fluides realisees avec GSAP, un design responsive soigne et une navigation intuitive. L'objectif etait de creer une experience visuelle premium qui reflete la creativite de l'entreprise.</p>
+          <div class="project-hero__meta reveal">
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Annee</span><span class="project-hero__meta-value">2024</span></div>
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Role</span><span class="project-hero__meta-value">Developpeur & Designer</span></div>
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Type</span><span class="project-hero__meta-value">Site vitrine client</span></div>
+          </div>
+          <div class="project-hero__actions reveal">
+            <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="btn btn--secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Stack technique</span>
+          <h2 class="project-section__title">Technologies utilisees</h2>
+        </div>
+        <div class="stack-grid">
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-purple);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><div><div class="stack-card__name">HTML5</div><div class="stack-card__role">Structure semantique</div></div></div>
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-blue);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div><div class="stack-card__name">CSS3</div><div class="stack-card__role">Animations & layout</div></div></div>
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-gold);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div><div class="stack-card__name">JavaScript</div><div class="stack-card__role">Interactivite</div></div></div>
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-green);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="stack-card__name">GSAP</div><div class="stack-card__role">Animations avancees</div></div></div>
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-cyan);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="stack-card__name">Responsive</div><div class="stack-card__role">Mobile-first</div></div></div>
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-pink);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><div><div class="stack-card__name">Performance</div><div class="stack-card__role">Optimisation images</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section" style="background:var(--bg-secondary);">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Fonctionnalites</span>
+          <h2 class="project-section__title">Points cles</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div><div class="feature-item__title">Animations GSAP</div><div class="feature-item__desc">Transitions et effets visuels avances</div></div></div>
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div><div><div class="feature-item__title">Galerie portfolio</div><div class="feature-item__desc">Showcase des realisations</div></div></div>
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="feature-item__title">Design responsive</div><div class="feature-item__desc">Adapte mobile/tablette/desktop</div></div></div>
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="feature-item__title">Navigation fluide</div><div class="feature-item__desc">Smooth scroll et transitions</div></div></div>
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><div><div class="feature-item__title">Formulaire devis</div><div class="feature-item__desc">Demande de devis en ligne</div></div></div>
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div><div class="feature-item__title">Optimisation images</div><div class="feature-item__desc">Lazy loading et compression</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Approche</span>
+          <h2 class="project-section__title">Processus de developpement</h2>
+        </div>
+        <div class="process-steps">
+          <div class="process-step reveal"><h3 class="process-step__title">Brief client</h3><p class="process-step__desc">Comprehension des besoins, moodboard, arborescence</p></div>
+          <div class="process-step reveal"><h3 class="process-step__title">Maquettage</h3><p class="process-step__desc">Design Figma, choix typographiques et colorimetriques</p></div>
+          <div class="process-step reveal"><h3 class="process-step__title">Integration</h3><p class="process-step__desc">HTML/CSS mobile-first, animations GSAP</p></div>
+          <div class="process-step reveal"><h3 class="process-step__title">Tests & Livraison</h3><p class="process-step__desc">Cross-browser, responsive, performance</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section" style="background:var(--bg-secondary);">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Code</span>
+          <h2 class="project-section__title">Apercu technique</h2>
+        </div>
+        <div class="code-block reveal">
+          <div class="code-block__header"><span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__filename">animations.js</span></div>
+          <div class="code-block__body">
+            <div class="line"><span class="line-num">1</span><span class="comment">// animations.js - GSAP Timeline Animations</span></div>
+            <div class="line"><span class="line-num">2</span><span class="keyword">import</span> { gsap } <span class="keyword">from</span> <span class="string">'gsap'</span>;</div>
+            <div class="line"><span class="line-num">3</span><span class="keyword">import</span> { ScrollTrigger } <span class="keyword">from</span> <span class="string">'gsap/ScrollTrigger'</span>;</div>
+            <div class="line"><span class="line-num">4</span></div>
+            <div class="line"><span class="line-num">5</span>gsap.<span class="function">registerPlugin</span>(ScrollTrigger);</div>
+            <div class="line"><span class="line-num">6</span></div>
+            <div class="line"><span class="line-num">7</span><span class="keyword">const</span> heroTimeline = gsap.<span class="function">timeline</span>({</div>
+            <div class="line"><span class="line-num">8</span>  defaults: { duration: <span class="value">0.8</span>, ease: <span class="string">'power3.out'</span> }</div>
+            <div class="line"><span class="line-num">9</span>});</div>
+            <div class="line"><span class="line-num">10</span></div>
+            <div class="line"><span class="line-num">11</span>heroTimeline</div>
+            <div class="line"><span class="line-num">12</span>  .<span class="function">from</span>(<span class="string">'.hero__title'</span>, {</div>
+            <div class="line"><span class="line-num">13</span>    y: <span class="value">60</span>, opacity: <span class="value">0</span>, skewY: <span class="value">3</span></div>
+            <div class="line"><span class="line-num">14</span>  })</div>
+            <div class="line"><span class="line-num">15</span>  .<span class="function">from</span>(<span class="string">'.hero__subtitle'</span>, {</div>
+            <div class="line"><span class="line-num">16</span>    y: <span class="value">40</span>, opacity: <span class="value">0</span></div>
+            <div class="line"><span class="line-num">17</span>  }, <span class="string">'-=0.4'</span>)</div>
+            <div class="line"><span class="line-num">18</span>  .<span class="function">from</span>(<span class="string">'.hero__cta'</span>, {</div>
+            <div class="line"><span class="line-num">19</span>    y: <span class="value">30</span>, opacity: <span class="value">0</span>, scale: <span class="value">0.95</span></div>
+            <div class="line"><span class="line-num">20</span>  }, <span class="string">'-=0.3'</span>);</div>
+            <div class="line"><span class="line-num">21</span></div>
+            <div class="line"><span class="line-num">22</span><span class="comment">// Parallax sur les sections</span></div>
+            <div class="line"><span class="line-num">23</span>gsap.utils.<span class="function">toArray</span>(<span class="string">'.parallax-section'</span>).<span class="function">forEach</span>(section => {</div>
+            <div class="line"><span class="line-num">24</span>  gsap.<span class="function">to</span>(section.<span class="function">querySelector</span>(<span class="string">'.parallax-bg'</span>), {</div>
+            <div class="line"><span class="line-num">25</span>    yPercent: <span class="value">-20</span>,</div>
+            <div class="line"><span class="line-num">26</span>    scrollTrigger: {</div>
+            <div class="line"><span class="line-num">27</span>      trigger: section,</div>
+            <div class="line"><span class="line-num">28</span>      start: <span class="string">'top bottom'</span>,</div>
+            <div class="line"><span class="line-num">29</span>      end: <span class="string">'bottom top'</span>,</div>
+            <div class="line"><span class="line-num">30</span>      scrub: <span class="value">true</span></div>
+            <div class="line"><span class="line-num">31</span>    }</div>
+            <div class="line"><span class="line-num">32</span>  });</div>
+            <div class="line"><span class="line-num">33</span>});</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <nav class="project-nav">
+        <a href="pazent-studio.html" class="project-nav__link project-nav__link--prev">
+          <svg class="project-nav__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <div><span class="project-nav__label">Precedent</span><span class="project-nav__name">PAZENT Studio</span></div>
+        </a>
+        <a href="veriflamme.html" class="project-nav__link project-nav__link--next">
+          <div><span class="project-nav__label">Suivant</span><span class="project-nav__name">Veriflamme</span></div>
+          <svg class="project-nav__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </nav>
+    </div>
+  </main>
+
+    <footer class="footer">
+    <div class="footer__pattern"></div>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="index.html" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made">// construit avec passion & cafe</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/i18n-data.js"></script>
+  <script src="../js/sound-engine.js"></script>
+  <script src="../js/command-palette.js"></script>
+  <script src="../js/globals.js"></script>
+  <script src="../js/easter-eggs.js"></script>
+  <script src="../js/project.js"></script>
+</body>
+</html>

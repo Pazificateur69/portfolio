@@ -1,0 +1,977 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECURITY LAB PAGE STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Hero Icon ──────────────────────────────────────────────────────────── */
+.seclab-hero-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+/* ─── Hero Stats ─────────────────────────────────────────────────────────── */
+.seclab-stats {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  padding: 1.25rem 1.75rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+}
+
+.seclab-stat {
+  text-align: center;
+}
+
+.seclab-stat__number {
+  font-size: 2rem;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  background: var(--gradient-purple);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.seclab-stat__label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.2rem;
+}
+
+.seclab-stat__divider {
+  width: 1px;
+  height: 40px;
+  background: var(--glass-border);
+}
+
+/* ─── Severity Badges ────────────────────────────────────────────────────── */
+.severity-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 50px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 0.5rem;
+}
+
+.severity-badge--critical {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: var(--red);
+}
+
+.severity-badge--high {
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  color: #f97316;
+}
+
+.severity-badge--medium {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: var(--gold);
+}
+
+.severity-badge--low {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: var(--green);
+}
+
+/* ─── Difficulty Badges ──────────────────────────────────────────────────── */
+.difficulty-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 50px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.difficulty-badge--easy {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: var(--green);
+}
+
+.difficulty-badge--medium {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  color: var(--gold);
+}
+
+.difficulty-badge--hard {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: var(--red);
+}
+
+/* ─── Intro Text ─────────────────────────────────────────────────────────── */
+.seclab-intro-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 700px;
+}
+
+/* ─── Challenge Categories ───────────────────────────────────────────────── */
+.seclab-category {
+  margin-bottom: 2.5rem;
+}
+
+.seclab-category:last-of-type {
+  margin-bottom: 0;
+}
+
+.seclab-category__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.seclab-category__header h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* ─── Challenge Table ────────────────────────────────────────────────────── */
+.seclab-challenges-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.seclab-table__header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2.5fr;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--glass-border);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.seclab-table__row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 2.5fr;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: all var(--transition-normal);
+}
+
+.seclab-table__row:last-child {
+  border-bottom: none;
+}
+
+.seclab-table__row:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.seclab-table__name {
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.seclab-table__type {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--purple-light);
+  font-weight: 500;
+}
+
+.seclab-table__skills {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ─── Code Extract ───────────────────────────────────────────────────────── */
+.seclab-code-extract {
+  margin-top: 2.5rem;
+}
+
+/* ─── Write-up Detailed (Methodology) ────────────────────────────────────── */
+.seclab-writeup {
+  margin-bottom: 2rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.seclab-writeup:last-child {
+  margin-bottom: 0;
+}
+
+.seclab-writeup__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.seclab-writeup__header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.seclab-writeup__steps {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.seclab-writeup__step {
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-normal);
+}
+
+.seclab-writeup__step:hover {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: var(--glass-border-hover);
+}
+
+.seclab-writeup__step p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 0.4rem;
+}
+
+.seclab-writeup__step code {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background: rgba(139, 92, 246, 0.1);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  color: var(--purple-light);
+}
+
+.seclab-writeup__step-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--red);
+}
+
+.seclab-writeup__step-tag--blue {
+  background: rgba(59, 130, 246, 0.12);
+  color: var(--blue);
+}
+
+.seclab-writeup__step-tag--gold {
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--gold);
+}
+
+.seclab-writeup__step-tag--green {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--green);
+}
+
+.seclab-writeup__step-tag--cyan {
+  background: rgba(6, 182, 212, 0.12);
+  color: var(--cyan);
+}
+
+/* ─── Smart Contract Security Cards ──────────────────────────────────────── */
+.seclab-sc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.seclab-sc-card {
+  padding: 1.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.seclab-sc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.seclab-sc-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.seclab-sc-card__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+}
+
+.seclab-sc-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.seclab-sc-card p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.seclab-sc-card .severity-badge {
+  margin-top: 0.25rem;
+}
+
+/* ─── Vuln → Patch Code Blocks ───────────────────────────────────────────── */
+.vuln-patch-pair {
+  margin-bottom: 3rem;
+}
+
+.vuln-patch-pair:last-child {
+  margin-bottom: 0;
+}
+
+.vuln-patch-pair__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--purple);
+}
+
+.vuln-patch-pair__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.vuln-code {
+  border-color: rgba(239, 68, 68, 0.2) !important;
+}
+
+.vuln-code:hover {
+  border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+.fix-code {
+  border-color: rgba(16, 185, 129, 0.2) !important;
+}
+
+.fix-code:hover {
+  border-color: rgba(16, 185, 129, 0.35) !important;
+}
+
+.vuln-label,
+.fix-label {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 50px;
+}
+
+.vuln-label {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--red);
+}
+
+.fix-label {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--green);
+}
+
+/* ─── Pentest Report ─────────────────────────────────────────────────────── */
+.pentest-report {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.pentest-report__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.pentest-report__logo {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  background: rgba(139, 92, 246, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pentest-report__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.pentest-report__subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.pentest-report__body {
+  padding: 1.5rem;
+}
+
+.pentest-report__section {
+  margin-bottom: 2rem;
+}
+
+.pentest-report__section:last-child {
+  margin-bottom: 0;
+}
+
+.pentest-report__section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.pentest-report__section-title svg {
+  color: var(--purple);
+  flex-shrink: 0;
+}
+
+/* Terminal inside pentest report */
+.pentest-report .about__terminal {
+  background: var(--bg-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.pentest-report .about__terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.6rem 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.pentest-report .about__terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.pentest-report .about__terminal-dot:nth-child(1) { background: var(--red); }
+.pentest-report .about__terminal-dot:nth-child(2) { background: var(--gold); }
+.pentest-report .about__terminal-dot:nth-child(3) { background: var(--green); }
+
+.pentest-report .about__terminal-title {
+  margin-left: auto;
+  margin-right: auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.pentest-report .about__terminal-body {
+  padding: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.9;
+}
+
+.pentest-report .about__terminal-body .line {
+  white-space: nowrap;
+}
+
+.pentest-report .about__terminal-body .prompt {
+  color: var(--green);
+  margin-right: 0.5rem;
+}
+
+.pentest-report .about__terminal-body .keyword {
+  color: var(--purple-light);
+}
+
+/* Findings */
+.pentest-report__findings {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pentest-finding {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+}
+
+.pentest-finding:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--glass-border-hover);
+}
+
+.pentest-finding .severity-badge {
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+  min-width: 65px;
+  justify-content: center;
+}
+
+.pentest-finding strong {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.pentest-finding p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.pentest-finding code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: rgba(139, 92, 246, 0.1);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  color: var(--purple-light);
+}
+
+/* Recommendations */
+.pentest-report__recs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.pentest-rec {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  transition: all var(--transition-normal);
+}
+
+.pentest-rec:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--glass-border-hover);
+  transform: translateX(4px);
+}
+
+.pentest-rec__priority {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: rgba(139, 92, 246, 0.15);
+  color: var(--purple-light);
+  flex-shrink: 0;
+}
+
+/* ─── Sandbox ────────────────────────────────────────────────────────────── */
+.sandbox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.sandbox {
+  padding: 1.75rem;
+  background: var(--glass-bg);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.sandbox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--green), var(--cyan), var(--green));
+  opacity: 0.4;
+}
+
+.sandbox__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.sandbox__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.sandbox__desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.sandbox__input-group {
+  margin-bottom: 1.25rem;
+}
+
+.sandbox__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.sandbox__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  outline: none;
+  transition: all var(--transition-normal);
+}
+
+.sandbox__input:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.sandbox__input::placeholder {
+  color: var(--text-muted);
+}
+
+.sandbox__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.sandbox__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.sandbox__btn {
+  padding: 0.55rem 1.1rem !important;
+  font-size: 0.78rem !important;
+}
+
+/* Toggle */
+.sandbox__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.sandbox__toggle input {
+  display: none;
+}
+
+.sandbox__toggle-slider {
+  width: 36px;
+  height: 20px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--glass-border);
+  position: relative;
+  transition: all var(--transition-normal);
+  flex-shrink: 0;
+}
+
+.sandbox__toggle-slider::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: all var(--transition-normal);
+}
+
+.sandbox__toggle input:checked + .sandbox__toggle-slider {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.sandbox__toggle input:checked + .sandbox__toggle-slider::after {
+  left: calc(100% - 16px);
+  background: var(--green);
+}
+
+/* Output */
+.sandbox__output-group {
+  margin-top: 1rem;
+}
+
+.sandbox__output-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.sandbox__output {
+  min-height: 80px;
+  background: var(--bg-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.sandbox__output iframe {
+  width: 100%;
+  height: 80px;
+  border: none;
+  background: #fff;
+  border-radius: var(--radius-sm);
+}
+
+.sandbox__query {
+  padding: 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  overflow-x: auto;
+  min-height: 50px;
+}
+
+.sandbox__query .sql-keyword {
+  color: var(--purple-light);
+  font-weight: 600;
+}
+
+.sandbox__query .sql-string {
+  color: var(--green-light);
+}
+
+.sandbox__query .sql-danger {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.sandbox__query .sql-param {
+  color: var(--cyan);
+}
+
+.sandbox__result {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: none;
+}
+
+.sandbox__result--success {
+  display: block;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--red);
+}
+
+.sandbox__result--blocked {
+  display: block;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  color: var(--green);
+}
+
+.sandbox__explanation {
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.sandbox__explanation strong {
+  color: var(--green);
+}
+
+.sandbox__explanation code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  color: var(--green-light);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .sandbox-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vuln-patch-pair__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .seclab-table__header,
+  .seclab-table__row {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .seclab-table__header {
+    display: none;
+  }
+
+  .seclab-table__row {
+    padding: 1rem 1.25rem;
+  }
+
+  .seclab-table__skills {
+    display: none;
+  }
+
+  .seclab-sc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .seclab-stats {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .seclab-stat__divider {
+    width: 40px;
+    height: 1px;
+  }
+
+  .sandbox__form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .pentest-report__header {
+    flex-wrap: wrap;
+  }
+
+  .pentest-finding {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sandbox__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sandbox__toggle {
+    justify-content: center;
+  }
+}

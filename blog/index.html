@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blog — Articles techniques et writeups sur le Web3, la sécurité, l'infrastructure et le développement.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Blog - Alessandro Portfolio">
+    <meta property="og:description" content="Blog — Articles techniques et writeups sur le Web3, la sécurité, l'infrastructure et le développement.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/blog/index.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blog - Alessandro Portfolio">
+    <meta name="twitter:description" content="Blog — Articles techniques et writeups sur le Web3, la sécurité, l'infrastructure et le développement.">
+  <meta name="theme-color" content="#050508">
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/blog/">
+  <link rel="alternate" type="application/atom+xml" title="Alessandro Blog Feed" href="feed.xml">
+  <title>Blog - Alessandro Portfolio</title>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/project.css">
+  <link rel="stylesheet" href="../css/blog.css">
+  <link rel="stylesheet" href="../css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+  <div class="bg-animated"><div class="bg-grid"></div><div class="bg-glow bg-glow--1"></div><div class="bg-glow bg-glow--2"></div></div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="../index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="../index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="../security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="../web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="../security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="../engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="../infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="../portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="../publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="../changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="../veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="../ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="../uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="." class="navbar__dropdown-item active">Blog</a>
+            <a href="../stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="../now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="../index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="../index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about" class="mobile-menu__link" data-i18n="nav.about">A propos</a>
+    <a href="../index.html#skills" class="mobile-menu__link" data-i18n="nav.skills">Skills</a>
+    <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false">
+      <span data-i18n="nav.labs">Labs</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="mobile-menu__labs-submenu">
+      <a href="../security-sandbox.html" class="mobile-menu__link">Interactive Sandbox</a>
+      <a href="../web3-engineering.html" class="mobile-menu__link">Web3 Engineering</a>
+      <a href="../security-lab.html" class="mobile-menu__link">Security Lab</a>
+      <a href="../engineering.html" class="mobile-menu__link">Engineering</a>
+      <a href="../infrastructure.html" class="mobile-menu__link">Infrastructure</a>
+      <a href="../portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+      <a href="../publications.html" class="mobile-menu__link">Publications</a>
+      <a href="../changelog.html" class="mobile-menu__link">Changelog</a>
+      <a href="../veille.html" class="mobile-menu__link">Veille Techno</a>
+      <a href="../ctf.html" class="mobile-menu__link">CTF Writeups</a>
+      <a href="../uses.html" class="mobile-menu__link">Uses / Setup</a>
+      <a href="." class="mobile-menu__link active">Blog</a>
+      <a href="../stats.html" class="mobile-menu__link">Stats</a>
+      <a href="../now.html" class="mobile-menu__link">Now</a>
+    </div>
+    <a href="../index.html#projects" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+    <a href="../index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu__controls">
+      <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="langToggleMobile" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content" style="max-width:800px;">
+          <a href="../index.html" class="project-hero__back reveal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span data-i18n="blog.hero.back">Retour au portfolio</span>
+          </a>
+
+          <div class="project-hero__badge project-hero__badge--done reveal">
+            <span class="project-hero__badge-dot"></span>
+            <span data-i18n="blog.hero.badge">Articles & Writeups</span>
+          </div>
+
+          <h1 class="project-hero__title reveal">
+            <svg class="pub-hero-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#blogHeroGrad)" stroke-width="2">
+              <defs><linearGradient id="blogHeroGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            <span data-i18n="blog.hero.title">Blog</span>
+          </h1>
+
+          <p class="project-hero__description reveal" data-i18n="blog.hero.description">
+            Articles techniques approfondis, writeups et analyses sur le Web3, la securite, l'infrastructure et le developpement. Des contenus concrets, documentes et actionables.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Index -->
+    <section class="blog-index">
+      <div class="container">
+
+        <!-- Filters -->
+        <div class="blog-filters" id="blogFilters">
+          <button class="blog-filter active" data-filter="all" data-i18n="blog.filter.all">Tous</button>
+          <button class="blog-filter" data-filter="web3">Web3</button>
+          <button class="blog-filter" data-filter="security">Security</button>
+          <button class="blog-filter" data-filter="infrastructure">Infrastructure</button>
+          <button class="blog-filter" data-filter="dev">Dev</button>
+        </div>
+
+        <!-- Articles Grid -->
+        <div class="blog-grid" id="blogGrid">
+
+          <!-- Card 1 — Smart Contract Audit Checklist -->
+          <article class="blog-card" data-category="web3">
+            <span class="blog-card__category">Web3</span>
+            <h3 class="blog-card__title">Smart Contract Audit Checklist</h3>
+            <p class="blog-card__desc">Checklist complete pour l'audit de smart contracts : reentrancy, access control, overflow, oracle manipulation et bonnes pratiques.</p>
+            <div class="blog-card__meta">
+              <span>Mars 2026</span>
+              <span>8 min read</span>
+            </div>
+            <a href="smart-contract-audit-checklist.html" class="blog-card__link" data-i18n="blog.card.read">Lire l'article &rarr;</a>
+          </article>
+
+          <!-- Card 2 — Upgradeable Proxy Deep Dive -->
+          <article class="blog-card" data-category="web3">
+            <span class="blog-card__category">Web3</span>
+            <h3 class="blog-card__title">Upgradeable Proxy Deep Dive</h3>
+            <p class="blog-card__desc">Analyse complete du pattern proxy upgradeable en Solidity : UUPS vs Transparent, risques de collision de storage et patterns d'initialisation.</p>
+            <div class="blog-card__meta">
+              <span>Fev 2026</span>
+              <span>12 min read</span>
+            </div>
+            <a href="proxy-deep-dive.html" class="blog-card__link" data-i18n="blog.card.read">Lire l'article &rarr;</a>
+          </article>
+
+          <!-- Card 3 — JWT Algorithm Confusion -->
+          <article class="blog-card" data-category="security">
+            <span class="blog-card__category">Security</span>
+            <h3 class="blog-card__title">JWT Algorithm Confusion</h3>
+            <p class="blog-card__desc">Exploration de la vulnerabilite algorithm confusion dans les JWT : comment un attaquant peut forger des tokens en exploitant le changement d'algorithme.</p>
+            <div class="blog-card__meta">
+              <span>Fev 2026</span>
+              <span>10 min read</span>
+            </div>
+            <a href="jwt-algorithm-confusion.html" class="blog-card__link" data-i18n="blog.card.read">Lire l'article &rarr;</a>
+          </article>
+
+          <!-- Card 4 — L2 Scaling Architecture -->
+          <article class="blog-card" data-category="web3">
+            <span class="blog-card__category">Web3</span>
+            <h3 class="blog-card__title">L2 Scaling Architecture</h3>
+            <p class="blog-card__desc">Architecture des solutions de scaling Layer 2 : rollups optimistic vs ZK, data availability et compromis de securite.</p>
+            <div class="blog-card__meta">
+              <span>Jan 2026</span>
+              <span>15 min read</span>
+            </div>
+            <a href="l2-scaling-architecture.html" class="blog-card__link" data-i18n="blog.card.read">Lire l'article &rarr;</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__cta reveal">
+        <span class="footer__cta-tag" data-i18n="footer.cta.tag">// prochain projet</span>
+        <h2 class="footer__cta-title" data-i18n="footer.cta.title">Travaillons ensemble</h2>
+        <p class="footer__cta-text" data-i18n="footer.cta.text">Un projet en tete ? Discutons de comment je peux vous aider.</p>
+        <a href="../index.html#contact" class="btn btn--primary" data-i18n="footer.cta.btn">Me contacter</a>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy" data-i18n="footer.copy">&copy; 2026 Alessandro - Pazificateur</p>
+        <p class="footer__made" data-i18n="footer.made">// construit avec passion & cafe</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/i18n-data.js"></script>
+  <script src="../js/sound-engine.js"></script>
+  <script src="../js/command-palette.js"></script>
+  <script src="../js/globals.js"></script>
+  <script src="../js/easter-eggs.js"></script>
+  <script>
+    /* ─── Blog Index Filters ─── */
+    (function() {
+      const filters = document.querySelectorAll('.blog-filter');
+      const cards = document.querySelectorAll('.blog-card');
+
+      filters.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const filter = this.getAttribute('data-filter');
+
+          filters.forEach(function(f) { f.classList.remove('active'); });
+          this.classList.add('active');
+
+          cards.forEach(function(card) {
+            if (filter === 'all' || card.getAttribute('data-category') === filter) {
+              card.classList.remove('hidden');
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+        }.bind(btn));
+      });
+    })();
+  </script>
+</body>
+</html>

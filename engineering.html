@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Engineering Philosophy - Principes d'architecture logicielle, security by design, clean code et threat modeling par Alessandro.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Engineering Philosophy - Alessandro Portfolio">
+    <meta property="og:description" content="Engineering Philosophy - Principes d'architecture logicielle, security by design, clean code et threat modeling par Alessandro.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/engineering.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Engineering Philosophy - Alessandro Portfolio">
+    <meta name="twitter:description" content="Engineering Philosophy - Principes d'architecture logicielle, security by design, clean code et threat modeling par Alessandro.">
+  <meta name="theme-color" content="#050508">
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/engineering.html">
+  <title>Engineering Philosophy - Alessandro Portfolio</title>
+
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/engineering.css">
+  <link rel="preload" href="css/main.css" as="style">
+  <link rel="stylesheet" href="css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <!-- Overlays -->
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+
+  <!-- Animated Background -->
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="engineering.html" class="navbar__dropdown-item active">Engineering</a>
+            <a href="infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#about" class="mobile-menu__link" data-i18n="nav.about">A propos</a>
+    <a href="index.html#skills" class="mobile-menu__link" data-i18n="nav.skills">Skills</a>
+    <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false">
+      <span data-i18n="nav.labs">Labs</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="mobile-menu__labs-submenu">
+      <a href="security-sandbox.html" class="mobile-menu__link">Interactive Sandbox</a>
+      <a href="web3-engineering.html" class="mobile-menu__link">Web3 Engineering</a>
+      <a href="security-lab.html" class="mobile-menu__link">Security Lab</a>
+      <a href="engineering.html" class="mobile-menu__link active">Engineering</a>
+      <a href="infrastructure.html" class="mobile-menu__link">Infrastructure</a>
+      <a href="portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+      <a href="publications.html" class="mobile-menu__link">Publications</a>
+      <a href="changelog.html" class="mobile-menu__link">Changelog</a>
+      <a href="veille.html" class="mobile-menu__link">Veille Techno</a>
+      <a href="ctf.html" class="mobile-menu__link">CTF Writeups</a>
+      <a href="uses.html" class="mobile-menu__link">Uses / Setup</a>
+      <a href="blog/" class="mobile-menu__link">Blog</a>
+      <a href="stats.html" class="mobile-menu__link">Stats</a>
+      <a href="now.html" class="mobile-menu__link">Now</a>
+    </div>
+    <a href="index.html#projects" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+    <a href="index.html#experience" class="mobile-menu__link" data-i18n="nav.experience">Parcours</a>
+    <a href="index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu__controls">
+      <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+      <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="langToggleMobile" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         1. HERO
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content" style="max-width:800px;">
+          <a href="index.html" class="project-hero__back reveal" data-i18n="eng.hero.back">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Retour au portfolio
+          </a>
+
+          <div class="project-hero__badge project-hero__badge--done reveal">
+            <span class="project-hero__badge-dot"></span>
+            <span data-i18n="eng.hero.badge">Philosophie active</span>
+          </div>
+
+          <h1 class="project-hero__title reveal">
+            <svg class="eng-hero-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#engHeroGrad)" stroke-width="2">
+              <defs><linearGradient id="engHeroGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+            </svg>
+            <span data-i18n="eng.hero.title">Engineering Philosophy</span>
+          </h1>
+
+          <p class="project-hero__description reveal" data-i18n="eng.hero.desc">
+            Principes fondamentaux qui guident chaque ligne de code, chaque architecture et chaque decision technique. La securite n'est pas une feature, c'est une fondation.
+          </p>
+
+          <div class="project-hero__meta reveal">
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label">Domaine</span>
+              <span class="project-hero__meta-value" data-i18n="eng.hero.domain">Software Engineering</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label">Approche</span>
+              <span class="project-hero__meta-value" data-i18n="eng.hero.approach">Securite par conception</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label">Methode</span>
+              <span class="project-hero__meta-value" data-i18n="eng.hero.method">STRIDE / AEDSC</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label">Mindset</span>
+              <span class="project-hero__meta-value" data-i18n="eng.hero.mindset">Clean Architecture</span>
+            </div>
+          </div>
+
+          <div class="project-hero__actions reveal">
+            <a href="index.html" class="btn btn--glass">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Portfolio
+            </a>
+            <a href="https://github.com/Pazificateur" target="_blank" class="btn btn--primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="eng-stats reveal">
+            <div class="eng-stat">
+              <div class="eng-stat__number" data-count="6">0</div>
+              <div class="eng-stat__label">Principes STRIDE</div>
+            </div>
+            <div class="eng-stat__divider"></div>
+            <div class="eng-stat">
+              <div class="eng-stat__number" data-count="5">0</div>
+              <div class="eng-stat__label">Principes SOLID</div>
+            </div>
+            <div class="eng-stat__divider"></div>
+            <div class="eng-stat">
+              <div class="eng-stat__number" data-count="4">0</div>
+              <div class="eng-stat__label">Architecture Layers</div>
+            </div>
+            <div class="eng-stat__divider"></div>
+            <div class="eng-stat">
+              <div class="eng-stat__number" data-count="5">0</div>
+              <div class="eng-stat__label">Phases AEDSC</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         2. SECURITY BY DESIGN
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="security-by-design">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="eng.sec.tag">Security_by_Design</span>
+          <h2 class="project-section__title" data-i18n="eng.sec.title">Security by Design</h2>
+        </div>
+
+        <p class="eng-intro-text reveal" data-i18n="eng.sec.intro">
+          La securite ne s'ajoute pas apres coup. Elle se conçoit des la premiere ligne de code, dans chaque couche de l'architecture.
+        </p>
+
+        <div class="eng-principles-grid">
+
+          <div class="eng-principle-card reveal">
+            <div class="eng-principle-card__icon" style="background: rgba(139, 92, 246, 0.1);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 22s-4-2-6-6"/><path d="M12 22s4-2 6-6"/></svg>
+            </div>
+            <h4 data-i18n="eng.sec.depth.title">Defense in Depth</h4>
+            <p data-i18n="eng.sec.depth.desc">Plusieurs couches de securite independantes. Si une couche est compromise, les autres maintiennent la protection. Firewalls, WAF, validation input, ORM parametrise, CSP headers.</p>
+            <div class="eng-principle-card__layers">
+              <span class="eng-layer" style="--layer-color: var(--red);">Network</span>
+              <span class="eng-layer" style="--layer-color: var(--gold);">Application</span>
+              <span class="eng-layer" style="--layer-color: var(--green);">Data</span>
+              <span class="eng-layer" style="--layer-color: var(--cyan);">Physical</span>
+            </div>
+          </div>
+
+          <div class="eng-principle-card reveal">
+            <div class="eng-principle-card__icon" style="background: rgba(245, 158, 11, 0.1);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M9 12v6"/><path d="M13 12v6"/><circle cx="7" cy="7" r="4"/><path d="M5.8 10.4A4 4 0 0 0 4 14v2a2 2 0 0 0 2 2h1"/></svg>
+            </div>
+            <h4 data-i18n="eng.sec.privilege.title">Principe du moindre privilege</h4>
+            <p data-i18n="eng.sec.privilege.desc">Chaque composant n'obtient que les permissions strictement necessaires a son fonctionnement. Roles RBAC granulaires, tokens scopes, filesystem permissions minimales.</p>
+            <div class="eng-principle-card__layers">
+              <span class="eng-layer" style="--layer-color: var(--purple);">RBAC</span>
+              <span class="eng-layer" style="--layer-color: var(--gold);">Scopes</span>
+              <span class="eng-layer" style="--layer-color: var(--cyan);">Perms</span>
+            </div>
+          </div>
+
+          <div class="eng-principle-card reveal">
+            <div class="eng-principle-card__icon" style="background: rgba(239, 68, 68, 0.1);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M3.6 15.4A9 9 0 1 0 20.4 8.6"/><path d="m3 21 1.5-1.5"/></svg>
+            </div>
+            <h4 data-i18n="eng.sec.fail.title">Fail Secure</h4>
+            <p data-i18n="eng.sec.fail.desc">En cas d'erreur, le systeme doit tomber dans un etat securise. Deny by default, pas de stack traces en production, error handling explicite sans fuite d'information.</p>
+            <div class="eng-principle-card__layers">
+              <span class="eng-layer" style="--layer-color: var(--red);">Deny</span>
+              <span class="eng-layer" style="--layer-color: var(--gold);">Log</span>
+              <span class="eng-layer" style="--layer-color: var(--green);">Recover</span>
+            </div>
+          </div>
+
+          <div class="eng-principle-card reveal">
+            <div class="eng-principle-card__icon" style="background: rgba(6, 182, 212, 0.1);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+            </div>
+            <h4 data-i18n="eng.sec.zero.title">Zero Trust Architecture</h4>
+            <p data-i18n="eng.sec.zero.desc">Ne jamais faire confiance implicitement, meme au reseau interne. Authentification mutuelle TLS, verification continue, micro-segmentation reseau.</p>
+            <div class="eng-principle-card__layers">
+              <span class="eng-layer" style="--layer-color: var(--cyan);">mTLS</span>
+              <span class="eng-layer" style="--layer-color: var(--purple);">Verify</span>
+              <span class="eng-layer" style="--layer-color: var(--gold);">Segment</span>
+            </div>
+          </div>
+
+          <div class="eng-principle-card reveal">
+            <div class="eng-principle-card__icon" style="background: rgba(16, 185, 129, 0.1);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6v6H9z"/><path d="M4 9h5"/><path d="M15 9h5"/><path d="M9 4v5"/><path d="M9 15v5"/></svg>
+            </div>
+            <h4 data-i18n="eng.sec.input.title">Input Validation</h4>
+            <p data-i18n="eng.sec.input.desc">Toute donnee externe est hostile par defaut. Validation whitelist, sanitisation, encoding contextuel. Double validation client et serveur obligatoire.</p>
+            <div class="eng-principle-card__layers">
+              <span class="eng-layer" style="--layer-color: var(--green);">Whitelist</span>
+              <span class="eng-layer" style="--layer-color: var(--gold);">Sanitize</span>
+              <span class="eng-layer" style="--layer-color: var(--cyan);">Encode</span>
+            </div>
+          </div>
+
+          <div class="eng-principle-card reveal">
+            <div class="eng-principle-card__icon" style="background: rgba(236, 72, 153, 0.1);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><path d="M12 16v2"/></svg>
+            </div>
+            <h4 data-i18n="eng.sec.crypto.title">Cryptography First</h4>
+            <p data-i18n="eng.sec.crypto.desc">Chiffrement au repos et en transit. Hashing bcrypt/argon2 pour les secrets. Rotation de cles automatisee. Jamais de crypto maison.</p>
+            <div class="eng-principle-card__layers">
+              <span class="eng-layer" style="--layer-color: var(--pink);">AES-256</span>
+              <span class="eng-layer" style="--layer-color: var(--purple);">Argon2</span>
+              <span class="eng-layer" style="--layer-color: var(--cyan);">TLS 1.3</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         3. CLEAN ARCHITECTURE
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="clean-architecture">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="eng.arch.tag">Clean_Architecture</span>
+          <h2 class="project-section__title" data-i18n="eng.arch.title">Clean Architecture</h2>
+        </div>
+
+        <p class="eng-intro-text reveal" data-i18n="eng.arch.intro">
+          Une architecture propre isole la logique metier des details d'implementation. Le code doit etre testable, maintenable et independant des frameworks.
+        </p>
+
+        <!-- Architecture Layers Diagram -->
+        <div class="eng-arch-diagram reveal">
+          <div class="eng-arch-ring eng-arch-ring--outer">
+            <span class="eng-arch-ring__label" data-i18n="eng.arch.layer.present">Presentation Layer</span>
+            <div class="eng-arch-ring eng-arch-ring--infra">
+              <span class="eng-arch-ring__label" data-i18n="eng.arch.layer.infra">Infrastructure Layer</span>
+              <div class="eng-arch-ring eng-arch-ring--app">
+                <span class="eng-arch-ring__label" data-i18n="eng.arch.layer.app">Application Layer</span>
+                <div class="eng-arch-ring eng-arch-ring--domain">
+                  <span class="eng-arch-ring__label" data-i18n="eng.arch.layer.domain">Domain Layer</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer Details -->
+        <div class="eng-layers-grid">
+          <div class="eng-layer-card reveal">
+            <div class="eng-layer-card__indicator" style="background: var(--purple);"></div>
+            <div class="eng-layer-card__content">
+              <h4 data-i18n="eng.arch.layer.domain">Domain Layer</h4>
+              <p data-i18n="eng.arch.layer.domain.desc">Entites et regles metier pures. Zero dependances externes. C'est le coeur de l'application qui ne change jamais pour des raisons techniques.</p>
+              <div class="eng-layer-card__tags">
+                <code>Entities</code>
+                <code>Value Objects</code>
+                <code>Domain Events</code>
+              </div>
+            </div>
+          </div>
+          <div class="eng-layer-card reveal">
+            <div class="eng-layer-card__indicator" style="background: var(--cyan);"></div>
+            <div class="eng-layer-card__content">
+              <h4 data-i18n="eng.arch.layer.app">Application Layer</h4>
+              <p data-i18n="eng.arch.layer.app.desc">Use cases et orchestration. Coordonne les entites du domaine sans connaitre les details d'infrastructure.</p>
+              <div class="eng-layer-card__tags">
+                <code>Use Cases</code>
+                <code>DTOs</code>
+                <code>Ports</code>
+              </div>
+            </div>
+          </div>
+          <div class="eng-layer-card reveal">
+            <div class="eng-layer-card__indicator" style="background: var(--gold);"></div>
+            <div class="eng-layer-card__content">
+              <h4 data-i18n="eng.arch.layer.infra">Infrastructure Layer</h4>
+              <p data-i18n="eng.arch.layer.infra.desc">Base de donnees, APIs externes, filesystem. Les details techniques qui implementent les interfaces definies par les couches internes.</p>
+              <div class="eng-layer-card__tags">
+                <code>Repositories</code>
+                <code>Adapters</code>
+                <code>Gateways</code>
+              </div>
+            </div>
+          </div>
+          <div class="eng-layer-card reveal">
+            <div class="eng-layer-card__indicator" style="background: var(--green);"></div>
+            <div class="eng-layer-card__content">
+              <h4 data-i18n="eng.arch.layer.present">Presentation Layer</h4>
+              <p data-i18n="eng.arch.layer.present.desc">UI, controllers, CLI. Transforme les donnees pour l'affichage. Aucune logique metier ici.</p>
+              <div class="eng-layer-card__tags">
+                <code>Controllers</code>
+                <code>Views</code>
+                <code>Middleware</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOLID Principles -->
+        <div class="eng-solid-section reveal">
+          <h3 class="eng-solid-title" data-i18n="eng.arch.solid.title">SOLID Principles</h3>
+          <div class="eng-solid-grid">
+            <div class="eng-solid-item">
+              <span class="eng-solid-letter">S</span>
+              <p data-i18n="eng.arch.solid.s">Single Responsibility - Une classe, une raison de changer</p>
+            </div>
+            <div class="eng-solid-item">
+              <span class="eng-solid-letter">O</span>
+              <p data-i18n="eng.arch.solid.o">Open/Closed - Ouvert a l'extension, ferme a la modification</p>
+            </div>
+            <div class="eng-solid-item">
+              <span class="eng-solid-letter">L</span>
+              <p data-i18n="eng.arch.solid.l">Liskov Substitution - Les sous-types doivent etre substituables</p>
+            </div>
+            <div class="eng-solid-item">
+              <span class="eng-solid-letter">I</span>
+              <p data-i18n="eng.arch.solid.i">Interface Segregation - Interfaces specifiques plutot que generiques</p>
+            </div>
+            <div class="eng-solid-item">
+              <span class="eng-solid-letter">D</span>
+              <p data-i18n="eng.arch.solid.d">Dependency Inversion - Dependre des abstractions, pas des implementations</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         4. THREAT MODELING
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="threat-modeling">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="eng.threat.tag">Threat_Modeling</span>
+          <h2 class="project-section__title" data-i18n="eng.threat.title">Threat Modeling</h2>
+        </div>
+
+        <p class="eng-intro-text reveal" data-i18n="eng.threat.intro">
+          Identifier et attenuer les menaces avant qu'elles ne deviennent des vulnerabilites. Le threat modeling est integre dans chaque phase de conception.
+        </p>
+
+        <!-- STRIDE Table -->
+        <div class="eng-stride-table reveal">
+          <div class="eng-stride-table__header">
+            <span>Threat</span>
+            <span>Example</span>
+            <span>Mitigation</span>
+          </div>
+
+          <div class="eng-stride-row" data-threat="S">
+            <div class="eng-stride-row__threat">
+              <span class="eng-stride-row__letter" style="--threat-color: var(--red);">S</span>
+              <span class="eng-stride-row__name" data-i18n="eng.threat.stride.s">Spoofing</span>
+            </div>
+            <div class="eng-stride-row__example" data-i18n="eng.threat.stride.s.ex">Usurpation d'identite via token JWT forge</div>
+            <div class="eng-stride-row__mitigation" data-i18n="eng.threat.stride.s.mit">Auth multi-facteurs, signature JWT RS256, certificate pinning</div>
+          </div>
+
+          <div class="eng-stride-row" data-threat="T">
+            <div class="eng-stride-row__threat">
+              <span class="eng-stride-row__letter" style="--threat-color: var(--gold);">T</span>
+              <span class="eng-stride-row__name" data-i18n="eng.threat.stride.t">Tampering</span>
+            </div>
+            <div class="eng-stride-row__example" data-i18n="eng.threat.stride.t.ex">Modification de donnees en transit ou au repos</div>
+            <div class="eng-stride-row__mitigation" data-i18n="eng.threat.stride.t.mit">HMAC sur les payloads, checksums, TLS mutuel, audit logs immutables</div>
+          </div>
+
+          <div class="eng-stride-row" data-threat="R">
+            <div class="eng-stride-row__threat">
+              <span class="eng-stride-row__letter" style="--threat-color: var(--purple);">R</span>
+              <span class="eng-stride-row__name" data-i18n="eng.threat.stride.r">Repudiation</span>
+            </div>
+            <div class="eng-stride-row__example" data-i18n="eng.threat.stride.r.ex">Utilisateur nie avoir effectue une action</div>
+            <div class="eng-stride-row__mitigation" data-i18n="eng.threat.stride.r.mit">Logs signes cryptographiquement, timestamps NTP, audit trail complet</div>
+          </div>
+
+          <div class="eng-stride-row" data-threat="I">
+            <div class="eng-stride-row__threat">
+              <span class="eng-stride-row__letter" style="--threat-color: var(--cyan);">I</span>
+              <span class="eng-stride-row__name" data-i18n="eng.threat.stride.i">Information Disclosure</span>
+            </div>
+            <div class="eng-stride-row__example" data-i18n="eng.threat.stride.i.ex">Fuite de donnees sensibles via error messages ou logs</div>
+            <div class="eng-stride-row__mitigation" data-i18n="eng.threat.stride.i.mit">Error handling generique, PII masking, encryption at rest, access control</div>
+          </div>
+
+          <div class="eng-stride-row" data-threat="D">
+            <div class="eng-stride-row__threat">
+              <span class="eng-stride-row__letter" style="--threat-color: var(--pink);">D</span>
+              <span class="eng-stride-row__name" data-i18n="eng.threat.stride.d">Denial of Service</span>
+            </div>
+            <div class="eng-stride-row__example" data-i18n="eng.threat.stride.d.ex">Surcharge du systeme par requetes massives</div>
+            <div class="eng-stride-row__mitigation" data-i18n="eng.threat.stride.d.mit">Rate limiting, circuit breaker, auto-scaling, CDN, queue-based architecture</div>
+          </div>
+
+          <div class="eng-stride-row" data-threat="E">
+            <div class="eng-stride-row__threat">
+              <span class="eng-stride-row__letter" style="--threat-color: var(--green);">E</span>
+              <span class="eng-stride-row__name" data-i18n="eng.threat.stride.e">Elevation of Privilege</span>
+            </div>
+            <div class="eng-stride-row__example" data-i18n="eng.threat.stride.e.ex">Escalade de droits via IDOR ou injection</div>
+            <div class="eng-stride-row__mitigation" data-i18n="eng.threat.stride.e.mit">RBAC strict, validation server-side, parameterized queries, sandboxing</div>
+          </div>
+        </div>
+
+        <!-- AEDSC Methodology -->
+        <div class="eng-aedsc reveal">
+          <h3 class="eng-aedsc__title" data-i18n="eng.threat.aedsc.title">Methodologie AEDSC</h3>
+          <p class="eng-aedsc__desc" data-i18n="eng.threat.aedsc.desc">Assess (evaluer les assets) - Enumerate (identifier les menaces) - Design (concevoir les controles) - Simulate (tester les attaques) - Correct (appliquer les corrections). Cycle continu integre au SDLC.</p>
+          <div class="eng-aedsc__steps">
+            <div class="eng-aedsc__step">
+              <span class="eng-aedsc__step-letter">A</span>
+              <span class="eng-aedsc__step-label">Assess</span>
+            </div>
+            <svg class="eng-aedsc__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <div class="eng-aedsc__step">
+              <span class="eng-aedsc__step-letter">E</span>
+              <span class="eng-aedsc__step-label">Enumerate</span>
+            </div>
+            <svg class="eng-aedsc__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <div class="eng-aedsc__step">
+              <span class="eng-aedsc__step-letter">D</span>
+              <span class="eng-aedsc__step-label">Design</span>
+            </div>
+            <svg class="eng-aedsc__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <div class="eng-aedsc__step">
+              <span class="eng-aedsc__step-letter">S</span>
+              <span class="eng-aedsc__step-label">Simulate</span>
+            </div>
+            <svg class="eng-aedsc__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <div class="eng-aedsc__step">
+              <span class="eng-aedsc__step-letter">C</span>
+              <span class="eng-aedsc__step-label">Correct</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SVG Diagrams -->
+        <div class="eng-diagrams-grid">
+
+          <!-- Attack Surface Diagram -->
+          <div class="eng-diagram reveal">
+            <h3 class="eng-diagram__title" data-i18n="eng.threat.attack.title">Attack Surface</h3>
+            <div class="eng-diagram__svg-wrap">
+              <svg class="eng-svg-attack" viewBox="0 0 500 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Central node -->
+                <circle cx="250" cy="160" r="45" fill="rgba(139,92,246,0.1)" stroke="#8b5cf6" stroke-width="2" class="svg-draw"/>
+                <text x="250" y="155" text-anchor="middle" fill="#a78bfa" font-family="JetBrains Mono" font-size="11" font-weight="600">Application</text>
+                <text x="250" y="172" text-anchor="middle" fill="#a78bfa" font-family="JetBrains Mono" font-size="9">Core</text>
+
+                <!-- API Entry -->
+                <circle cx="100" cy="60" r="30" fill="rgba(239,68,68,0.08)" stroke="#ef4444" stroke-width="1.5" class="svg-draw"/>
+                <text x="100" y="57" text-anchor="middle" fill="#ef4444" font-family="JetBrains Mono" font-size="9" font-weight="600">REST API</text>
+                <text x="100" y="70" text-anchor="middle" fill="rgba(239,68,68,0.6)" font-family="JetBrains Mono" font-size="7">endpoints</text>
+                <line x1="127" y1="78" x2="215" y2="130" stroke="rgba(239,68,68,0.4)" stroke-width="1.5" stroke-dasharray="4 3" class="svg-draw"/>
+
+                <!-- WebSocket -->
+                <circle cx="400" cy="60" r="30" fill="rgba(245,158,11,0.08)" stroke="#f59e0b" stroke-width="1.5" class="svg-draw"/>
+                <text x="400" y="57" text-anchor="middle" fill="#f59e0b" font-family="JetBrains Mono" font-size="9" font-weight="600">WebSocket</text>
+                <text x="400" y="70" text-anchor="middle" fill="rgba(245,158,11,0.6)" font-family="JetBrains Mono" font-size="7">real-time</text>
+                <line x1="373" y1="78" x2="285" y2="130" stroke="rgba(245,158,11,0.4)" stroke-width="1.5" stroke-dasharray="4 3" class="svg-draw"/>
+
+                <!-- Database -->
+                <circle cx="100" cy="260" r="30" fill="rgba(6,182,212,0.08)" stroke="#06b6d4" stroke-width="1.5" class="svg-draw"/>
+                <text x="100" y="257" text-anchor="middle" fill="#06b6d4" font-family="JetBrains Mono" font-size="9" font-weight="600">Database</text>
+                <text x="100" y="270" text-anchor="middle" fill="rgba(6,182,212,0.6)" font-family="JetBrains Mono" font-size="7">PostgreSQL</text>
+                <line x1="127" y1="242" x2="215" y2="190" stroke="rgba(6,182,212,0.4)" stroke-width="1.5" stroke-dasharray="4 3" class="svg-draw"/>
+
+                <!-- Auth -->
+                <circle cx="400" cy="260" r="30" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.5" class="svg-draw"/>
+                <text x="400" y="257" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-size="9" font-weight="600">Auth</text>
+                <text x="400" y="270" text-anchor="middle" fill="rgba(16,185,129,0.6)" font-family="JetBrains Mono" font-size="7">OAuth/JWT</text>
+                <line x1="373" y1="242" x2="285" y2="190" stroke="rgba(16,185,129,0.4)" stroke-width="1.5" stroke-dasharray="4 3" class="svg-draw"/>
+
+                <!-- External Services -->
+                <circle cx="50" cy="160" r="25" fill="rgba(236,72,153,0.08)" stroke="#ec4899" stroke-width="1.5" class="svg-draw"/>
+                <text x="50" y="157" text-anchor="middle" fill="#ec4899" font-family="JetBrains Mono" font-size="8" font-weight="600">3rd Party</text>
+                <text x="50" y="168" text-anchor="middle" fill="rgba(236,72,153,0.6)" font-family="JetBrains Mono" font-size="7">APIs</text>
+                <line x1="75" y1="160" x2="205" y2="160" stroke="rgba(236,72,153,0.4)" stroke-width="1.5" stroke-dasharray="4 3" class="svg-draw"/>
+
+                <!-- CDN/Static -->
+                <circle cx="450" cy="160" r="25" fill="rgba(59,130,246,0.08)" stroke="#3b82f6" stroke-width="1.5" class="svg-draw"/>
+                <text x="450" y="157" text-anchor="middle" fill="#3b82f6" font-family="JetBrains Mono" font-size="8" font-weight="600">CDN</text>
+                <text x="450" y="168" text-anchor="middle" fill="rgba(59,130,246,0.6)" font-family="JetBrains Mono" font-size="7">Static</text>
+                <line x1="425" y1="160" x2="295" y2="160" stroke="rgba(59,130,246,0.4)" stroke-width="1.5" stroke-dasharray="4 3" class="svg-draw"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Data Flow Diagram -->
+          <div class="eng-diagram reveal">
+            <h3 class="eng-diagram__title" data-i18n="eng.threat.dataflow.title">Data Flow Diagram</h3>
+            <div class="eng-diagram__svg-wrap">
+              <svg class="eng-svg-dataflow" viewBox="0 0 500 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- User -->
+                <rect x="20" y="130" width="80" height="60" rx="8" fill="rgba(139,92,246,0.08)" stroke="#8b5cf6" stroke-width="1.5" class="svg-draw"/>
+                <text x="60" y="157" text-anchor="middle" fill="#a78bfa" font-family="JetBrains Mono" font-size="10" font-weight="600">User</text>
+                <text x="60" y="172" text-anchor="middle" fill="rgba(167,139,250,0.5)" font-family="JetBrains Mono" font-size="7">Browser</text>
+
+                <!-- WAF -->
+                <rect x="140" y="130" width="70" height="60" rx="8" fill="rgba(239,68,68,0.08)" stroke="#ef4444" stroke-width="1.5" class="svg-draw"/>
+                <text x="175" y="157" text-anchor="middle" fill="#ef4444" font-family="JetBrains Mono" font-size="10" font-weight="600">WAF</text>
+                <text x="175" y="172" text-anchor="middle" fill="rgba(239,68,68,0.5)" font-family="JetBrains Mono" font-size="7">Filter</text>
+
+                <!-- API Gateway -->
+                <rect x="250" y="130" width="80" height="60" rx="8" fill="rgba(245,158,11,0.08)" stroke="#f59e0b" stroke-width="1.5" class="svg-draw"/>
+                <text x="290" y="152" text-anchor="middle" fill="#f59e0b" font-family="JetBrains Mono" font-size="9" font-weight="600">API</text>
+                <text x="290" y="167" text-anchor="middle" fill="#f59e0b" font-family="JetBrains Mono" font-size="9" font-weight="600">Gateway</text>
+                <text x="290" y="180" text-anchor="middle" fill="rgba(245,158,11,0.5)" font-family="JetBrains Mono" font-size="7">Rate Limit</text>
+
+                <!-- Service -->
+                <rect x="370" y="130" width="80" height="60" rx="8" fill="rgba(6,182,212,0.08)" stroke="#06b6d4" stroke-width="1.5" class="svg-draw"/>
+                <text x="410" y="157" text-anchor="middle" fill="#06b6d4" font-family="JetBrains Mono" font-size="10" font-weight="600">Service</text>
+                <text x="410" y="172" text-anchor="middle" fill="rgba(6,182,212,0.5)" font-family="JetBrains Mono" font-size="7">Business</text>
+
+                <!-- Arrows -->
+                <line x1="100" y1="160" x2="138" y2="160" stroke="rgba(139,92,246,0.5)" stroke-width="1.5" marker-end="url(#arrowPurple)" class="svg-draw"/>
+                <line x1="210" y1="160" x2="248" y2="160" stroke="rgba(239,68,68,0.5)" stroke-width="1.5" marker-end="url(#arrowRed)" class="svg-draw"/>
+                <line x1="330" y1="160" x2="368" y2="160" stroke="rgba(245,158,11,0.5)" stroke-width="1.5" marker-end="url(#arrowGold)" class="svg-draw"/>
+
+                <!-- DB below service -->
+                <rect x="370" y="240" width="80" height="50" rx="8" fill="rgba(16,185,129,0.08)" stroke="#10b981" stroke-width="1.5" class="svg-draw"/>
+                <text x="410" y="262" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-size="10" font-weight="600">DB</text>
+                <text x="410" y="277" text-anchor="middle" fill="rgba(16,185,129,0.5)" font-family="JetBrains Mono" font-size="7">Encrypted</text>
+                <line x1="410" y1="190" x2="410" y2="238" stroke="rgba(6,182,212,0.5)" stroke-width="1.5" marker-end="url(#arrowCyan)" class="svg-draw"/>
+
+                <!-- Auth above gateway -->
+                <rect x="250" y="40" width="80" height="50" rx="8" fill="rgba(236,72,153,0.08)" stroke="#ec4899" stroke-width="1.5" class="svg-draw"/>
+                <text x="290" y="62" text-anchor="middle" fill="#ec4899" font-family="JetBrains Mono" font-size="10" font-weight="600">Auth</text>
+                <text x="290" y="77" text-anchor="middle" fill="rgba(236,72,153,0.5)" font-family="JetBrains Mono" font-size="7">JWT/OAuth</text>
+                <line x1="290" y1="90" x2="290" y2="128" stroke="rgba(236,72,153,0.5)" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrowPink)" class="svg-draw"/>
+
+                <!-- Flow labels -->
+                <text x="120" y="148" text-anchor="middle" fill="var(--text-muted)" font-family="JetBrains Mono" font-size="7">HTTPS</text>
+                <text x="230" y="148" text-anchor="middle" fill="var(--text-muted)" font-family="JetBrains Mono" font-size="7">Validated</text>
+                <text x="350" y="148" text-anchor="middle" fill="var(--text-muted)" font-family="JetBrains Mono" font-size="7">Authed</text>
+                <text x="425" y="218" text-anchor="start" fill="var(--text-muted)" font-family="JetBrains Mono" font-size="7">TLS</text>
+
+                <!-- Arrow markers -->
+                <defs>
+                  <marker id="arrowPurple" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="rgba(139,92,246,0.5)"/></marker>
+                  <marker id="arrowRed" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="rgba(239,68,68,0.5)"/></marker>
+                  <marker id="arrowGold" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="rgba(245,158,11,0.5)"/></marker>
+                  <marker id="arrowCyan" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="rgba(6,182,212,0.5)"/></marker>
+                  <marker id="arrowPink" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0 0L8 3L0 6Z" fill="rgba(236,72,153,0.5)"/></marker>
+                </defs>
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         5. DOCUMENTATION DISCIPLINE
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="documentation">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="eng.docs.tag">Documentation</span>
+          <h2 class="project-section__title" data-i18n="eng.docs.title">Documentation Discipline</h2>
+        </div>
+
+        <p class="eng-intro-text reveal" data-i18n="eng.docs.intro">
+          Le code documente le comment. La documentation explique le pourquoi. Chaque decision architecturale est tracee et justifiee.
+        </p>
+
+        <div class="eng-docs-grid">
+          <div class="eng-docs-card reveal">
+            <div class="eng-docs-card__icon" style="background: rgba(139, 92, 246, 0.1);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h4 data-i18n="eng.docs.code.title">Code as Documentation</h4>
+            <p data-i18n="eng.docs.code.desc">Noms de variables explicites, fonctions courtes, types stricts. Le code doit se lire comme de la prose technique sans commentaires superflus.</p>
+          </div>
+
+          <div class="eng-docs-card reveal">
+            <div class="eng-docs-card__icon" style="background: rgba(6, 182, 212, 0.1);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <h4 data-i18n="eng.docs.jsdoc.title">JSDoc & Type Annotations</h4>
+            <p data-i18n="eng.docs.jsdoc.desc">Documentation structuree des interfaces publiques. Types de parametres, valeurs de retour, exemples d'utilisation et edge cases documentes.</p>
+          </div>
+
+          <div class="eng-docs-card reveal">
+            <div class="eng-docs-card__icon" style="background: rgba(16, 185, 129, 0.1);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+            <h4 data-i18n="eng.docs.api.title">API Documentation</h4>
+            <p data-i18n="eng.docs.api.desc">OpenAPI/Swagger pour chaque endpoint. Schemas de requete/reponse, codes d'erreur, rate limits et exemples curl documentes automatiquement.</p>
+          </div>
+
+          <div class="eng-docs-card reveal">
+            <div class="eng-docs-card__icon" style="background: rgba(245, 158, 11, 0.1);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <h4 data-i18n="eng.docs.adr.title">Architecture Decision Records</h4>
+            <p data-i18n="eng.docs.adr.desc">Chaque decision architecturale majeure est documentee avec le contexte, les options evaluees, la decision prise et les consequences attendues.</p>
+          </div>
+        </div>
+
+        <!-- JSDoc Example -->
+        <div class="code-block reveal" style="margin-top: 2.5rem;">
+          <div class="code-block__header">
+            <span class="code-block__dot"></span>
+            <span class="code-block__dot"></span>
+            <span class="code-block__dot"></span>
+            <span class="code-block__filename">auth.service.ts</span>
+          </div>
+          <div class="code-block__body">
+            <div class="line"><span class="line-num"> 1</span><span class="comment">/**</span></div>
+            <div class="line"><span class="line-num"> 2</span><span class="comment"> * Authenticates a user against the identity provider.</span></div>
+            <div class="line"><span class="line-num"> 3</span><span class="comment"> * Implements rate limiting (5 attempts/min) and account lockout.</span></div>
+            <div class="line"><span class="line-num"> 4</span><span class="comment"> *</span></div>
+            <div class="line"><span class="line-num"> 5</span><span class="comment"> * @param {AuthCredentials} credentials - User credentials (email + password)</span></div>
+            <div class="line"><span class="line-num"> 6</span><span class="comment"> * @param {RequestContext} ctx - Request metadata for audit logging</span></div>
+            <div class="line"><span class="line-num"> 7</span><span class="comment"> * @returns {Promise&lt;AuthResult&gt;} JWT token pair or error with reason</span></div>
+            <div class="line"><span class="line-num"> 8</span><span class="comment"> * @throws {RateLimitError} When attempt threshold exceeded</span></div>
+            <div class="line"><span class="line-num"> 9</span><span class="comment"> * @throws {AccountLockedError} After 10 consecutive failures</span></div>
+            <div class="line"><span class="line-num">10</span><span class="comment"> */</span></div>
+            <div class="line"><span class="line-num">11</span><span class="keyword">async</span> <span class="func">authenticate</span>(</div>
+            <div class="line"><span class="line-num">12</span>  credentials: <span class="type">AuthCredentials</span>,</div>
+            <div class="line"><span class="line-num">13</span>  ctx: <span class="type">RequestContext</span></div>
+            <div class="line"><span class="line-num">14</span>): <span class="type">Promise</span>&lt;<span class="type">AuthResult</span>&gt; {</div>
+            <div class="line"><span class="line-num">15</span>  <span class="keyword">await</span> <span class="keyword">this</span>.rateLimiter.<span class="func">check</span>(ctx.ip);</div>
+            <div class="line"><span class="line-num">16</span>  <span class="keyword">const</span> user = <span class="keyword">await</span> <span class="keyword">this</span>.userRepo.<span class="func">findByEmail</span>(credentials.email);</div>
+            <div class="line"><span class="line-num">17</span>  <span class="keyword">if</span> (!user || !<span class="keyword">await</span> <span class="func">verifyHash</span>(credentials.password, user.hash)) {</div>
+            <div class="line"><span class="line-num">18</span>    <span class="keyword">await</span> <span class="keyword">this</span>.auditLog.<span class="func">record</span>(<span class="string">'AUTH_FAILURE'</span>, ctx);</div>
+            <div class="line"><span class="line-num">19</span>    <span class="keyword">return</span> <span class="type">AuthResult</span>.<span class="func">failure</span>(<span class="string">'INVALID_CREDENTIALS'</span>);</div>
+            <div class="line"><span class="line-num">20</span>  }</div>
+            <div class="line"><span class="line-num">21</span>  <span class="keyword">return</span> <span class="keyword">this</span>.tokenService.<span class="func">issueTokenPair</span>(user, ctx);</div>
+            <div class="line"><span class="line-num">22</span>}</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         6. REFACTORING MINDSET
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="refactoring">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="eng.refactor.tag">Refactoring</span>
+          <h2 class="project-section__title" data-i18n="eng.refactor.title">Refactoring Mindset</h2>
+        </div>
+
+        <p class="eng-intro-text reveal" data-i18n="eng.refactor.intro">
+          Le refactoring n'est pas une corvee, c'est un investissement. Chaque PR est une opportunite d'ameliorer le code existant.
+        </p>
+
+        <!-- Before/After: Input Validation -->
+        <div class="eng-refactor-pair reveal">
+          <h3 class="eng-refactor-pair__title">Input Validation Refactor</h3>
+          <div class="eng-refactor-pair__grid">
+            <!-- Before -->
+            <div class="code-block vuln-code">
+              <div class="code-block__header">
+                <span class="code-block__dot"></span>
+                <span class="code-block__dot"></span>
+                <span class="code-block__dot"></span>
+                <span class="code-block__filename">handler.js</span>
+                <span class="vuln-label" data-i18n="eng.refactor.before">AVANT</span>
+              </div>
+              <div class="code-block__body">
+                <div class="line"><span class="line-num">1</span><span class="keyword">function</span> <span class="func">createUser</span>(req, res) {</div>
+                <div class="line"><span class="line-num">2</span>  <span class="keyword">const</span> name = req.body.name;</div>
+                <div class="line"><span class="line-num">3</span>  <span class="keyword">const</span> email = req.body.email;</div>
+                <div class="line"><span class="line-num">4</span>  <span class="keyword">const</span> age = req.body.age;</div>
+                <div class="line"><span class="line-num">5</span>  <span class="comment">// No validation, no sanitization</span></div>
+                <div class="line"><span class="line-num">6</span>  db.<span class="func">query</span>(</div>
+                <div class="line"><span class="line-num">7</span>    <span class="string">`INSERT INTO users VALUES</span></div>
+                <div class="line"><span class="line-num">8</span>    <span class="string"> ('${name}', '${email}', ${age})`</span></div>
+                <div class="line"><span class="line-num">9</span>  );</div>
+                <div class="line"><span class="line-num">10</span>  res.<span class="func">json</span>({ success: <span class="keyword">true</span> });</div>
+                <div class="line"><span class="line-num">11</span>}</div>
+              </div>
+            </div>
+            <!-- After -->
+            <div class="code-block fix-code">
+              <div class="code-block__header">
+                <span class="code-block__dot"></span>
+                <span class="code-block__dot"></span>
+                <span class="code-block__dot"></span>
+                <span class="code-block__filename">handler.ts</span>
+                <span class="fix-label" data-i18n="eng.refactor.after">APRES</span>
+              </div>
+              <div class="code-block__body">
+                <div class="line"><span class="line-num"> 1</span><span class="keyword">async</span> <span class="func">createUser</span>(dto: <span class="type">CreateUserDTO</span>) {</div>
+                <div class="line"><span class="line-num"> 2</span>  <span class="keyword">const</span> validated = <span class="keyword">await</span> <span class="func">validate</span>(</div>
+                <div class="line"><span class="line-num"> 3</span>    <span class="type">CreateUserSchema</span>, dto</div>
+                <div class="line"><span class="line-num"> 4</span>  );</div>
+                <div class="line"><span class="line-num"> 5</span>  <span class="keyword">const</span> sanitized = <span class="func">sanitize</span>(validated);</div>
+                <div class="line"><span class="line-num"> 6</span>  <span class="keyword">const</span> user = <span class="keyword">await</span> <span class="keyword">this</span>.repo</div>
+                <div class="line"><span class="line-num"> 7</span>    .<span class="func">create</span>(sanitized);</div>
+                <div class="line"><span class="line-num"> 8</span>  <span class="keyword">await</span> <span class="keyword">this</span>.audit.<span class="func">log</span>(</div>
+                <div class="line"><span class="line-num"> 9</span>    <span class="string">'USER_CREATED'</span>, user.id</div>
+                <div class="line"><span class="line-num">10</span>  );</div>
+                <div class="line"><span class="line-num">11</span>  <span class="keyword">return</span> <span class="type">UserResponse</span>.<span class="func">from</span>(user);</div>
+                <div class="line"><span class="line-num">12</span>}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Before/After: Error Handling -->
+        <div class="eng-refactor-pair reveal">
+          <h3 class="eng-refactor-pair__title">Error Handling Refactor</h3>
+          <div class="eng-refactor-pair__grid">
+            <!-- Before -->
+            <div class="code-block vuln-code">
+              <div class="code-block__header">
+                <span class="code-block__dot"></span>
+                <span class="code-block__dot"></span>
+                <span class="code-block__dot"></span>
+                <span class="code-block__filename">api.js</span>
+                <span class="vuln-label" data-i18n="eng.refactor.before">AVANT</span>
+              </div>
+              <div class="code-block__body">
+                <div class="line"><span class="line-num">1</span><span class="keyword">try</span> {</div>
+                <div class="line"><span class="line-num">2</span>  <span class="keyword">const</span> data = <span class="keyword">await</span> <span class="func">fetchData</span>();</div>
+                <div class="line"><span class="line-num">3</span>  <span class="keyword">return</span> data;</div>
+                <div class="line"><span class="line-num">4</span>} <span class="keyword">catch</span> (e) {</div>
+                <div class="line"><span class="line-num">5</span>  <span class="comment">// Leaks internal details</span></div>
+                <div class="line"><span class="line-num">6</span>  res.<span class="func">status</span>(<span class="type">500</span>).<span class="func">json</span>({</div>
+                <div class="line"><span class="line-num">7</span>    error: e.message,</div>
+                <div class="line"><span class="line-num">8</span>    stack: e.stack</div>
+                <div class="line"><span class="line-num">9</span>  });</div>
+                <div class="line"><span class="line-num">10</span>}</div>
+              </div>
+            </div>
+            <!-- After -->
+            <div class="code-block fix-code">
+              <div class="code-block__header">
+                <span class="code-block__dot"></span>
+                <span class="code-block__dot"></span>
+                <span class="code-block__dot"></span>
+                <span class="code-block__filename">api.ts</span>
+                <span class="fix-label" data-i18n="eng.refactor.after">APRES</span>
+              </div>
+              <div class="code-block__body">
+                <div class="line"><span class="line-num"> 1</span><span class="keyword">try</span> {</div>
+                <div class="line"><span class="line-num"> 2</span>  <span class="keyword">const</span> data = <span class="keyword">await</span> <span class="func">fetchData</span>();</div>
+                <div class="line"><span class="line-num"> 3</span>  <span class="keyword">return</span> <span class="type">Result</span>.<span class="func">ok</span>(data);</div>
+                <div class="line"><span class="line-num"> 4</span>} <span class="keyword">catch</span> (e) {</div>
+                <div class="line"><span class="line-num"> 5</span>  <span class="keyword">const</span> id = <span class="func">correlationId</span>();</div>
+                <div class="line"><span class="line-num"> 6</span>  logger.<span class="func">error</span>({ id, err: e });</div>
+                <div class="line"><span class="line-num"> 7</span>  <span class="keyword">return</span> <span class="type">Result</span>.<span class="func">fail</span>({</div>
+                <div class="line"><span class="line-num"> 8</span>    code: <span class="string">'INTERNAL_ERROR'</span>,</div>
+                <div class="line"><span class="line-num"> 9</span>    ref: id <span class="comment">// safe ref</span></div>
+                <div class="line"><span class="line-num">10</span>  });</div>
+                <div class="line"><span class="line-num">11</span>}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Debt -->
+        <div class="eng-debt reveal">
+          <div class="eng-debt__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <div class="eng-debt__content">
+            <h4 data-i18n="eng.refactor.debt.title">Gestion de la dette technique</h4>
+            <p data-i18n="eng.refactor.debt.desc">La dette technique est innevitable mais doit etre geree activement. Chaque sprint inclut un budget de refactoring. Les code smells sont traques via des metriques automatisees.</p>
+            <div class="eng-debt__metrics">
+              <div class="eng-debt__metric">
+                <span class="eng-debt__metric-value">A</span>
+                <span class="eng-debt__metric-label">Maintainability</span>
+              </div>
+              <div class="eng-debt__metric">
+                <span class="eng-debt__metric-value">&lt;5%</span>
+                <span class="eng-debt__metric-label">Duplication</span>
+              </div>
+              <div class="eng-debt__metric">
+                <span class="eng-debt__metric-value">90%+</span>
+                <span class="eng-debt__metric-label">Coverage</span>
+              </div>
+              <div class="eng-debt__metric">
+                <span class="eng-debt__metric-value">0</span>
+                <span class="eng-debt__metric-label">Critical Smells</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         7. SYSTEM THINKING
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="system-thinking">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="eng.system.tag">System_Thinking</span>
+          <h2 class="project-section__title" data-i18n="eng.system.title">System Thinking</h2>
+        </div>
+
+        <p class="eng-intro-text reveal" data-i18n="eng.system.intro">
+          Un systeme est plus que la somme de ses parties. Comprendre les interactions, les bottlenecks et les points de defaillance est essentiel.
+        </p>
+
+        <div class="eng-system-grid">
+
+          <div class="eng-system-card reveal">
+            <div class="eng-system-card__header">
+              <div class="eng-system-card__icon" style="background: rgba(16, 185, 129, 0.1);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <h4 data-i18n="eng.system.monitor.title">Monitoring & Alerting</h4>
+            </div>
+            <p data-i18n="eng.system.monitor.desc">Metriques temps reel (latency p99, error rate, throughput), dashboards Grafana, alertes PagerDuty sur SLO breach. On ne peut pas fixer ce qu'on ne mesure pas.</p>
+            <div class="eng-system-card__terminal">
+              <div class="eng-system-card__terminal-header">
+                <span class="eng-system-card__terminal-dot" style="background: var(--red);"></span>
+                <span class="eng-system-card__terminal-dot" style="background: var(--gold);"></span>
+                <span class="eng-system-card__terminal-dot" style="background: var(--green);"></span>
+                <span class="eng-system-card__terminal-title">metrics.sh</span>
+              </div>
+              <div class="eng-system-card__terminal-body">
+                <div class="line"><span class="prompt">$</span> <span class="cmd">curl /metrics | head</span></div>
+                <div class="line"><span class="output">http_requests_total{status="200"} 48291</span></div>
+                <div class="line"><span class="output">http_request_duration_p99 0.042s</span></div>
+                <div class="line"><span class="output">error_rate_5m 0.001%</span></div>
+                <div class="line"><span class="success">SLO: 99.95% &mdash; OK</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="eng-system-card reveal">
+            <div class="eng-system-card__header">
+              <div class="eng-system-card__icon" style="background: rgba(139, 92, 246, 0.1);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <h4 data-i18n="eng.system.observe.title">Observability Stack</h4>
+            </div>
+            <p data-i18n="eng.system.observe.desc">Les trois piliers : Logs structures (ELK), Metriques (Prometheus/Grafana), Traces distribuees (Jaeger/OpenTelemetry). Correlation d'evenements cross-service.</p>
+            <div class="eng-system-card__pillars">
+              <div class="eng-pillar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span>Logs</span>
+              </div>
+              <div class="eng-pillar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Metrics</span>
+              </div>
+              <div class="eng-pillar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span>Traces</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="eng-system-card reveal">
+            <div class="eng-system-card__header">
+              <div class="eng-system-card__icon" style="background: rgba(239, 68, 68, 0.1);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <h4 data-i18n="eng.system.chaos.title">Chaos Engineering</h4>
+            </div>
+            <p data-i18n="eng.system.chaos.desc">Injecter des pannes controlees pour valider la resilience. Tester les circuit breakers, les failovers et les strategies de degradation gracieuse.</p>
+            <div class="eng-system-card__tags">
+              <span class="eng-chaos-tag" style="--tag-color: var(--red);">Kill Pod</span>
+              <span class="eng-chaos-tag" style="--tag-color: var(--gold);">Network Delay</span>
+              <span class="eng-chaos-tag" style="--tag-color: var(--purple);">CPU Stress</span>
+              <span class="eng-chaos-tag" style="--tag-color: var(--cyan);">DNS Failure</span>
+            </div>
+          </div>
+
+          <div class="eng-system-card reveal">
+            <div class="eng-system-card__header">
+              <div class="eng-system-card__icon" style="background: rgba(59, 130, 246, 0.1);">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <h4 data-i18n="eng.system.capacity.title">Capacity Planning</h4>
+            </div>
+            <p data-i18n="eng.system.capacity.desc">Modelisation de charge, tests de performance, projections de croissance. Anticiper les bottlenecks avant qu'ils ne deviennent des incidents.</p>
+            <div class="eng-system-card__tags">
+              <span class="eng-chaos-tag" style="--tag-color: var(--blue);">Load Testing</span>
+              <span class="eng-chaos-tag" style="--tag-color: var(--green);">Auto-scaling</span>
+              <span class="eng-chaos-tag" style="--tag-color: var(--gold);">Forecasting</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+    <footer class="footer">
+    <div class="footer__pattern"></div>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="index.html" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made">// construit avec passion & cafe</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n-data.js"></script>
+  <script src="js/sound-engine.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/globals.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="js/engineering.js"></script>
+</body>
+</html>

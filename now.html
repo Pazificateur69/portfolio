@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Now — Ce sur quoi Alessandro travaille en ce moment.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Now - Alessandro Portfolio">
+    <meta property="og:description" content="Now — Ce sur quoi Alessandro travaille en ce moment.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/now.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Now - Alessandro Portfolio">
+    <meta name="twitter:description" content="Now — Ce sur quoi Alessandro travaille en ce moment.">
+  <meta name="theme-color" content="#050508">
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/now.html">
+  <title>Now - Alessandro Portfolio</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/now.css">
+  <link rel="stylesheet" href="css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <!-- Overlays -->
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+
+  <!-- Animated Background -->
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="now.html" class="navbar__dropdown-item active">Now</a>
+          </div>
+        </div>
+        <a href="index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#about" class="mobile-menu__link" data-i18n="nav.about">A propos</a>
+    <a href="index.html#skills" class="mobile-menu__link" data-i18n="nav.skills">Skills</a>
+    <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false">
+      <span data-i18n="nav.labs">Labs</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="mobile-menu__labs-submenu">
+      <a href="security-sandbox.html" class="mobile-menu__link">Interactive Sandbox</a>
+      <a href="web3-engineering.html" class="mobile-menu__link">Web3 Engineering</a>
+      <a href="security-lab.html" class="mobile-menu__link">Security Lab</a>
+      <a href="engineering.html" class="mobile-menu__link">Engineering</a>
+      <a href="infrastructure.html" class="mobile-menu__link">Infrastructure</a>
+      <a href="portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+      <a href="publications.html" class="mobile-menu__link">Publications</a>
+      <a href="changelog.html" class="mobile-menu__link">Changelog</a>
+      <a href="veille.html" class="mobile-menu__link">Veille Techno</a>
+      <a href="ctf.html" class="mobile-menu__link">CTF Writeups</a>
+      <a href="uses.html" class="mobile-menu__link">Uses / Setup</a>
+      <a href="blog/" class="mobile-menu__link">Blog</a>
+      <a href="stats.html" class="mobile-menu__link">Stats</a>
+      <a href="now.html" class="mobile-menu__link active">Now</a>
+    </div>
+    <a href="index.html#projects" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+    <a href="index.html#experience" class="mobile-menu__link" data-i18n="nav.experience">Parcours</a>
+    <a href="index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu__controls">
+      <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="langToggleMobile" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content" style="max-width:800px;">
+          <a href="index.html" class="project-hero__back reveal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span data-i18n="now.hero.back">Retour au portfolio</span>
+          </a>
+          <div class="project-hero__badge project-hero__badge--done reveal">
+            <span class="project-hero__badge-dot"></span>
+            <span data-i18n="now.hero.badge">En ce moment</span>
+          </div>
+          <h1 class="project-hero__title reveal">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#nowGrad)" stroke-width="2">
+              <defs><linearGradient id="nowGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span data-i18n="now.hero.title">Now</span>
+          </h1>
+          <p class="project-hero__description reveal" data-i18n="now.hero.desc">Ce sur quoi je travaille en ce moment, mes projets en cours et mes centres d'intérêt actuels.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Work -->
+    <section class="project-section now-section" id="current">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="now.current.tag">Activités</span>
+          <h2 class="project-section__title" data-i18n="now.current.title">Ce sur quoi je travaille</h2>
+        </div>
+
+        <div class="now-grid">
+
+          <div class="now-card reveal">
+            <div class="now-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <h3 class="now-card__title" data-i18n="now.current.cyber.title">Cybersécurité — 3ème année</h3>
+            <p class="now-card__desc" data-i18n="now.current.cyber.desc">Currently studying cybersecurity, focusing on pentest methodologies, network security, and threat modeling.</p>
+          </div>
+
+          <div class="now-card reveal">
+            <div class="now-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h3 class="now-card__title" data-i18n="now.current.alternance.title">Alternance — Net-Strategy</h3>
+            <p class="now-card__desc" data-i18n="now.current.alternance.desc">Building and maintaining client websites, SEO optimization, and WordPress development.</p>
+          </div>
+
+          <div class="now-card reveal">
+            <div class="now-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <h3 class="now-card__title" data-i18n="now.current.pazent.title">PAZENT Studio</h3>
+            <p class="now-card__desc" data-i18n="now.current.pazent.desc">Running my own digital agency, creating premium web experiences and Web3 solutions.</p>
+          </div>
+
+          <div class="now-card reveal">
+            <div class="now-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            </div>
+            <h3 class="now-card__title" data-i18n="now.current.ctf.title">CTF & Bug Bounty</h3>
+            <p class="now-card__desc" data-i18n="now.current.ctf.desc">Actively solving challenges on HackTheBox and TryHackMe, exploring new exploitation techniques.</p>
+          </div>
+
+          <div class="now-card reveal">
+            <div class="now-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="now-card__title" data-i18n="now.current.web3.title">Web3 Research</h3>
+            <p class="now-card__desc" data-i18n="now.current.web3.desc">Studying DeFi protocols, smart contract security, and Layer 2 scaling solutions.</p>
+          </div>
+
+          <div class="now-card reveal">
+            <div class="now-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <h3 class="now-card__title" data-i18n="now.current.portfolio.title">Portfolio Evolution</h3>
+            <p class="now-card__desc" data-i18n="now.current.portfolio.desc">Continuously improving this portfolio with new features, performance optimizations and content.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Last Updated -->
+    <section class="project-section now-section now-section--update" id="updated">
+      <div class="container">
+        <div class="now-updated reveal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span data-i18n="now.updated">Dernière mise à jour : Mars 2026</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__cta reveal">
+        <span class="footer__cta-tag" data-i18n="footer.cta.tag">// prochain projet</span>
+        <h2 class="footer__cta-title" data-i18n="footer.cta.title">Travaillons ensemble</h2>
+        <p class="footer__cta-text" data-i18n="footer.cta.text">Un projet en tête ? Discutons de comment je peux vous aider.</p>
+        <a href="index.html#contact" class="btn btn--primary" data-i18n="footer.cta.btn">Me contacter</a>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy" data-i18n="footer.copy">&copy; 2026 Alessandro - Pazificateur</p>
+        <p class="footer__made" data-i18n="footer.made">// construit avec passion & café</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n-data.js"></script>
+  <script src="js/sound-engine.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/globals.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="js/now.js"></script>
+</body>
+</html>

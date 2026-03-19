@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PAZENT Studio - Agence digitale independante basee a Lyon. Developpement web/mobile, Web3, cybersecurite et consulting.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PAZENT Studio - Alessandro Portfolio">
+    <meta property="og:description" content="PAZENT Studio - Agence digitale independante basee a Lyon. Developpement web/mobile, Web3, cybersecurite et consulting.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/projects/pazent-studio.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PAZENT Studio - Alessandro Portfolio">
+    <meta name="twitter:description" content="PAZENT Studio - Agence digitale independante basee a Lyon. Developpement web/mobile, Web3, cybersecurite et consulting.">
+  <title>PAZENT Studio - Alessandro Portfolio</title>
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/projects/pazent-studio.html">
+
+  <link rel="manifest" href="../manifest.json">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="preload" href="../css/main.css" as="style">
+  <link rel="stylesheet" href="../css/project.css">
+  <link rel="stylesheet" href="../css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+  <div class="bg-animated"><div class="bg-grid"></div><div class="bg-glow bg-glow--1"></div><div class="bg-glow bg-glow--2"></div></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="../index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="../index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="../security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="../web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="../security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="../engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="../infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="../portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="../publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="../changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="../veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="../ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="../uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="../blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="../stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="../now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="../index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="../index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="../index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb__list">
+        <li class="breadcrumb__item"><a href="../index.html">Accueil</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item"><a href="../index.html#projects">Projets</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">PAZENT Studio</li>
+      </ol>
+    </nav>
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content">
+          <a href="../index.html#projects" class="project-hero__back reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Retour aux projets</a>
+          <div class="project-hero__badge project-hero__badge--done reveal"><span class="project-hero__badge-dot"></span>En ligne</div>
+          <h1 class="project-hero__title reveal">PAZENT Studio</h1>
+          <p class="project-hero__description reveal">PAZENT Studio est mon agence digitale independante basee a Lyon. Le site vitrine met en avant mes services : developpement web/mobile, solutions Web3, cybersecurite et consulting. Construit avec Next.js et Tailwind, il reflete l'excellence digitale que je propose a mes clients.</p>
+          <div class="project-hero__meta reveal">
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Annee</span><span class="project-hero__meta-value">2023-2024</span></div>
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Role</span><span class="project-hero__meta-value">Fondateur & Lead Dev</span></div>
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Type</span><span class="project-hero__meta-value">Agence digitale</span></div>
+          </div>
+          <div class="project-hero__actions reveal">
+            <a href="https://pazent.fr" target="_blank" rel="noopener" class="btn btn--primary">Visiter le site <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Stack technique</span>
+          <h2 class="project-section__title">Technologies utilisees</h2>
+        </div>
+        <div class="stack-grid">
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-purple);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><div><div class="stack-card__name">Next.js</div><div class="stack-card__role">Framework React SSR</div></div></div>
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-blue);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg></div><div><div class="stack-card__name">React</div><div class="stack-card__role">Composants UI</div></div></div>
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-cyan);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div><div class="stack-card__name">Tailwind CSS</div><div class="stack-card__role">Utility-first CSS</div></div></div>
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-green);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg></div><div><div class="stack-card__name">Supabase</div><div class="stack-card__role">Backend</div></div></div>
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-gold);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><div class="stack-card__name">Vercel</div><div class="stack-card__role">Deploiement</div></div></div>
+          <div class="stack-card reveal"><div class="stack-card__icon" style="background:var(--gradient-pink);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div><div><div class="stack-card__name">Figma</div><div class="stack-card__role">Design system</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section" style="background:var(--bg-secondary);">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Fonctionnalites</span>
+          <h2 class="project-section__title">Points cles</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div><div class="feature-item__title">Design premium</div><div class="feature-item__desc">Glassmorphism et animations fluides</div></div></div>
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div><div class="feature-item__title">Responsive design</div><div class="feature-item__desc">Adapte a tous les ecrans</div></div></div>
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><div><div class="feature-item__title">SEO optimise</div><div class="feature-item__desc">Meta tags, sitemap, structured data</div></div></div>
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="feature-item__title">Formulaire de contact</div><div class="feature-item__desc">Validation et envoi securise</div></div></div>
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div><div><div class="feature-item__title">Portfolio interactif</div><div class="feature-item__desc">Showcase des projets clients</div></div></div>
+          <div class="feature-item reveal"><div class="feature-item__icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><div><div class="feature-item__title">Performance</div><div class="feature-item__desc">Score Lighthouse > 90</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Approche</span>
+          <h2 class="project-section__title">Processus de developpement</h2>
+        </div>
+        <div class="process-steps">
+          <div class="process-step reveal"><h3 class="process-step__title">Branding & Design</h3><p class="process-step__desc">Identite visuelle, palette, typographie, maquettes Figma</p></div>
+          <div class="process-step reveal"><h3 class="process-step__title">Developpement Next.js</h3><p class="process-step__desc">SSR, routing, composants reutilisables</p></div>
+          <div class="process-step reveal"><h3 class="process-step__title">Integration Backend</h3><p class="process-step__desc">API Supabase, formulaire contact, analytics</p></div>
+          <div class="process-step reveal"><h3 class="process-step__title">Deploiement & SEO</h3><p class="process-step__desc">Vercel, optimisation images, meta tags</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-section" style="background:var(--bg-secondary);">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Code</span>
+          <h2 class="project-section__title">Apercu technique</h2>
+        </div>
+        <div class="code-block reveal">
+          <div class="code-block__header"><span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__dot"></span><span class="code-block__filename">next.config.js</span></div>
+          <div class="code-block__body">
+            <div class="line"><span class="line-num">1</span><span class="comment">// next.config.js - Configuration PAZENT Studio</span></div>
+            <div class="line"><span class="line-num">2</span><span class="keyword">const</span> nextConfig = {</div>
+            <div class="line"><span class="line-num">3</span>  reactStrictMode: <span class="value">true</span>,</div>
+            <div class="line"><span class="line-num">4</span>  images: {</div>
+            <div class="line"><span class="line-num">5</span>    domains: [<span class="string">'pazent.fr'</span>, <span class="string">'cdn.pazent.fr'</span>],</div>
+            <div class="line"><span class="line-num">6</span>    formats: [<span class="string">'image/avif'</span>, <span class="string">'image/webp'</span>],</div>
+            <div class="line"><span class="line-num">7</span>  },</div>
+            <div class="line"><span class="line-num">8</span>  <span class="keyword">async</span> <span class="function">redirects</span>() {</div>
+            <div class="line"><span class="line-num">9</span>    <span class="keyword">return</span> [</div>
+            <div class="line"><span class="line-num">10</span>      {</div>
+            <div class="line"><span class="line-num">11</span>        source: <span class="string">'/home'</span>,</div>
+            <div class="line"><span class="line-num">12</span>        destination: <span class="string">'/'</span>,</div>
+            <div class="line"><span class="line-num">13</span>        permanent: <span class="value">true</span>,</div>
+            <div class="line"><span class="line-num">14</span>      },</div>
+            <div class="line"><span class="line-num">15</span>    ];</div>
+            <div class="line"><span class="line-num">16</span>  },</div>
+            <div class="line"><span class="line-num">17</span>  <span class="keyword">async</span> <span class="function">headers</span>() {</div>
+            <div class="line"><span class="line-num">18</span>    <span class="keyword">return</span> [</div>
+            <div class="line"><span class="line-num">19</span>      {</div>
+            <div class="line"><span class="line-num">20</span>        source: <span class="string">'/(.*)'</span>,</div>
+            <div class="line"><span class="line-num">21</span>        headers: [</div>
+            <div class="line"><span class="line-num">22</span>          { key: <span class="string">'X-Frame-Options'</span>, value: <span class="string">'DENY'</span> },</div>
+            <div class="line"><span class="line-num">23</span>          { key: <span class="string">'X-Content-Type-Options'</span>, value: <span class="string">'nosniff'</span> },</div>
+            <div class="line"><span class="line-num">24</span>        ],</div>
+            <div class="line"><span class="line-num">25</span>      },</div>
+            <div class="line"><span class="line-num">26</span>    ];</div>
+            <div class="line"><span class="line-num">27</span>  },</div>
+            <div class="line"><span class="line-num">28</span>};</div>
+            <div class="line"><span class="line-num">29</span></div>
+            <div class="line"><span class="line-num">30</span>module.exports = nextConfig;</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <nav class="project-nav">
+        <a href="crm.html" class="project-nav__link project-nav__link--prev">
+          <svg class="project-nav__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <div><span class="project-nav__label">Precedent</span><span class="project-nav__name">CRM</span></div>
+        </a>
+        <a href="creation-envies.html" class="project-nav__link project-nav__link--next">
+          <div><span class="project-nav__label">Suivant</span><span class="project-nav__name">Creation de vos envies</span></div>
+          <svg class="project-nav__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </nav>
+    </div>
+  </main>
+
+    <footer class="footer">
+    <div class="footer__pattern"></div>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="index.html" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made">// construit avec passion & cafe</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/i18n-data.js"></script>
+  <script src="../js/sound-engine.js"></script>
+  <script src="../js/command-palette.js"></script>
+  <script src="../js/globals.js"></script>
+  <script src="../js/easter-eggs.js"></script>
+  <script src="../js/project.js"></script>
+</body>
+</html>

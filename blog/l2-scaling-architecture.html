@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Solutions de scaling Layer 2 : Optimistic vs ZK rollups, Arbitrum architecture, mécaniques du séquenceur.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="L2 Scaling Architecture - Alessandro Blog">
+    <meta property="og:description" content="Solutions de scaling Layer 2 : Optimistic vs ZK rollups, Arbitrum architecture, mécaniques du séquenceur.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/blog/l2-scaling-architecture.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="L2 Scaling Architecture - Alessandro Blog">
+    <meta name="twitter:description" content="Solutions de scaling Layer 2 : Optimistic vs ZK rollups, Arbitrum architecture, mécaniques du séquenceur.">
+  <meta name="theme-color" content="#050508">
+  <title>L2 Scaling Architecture - Alessandro Blog</title>
+  <link rel="manifest" href="../manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/project.css">
+  <link rel="stylesheet" href="../css/blog.css">
+  <link rel="stylesheet" href="../css/command-palette.css">
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/blog/l2-scaling-architecture.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "L2 Scaling Architecture Explained",
+    "description": "Solutions de scaling Layer 2 : Optimistic vs ZK rollups, Arbitrum architecture, mécaniques du séquenceur.",
+    "author": {"@type": "Person", "name": "Alessandro", "url": "https://pazificateur.github.io/portfolio/"},
+    "datePublished": "2026-01-20",
+    "publisher": {"@type": "Person", "name": "Alessandro"},
+    "url": "https://pazificateur.github.io/portfolio/blog/l2-scaling-architecture.html"
+  }
+  </script>
+</head>
+<body>
+  <div class="custom-cursor" id="customCursor"><div class="custom-cursor__dot" id="cursorDot"></div><div class="custom-cursor__circle" id="cursorCircle"></div></div>
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+  <div class="scanline-overlay"></div><div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+  <div class="bg-animated"><div class="bg-grid"></div><div class="bg-glow bg-glow--1"></div><div class="bg-glow bg-glow--2"></div></div>
+  <div class="blog-progress" id="blogProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="../index.html" class="navbar__logo"><span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span><span class="navbar__logo-tag">v3.3</span></a>
+      <div class="navbar__links">
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="../index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false"><span data-i18n="nav.labs">Labs</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="../security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="../web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="../security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="../engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="../infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="../portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="../publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="../changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="../veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="../ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="../uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="." class="navbar__dropdown-item">Blog</a>
+            <a href="../stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="../now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="../index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="../index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html#about" class="mobile-menu__link" data-i18n="nav.about">A propos</a><a href="../index.html#skills" class="mobile-menu__link" data-i18n="nav.skills">Skills</a>
+    <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false"><span data-i18n="nav.labs">Labs</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+    <div class="mobile-menu__labs-submenu">
+      <a href="../security-sandbox.html" class="mobile-menu__link">Interactive Sandbox</a>
+      <a href="../web3-engineering.html" class="mobile-menu__link">Web3 Engineering</a>
+      <a href="../security-lab.html" class="mobile-menu__link">Security Lab</a>
+      <a href="../engineering.html" class="mobile-menu__link">Engineering</a>
+      <a href="../infrastructure.html" class="mobile-menu__link">Infrastructure</a>
+      <a href="../portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+      <a href="../publications.html" class="mobile-menu__link">Publications</a>
+      <a href="../changelog.html" class="mobile-menu__link">Changelog</a>
+      <a href="../veille.html" class="mobile-menu__link">Veille Techno</a>
+      <a href="../ctf.html" class="mobile-menu__link">CTF Writeups</a>
+      <a href="../uses.html" class="mobile-menu__link">Uses / Setup</a>
+      <a href="." class="mobile-menu__link">Blog</a>
+      <a href="../stats.html" class="mobile-menu__link">Stats</a>
+      <a href="../now.html" class="mobile-menu__link">Now</a>
+    </div>
+    <a href="../index.html#projects" class="mobile-menu__link" data-i18n="nav.projects">Projets</a><a href="../index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu__controls">
+      <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+      <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+      <button class="navbar__control-btn" id="langToggleMobile" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb__list">
+        <li class="breadcrumb__item"><a href="../index.html">Accueil</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item"><a href=".">Blog</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">L2 Scaling Architecture</li>
+      </ol>
+    </nav>
+    <section class="project-hero"><div class="container"><div class="project-hero__content" style="max-width:800px;"><a href="../publications.html" class="project-hero__back reveal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg><span>Retour aux publications</span></a></div></div></section>
+
+    <section class="project-section">
+      <div class="container">
+        <div class="blog-article">
+          <div class="blog-article__header reveal">
+            <div class="blog-article__tags">
+              <span class="pub-tag pub-tag--web3">Web3</span>
+              <span class="pub-tag pub-tag--web3">Layer 2</span>
+              <span class="pub-tag pub-tag--web3">Scaling</span>
+            </div>
+            <div class="blog-article__meta"><span>~12 min de lecture</span><span>Mars 2026</span></div>
+            <h1 class="blog-article__title">L2 Scaling Architecture Explained</h1>
+            <p class="blog-article__excerpt">Solutions de scaling Layer 2, Optimistic vs ZK rollups, disponibilité des données, architecture Arbitrum, mécaniques du séquenceur et preuves de fraude.</p>
+          </div>
+
+          <div class="blog-toc reveal"><div class="blog-toc__title">Table des matières</div><ul class="blog-toc__list" id="tocList"></ul></div>
+
+          <div class="blog-content">
+            <h2>The Scalability Trilemma</h2>
+            <p>Ethereum's base layer (L1) is limited to ~15 transactions per second. This constraint, known as the scalability trilemma, forces a choice between decentralization, security, and throughput. Layer 2 solutions bypass this by executing transactions off-chain while inheriting L1's security guarantees.</p>
+
+            <h2>Rollup Fundamentals</h2>
+            <p>Rollups bundle hundreds of transactions into a single L1 transaction. They post transaction data to L1 (for data availability) but execute computation off-chain. This achieves 10-100x throughput improvement while maintaining L1 security.</p>
+            <p>Two types dominate the landscape:</p>
+            <ul>
+              <li><strong>Optimistic Rollups</strong> (Arbitrum, Optimism): assume transactions are valid, allow fraud proofs</li>
+              <li><strong>ZK Rollups</strong> (zkSync, StarkNet): generate mathematical validity proofs for every batch</li>
+            </ul>
+
+            <h2>Optimistic Rollups</h2>
+            <p>Optimistic rollups assume all batched transactions are valid by default. If a validator detects fraud, they can submit a <strong>fraud proof</strong> within a challenge period (typically 7 days). This optimistic assumption means fast finality for users, but withdrawals to L1 require waiting for the challenge window.</p>
+
+            <h2>ZK Rollups</h2>
+            <p>Zero-knowledge rollups generate a cryptographic proof (SNARK or STARK) for every batch of transactions. The L1 contract only needs to verify this proof, which is constant-size regardless of how many transactions are batched. This provides instant finality once the proof is verified on L1.</p>
+            <p>The tradeoff: generating ZK proofs is computationally expensive and complex. General-purpose ZK-EVMs (achieving full EVM compatibility) are still maturing.</p>
+
+            <h2>Arbitrum Architecture Deep Dive</h2>
+            <p>Arbitrum is the leading optimistic rollup by TVL. Its architecture consists of:</p>
+            <ul>
+              <li><strong>Sequencer</strong>: orders transactions and posts batches to L1</li>
+              <li><strong>Validator nodes</strong>: verify state transitions and can challenge fraud</li>
+              <li><strong>Outbox</strong>: processes L2→L1 messages after the challenge period</li>
+              <li><strong>Bridge contracts</strong>: handle asset deposits and withdrawals</li>
+            </ul>
+
+            <h2>Data Availability</h2>
+            <p>Data availability (DA) is the guarantee that transaction data is accessible for anyone to verify. Rollups post calldata to L1 (expensive) or use <strong>EIP-4844 blobs</strong> (cheaper, temporary). Future solutions include <strong>DankSharding</strong> for massive DA bandwidth.</p>
+
+            <h2>Comparing L2 Solutions</h2>
+            <p>Each L2 approach has distinct tradeoffs in finality time, cost, EVM compatibility, and maturity. Optimistic rollups currently lead in TVL and developer adoption, while ZK rollups promise superior long-term scalability as proof generation becomes more efficient.</p>
+          </div>
+
+          <div class="blog-nav">
+            <a href="jwt-algorithm-confusion.html" class="blog-nav__item"><span class="blog-nav__label">&larr; Article précédent</span><span class="blog-nav__title">JWT Algorithm Confusion</span></a>
+            <a href="smart-contract-audit-checklist.html" class="blog-nav__item blog-nav__item--next"><span class="blog-nav__label">Article suivant &rarr;</span><span class="blog-nav__title">Smart Contract Audit Checklist</span></a>
+          </div>
+
+          <div class="blog-share reveal">
+            <span class="blog-share__label">Partager cet article</span>
+            <div class="blog-share__buttons">
+              <a href="https://twitter.com/intent/tweet?text=L2%20Scaling%20Architecture%20Explained&url=https://pazificateur.github.io/portfolio/blog/l2-scaling-architecture.html" target="_blank" rel="noopener" class="blog-share__btn blog-share__btn--twitter" title="Partager sur X/Twitter">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://pazificateur.github.io/portfolio/blog/l2-scaling-architecture.html" target="_blank" rel="noopener" class="blog-share__btn blog-share__btn--linkedin" title="Partager sur LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+              <button class="blog-share__btn blog-share__btn--copy" title="Copier le lien" onclick="navigator.clipboard.writeText(window.location.href);this.innerHTML='<svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M20 6L9 17l-5-5&quot;/></svg>';setTimeout(function(){document.querySelector('.blog-share__btn--copy').innerHTML='<svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot;><path d=&quot;M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71&quot;/><path d=&quot;M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71&quot;/></svg>'},2000)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="blog-comments reveal">
+            <h3 class="blog-comments__title">Commentaires</h3>
+            <p class="blog-comments__note">Les commentaires utilisent GitHub Discussions via <a href="https://giscus.app" target="_blank" rel="noopener">Giscus</a>. Connectez-vous avec GitHub pour participer.</p>
+            <div class="blog-comments__placeholder">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--text-secondary)" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <p>Activez Giscus sur votre repo GitHub pour afficher les commentaires.</p>
+            </div>
+          </div>
+
+          <div class="blog-related reveal">
+            <h3 class="blog-related__title">Articles similaires</h3>
+            <div class="blog-related__grid">
+              <a href="proxy-deep-dive.html" class="blog-related__card">
+                <span class="blog-related__category">Web3</span>
+                <span class="blog-related__name">Upgradeable Proxy Deep Dive</span>
+              </a>
+              <a href="smart-contract-audit-checklist.html" class="blog-related__card">
+                <span class="blog-related__category">Web3</span>
+                <span class="blog-related__name">Smart Contract Audit Checklist</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="container"><div class="footer__bottom"><p class="footer__copy" data-i18n="footer.copy">&copy; 2026 Alessandro - Pazificateur</p><p class="footer__made" data-i18n="footer.made">// construit avec passion & café</p></div></div></footer>
+  <script src="../js/i18n-data.js"></script>
+  <script src="../js/sound-engine.js"></script>
+  <script src="../js/command-palette.js"></script>
+  <script src="../js/globals.js"></script>
+  <script src="../js/easter-eggs.js"></script>
+  <script src="../js/blog.js"></script>
+</body>
+</html>

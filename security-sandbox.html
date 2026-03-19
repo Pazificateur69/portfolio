@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Interactive Security Playground - Démo live des vulnérabilités web et Web3 par Alessandro. XSS, CSRF, JWT, Reentrancy.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Security Sandbox - Alessandro Portfolio">
+    <meta property="og:description" content="Interactive Security Playground - Démo live des vulnérabilités web et Web3 par Alessandro. XSS, CSRF, JWT, Reentrancy.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/security-sandbox.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Security Sandbox - Alessandro Portfolio">
+    <meta name="twitter:description" content="Interactive Security Playground - Démo live des vulnérabilités web et Web3 par Alessandro. XSS, CSRF, JWT, Reentrancy.">
+    <meta name="theme-color" content="#050508">
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/security-sandbox.html">
+    <title>Security Sandbox - Alessandro Portfolio</title>
+
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preload" href="css/main.css" as="style">
+    <link rel="stylesheet" href="css/project.css">
+    <link rel="stylesheet" href="css/security-sandbox.css">
+  <link rel="stylesheet" href="css/command-palette.css">
+</head>
+
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+    <!-- Overlays -->
+    <div class="scanline-overlay"></div>
+    <div class="noise-overlay"></div>
+    <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+
+    <!-- Loader -->
+    <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+
+    <!-- Animated Background -->
+    <div class="bg-animated">
+        <div class="bg-grid"></div>
+        <div class="bg-glow bg-glow--1"></div>
+        <div class="bg-glow bg-glow--2"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar__inner">
+            <a href="index.html" class="navbar__logo">
+                <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span
+                    class="navbar__logo-bracket">}</span>
+                <span class="navbar__logo-tag">v3.3</span>
+            </a>
+            <div class="navbar__links">
+                <a href="index.html#about" class="navbar__link">A propos</a>
+                <a href="resume.html" class="navbar__link">CV Technique</a>
+                <div class="navbar__dropdown" id="navDropdownLabs">
+                    <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                        <span>Labs</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="m6 9 6 6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="navbar__dropdown-menu" role="menu">
+                      <a href="security-sandbox.html" class="navbar__dropdown-item active">Interactive Sandbox</a>
+                      <a href="web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+                      <a href="security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+                      <a href="engineering.html" class="navbar__dropdown-item">Engineering</a>
+                      <a href="infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+                      <a href="portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+                      <a href="publications.html" class="navbar__dropdown-item">Publications</a>
+                      <a href="changelog.html" class="navbar__dropdown-item">Changelog</a>
+                      <a href="veille.html" class="navbar__dropdown-item">Veille Techno</a>
+                      <a href="ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+                      <a href="uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+                      <a href="blog/" class="navbar__dropdown-item">Blog</a>
+                      <a href="stats.html" class="navbar__dropdown-item">Stats</a>
+                      <a href="now.html" class="navbar__dropdown-item">Now</a>
+                    </div>
+                </div>
+                <a href="index.html#projects" class="navbar__link">Projets</a>
+            </div>
+            <div class="navbar__controls">
+                <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+                <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                </button>
+            </div>
+            <button class="navbar__toggle" id="navToggle"
+                aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#about" class="mobile-menu__link">A propos</a>
+        <a href="resume.html" class="mobile-menu__link">CV Technique</a>
+        <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false">
+            <span>Labs</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="m6 9 6 6 6-6" />
+            </svg>
+        </button>
+        <div class="mobile-menu__labs-submenu">
+          <a href="security-sandbox.html" class="mobile-menu__link active">Interactive Sandbox</a>
+          <a href="web3-engineering.html" class="mobile-menu__link">Web3 Engineering</a>
+          <a href="security-lab.html" class="mobile-menu__link">Security Lab</a>
+          <a href="engineering.html" class="mobile-menu__link">Engineering</a>
+          <a href="infrastructure.html" class="mobile-menu__link">Infrastructure</a>
+          <a href="portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+          <a href="publications.html" class="mobile-menu__link">Publications</a>
+          <a href="changelog.html" class="mobile-menu__link">Changelog</a>
+          <a href="veille.html" class="mobile-menu__link">Veille Techno</a>
+          <a href="ctf.html" class="mobile-menu__link">CTF Writeups</a>
+          <a href="uses.html" class="mobile-menu__link">Uses / Setup</a>
+          <a href="blog/" class="mobile-menu__link">Blog</a>
+          <a href="stats.html" class="mobile-menu__link">Stats</a>
+          <a href="now.html" class="mobile-menu__link">Now</a>
+        </div>
+        <a href="index.html#projects" class="mobile-menu__link">Projets</a>
+        <div class="mobile-menu__controls">
+            <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+            <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO -->
+        <section class="project-hero">
+            <div class="container">
+                <div class="project-hero__content" style="max-width:800px;">
+                    <a href="index.html" class="project-hero__back reveal">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                        </svg>
+                        Retour au portfolio
+                    </a>
+
+                    <div class="project-hero__badge project-hero__badge--done reveal">
+                        <span class="project-hero__badge-dot"
+                            style="background:var(--red);box-shadow:0 0 8px var(--red);"></span>
+                        Live Demo Zone
+                    </div>
+
+                    <h1 class="project-hero__title reveal">
+                        <svg class="seclab-hero-icon" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                            stroke="url(#heroGrad)" stroke-width="2">
+                            <defs>
+                                <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ef4444" />
+                                    <stop offset="100%" stop-color="#f59e0b" />
+                                </linearGradient>
+                            </defs>
+                            <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+                            <line x1="12" y1="22" x2="12" y2="15.5" />
+                            <polyline points="22 8.5 12 15.5 2 8.5" />
+                            <polyline points="2 15.5 12 8.5 22 15.5" />
+                            <line x1="12" y1="2" x2="12" y2="8.5" />
+                        </svg>
+                        Interactive Security Playground
+                    </h1>
+
+                    <p class="project-hero__description reveal">
+                        Bienvenue dans le bac à sable de sécurité. Ici, vous pouvez expérimenter des vulnérabilités
+                        célèbres de manière sécurisée et visuelle directement dans votre navigateur.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SANDBOX CONTROLS -->
+        <section class="section sandbox-section" id="sandbox">
+            <div class="container">
+                <div class="sandbox-tabs reveal">
+                    <button class="sandbox-tab active" data-target="xss-demo">
+                        <span class="sandbox-tab__icon">{'<>'_{}}</span> Cross-Site Scripting (XSS)
+                    </button>
+                    <button class="sandbox-tab" data-target="csrf-demo">
+                        <span class="sandbox-tab__icon">{}</span> CSRF Attack
+                    </button>
+                    <button class="sandbox-tab" data-target="jwt-demo">
+                        <span class="sandbox-tab__icon">#</span> JWT Manipulation
+                    </button>
+                    <button class="sandbox-tab" data-target="reentrancy-demo">
+                        <span class="sandbox-tab__icon">ETH</span> Smart Contract Reentrancy
+                    </button>
+                </div>
+
+                <div class="sandbox-content reveal">
+
+                    <!-- XSS DEMO -->
+                    <div class="sandbox-panel active" id="xss-demo">
+                        <div class="sandbox-panel__header">
+                            <h3>Vulnerability: Reflected XSS</h3>
+                            <p>Injectez un script JavaScript dans le champ de recherche pour l'exécuter dans le contexte
+                                de la page vulnérable (simulée).</p>
+                        </div>
+                        <div class="sandbox-grid">
+                            <div class="sandbox-attacker">
+                                <div class="sandbox-box-header">Attacker Input <span>(You)</span></div>
+                                <div class="sandbox-box-body">
+                                    <p class="hint">Essayez ce payload :
+                                        <code>&lt;script&gt;alert('Hacked by Alessandro')&lt;/script&gt;</code></p>
+                                    <div class="input-group">
+                                        <input type="text" id="xss-input" placeholder="Search..." autocomplete="off"
+                                            value="<h1 style='color:red'>Test</h1>">
+                                        <button class="btn btn--primary" id="btn-xss-attack">Execute Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sandbox-victim">
+                                <div class="sandbox-box-header target-header">Vulnerable Page <span>(Victim)</span>
+                                </div>
+                                <div class="sandbox-box-body victim-view">
+                                    <p>Results for query:</p>
+                                    <div class="xss-result-box" id="xss-output"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sandbox-explanation">
+                            <h4>🛡️ Comment le corriger ?</h4>
+                            <p>Il faut échapper les caractères spéciaux avant d'insérer l'input utilisateur dans le DOM,
+                                par exemple avec <code>textContent</code> au lieu de <code>innerHTML</code> ou via une
+                                librairie de sanitization.</p>
+                            <button class="btn btn--glass btn-small" id="btn-xss-secure">Activer la protection (Escape
+                                HTML)</button>
+                        </div>
+                    </div>
+
+                    <!-- CSRF DEMO -->
+                    <div class="sandbox-panel" id="csrf-demo">
+                        <div class="sandbox-panel__header">
+                            <h3>Vulnerability: Cross-Site Request Forgery (CSRF)</h3>
+                            <p>Cliquez sur un lien malveillant en tant qu'utilisateur "connecté" et observez l'action
+                                non-désirée exécutée à votre insu.</p>
+                        </div>
+                        <div class="sandbox-grid">
+                            <div class="sandbox-victim">
+                                <div class="sandbox-box-header target-header">Banque App <span>(Logged in!)</span></div>
+                                <div class="sandbox-box-body bank-view">
+                                    <div class="bank-balance">
+                                        <span>Solde actuel</span>
+                                        <strong id="bank-balance">10 000 €</strong>
+                                    </div>
+                                    <div class="bank-log" id="bank-log">
+                                        <div>[Sys] Connecté en tant que User.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="sandbox-attacker">
+                                <div class="sandbox-box-header malicious-header">Malicious Site <span>(Attacker)</span>
+                                </div>
+                                <div class="sandbox-box-body malicious-view">
+                                    <p>Regardez ce chaton tout mignon !</p>
+                                    <button class="btn btn--danger btn-full" id="btn-csrf-attack">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path
+                                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                        </svg>
+                                        Cliquez ici pour gagner un iPhone (Faux bouton)
+                                    </button>
+                                    <div class="csrf-payload hidden" id="csrf-payload">
+                                        <code>Envoi caché : POST /api/transfer { amount: 1000, to: 'Hacker' }</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sandbox-explanation">
+                            <h4>🛡️ Comment le corriger ?</h4>
+                            <p>Un jeton <strong>Anti-CSRF (CSRF Token)</strong> doit être généré aléatoirement pour
+                                chaque session et inclus obligatoirement dans les requêtes de changement d'état (POST,
+                                PUT, DELETE).</p>
+                            <button class="btn btn--glass btn-small" id="btn-csrf-secure">Activer Anti-CSRF
+                                Token</button>
+                        </div>
+                    </div>
+
+                    <!-- JWT DEMO -->
+                    <div class="sandbox-panel" id="jwt-demo">
+                        <div class="sandbox-panel__header">
+                            <h3>Vulnerability: JWT Manipulation (alg: none)</h3>
+                            <p>Modifiez le payload du token JWT (qui définit le rôle 'user') et passez l'algorithme à
+                                'none' pour contourner la signature.</p>
+                        </div>
+                        <div class="jwt-workspace">
+                            <div class="jwt-part jwt-header" id="jwt-head-view">
+                                <span class="label">Header</span>
+                                <textarea rows="3" id="jwt-head-input">{"alg": "HS256", "typ": "JWT"}</textarea>
+                            </div>
+                            <div class="jwt-part jwt-payload" id="jwt-payload-view">
+                                <span class="label">Payload</span>
+                                <textarea rows="4"
+                                    id="jwt-payload-input">{"sub": "user_id_123", "name": "John Doe", "role": "user", "iat": 1716281029}</textarea>
+                            </div>
+                            <div class="jwt-part jwt-signature">
+                                <span class="label">Signature</span>
+                                <div class="jwt-signature-box" id="jwt-sig-box">Validated with secret [HIDDEN]</div>
+                            </div>
+                        </div>
+                        <div class="jwt-actions">
+                            <button class="btn btn--primary" id="btn-jwt-submit">Soumettre le Token au Serveur</button>
+                            <div class="jwt-server-response" id="jwt-server-response">
+                                En attente de token...
+                            </div>
+                        </div>
+                        <div class="sandbox-explanation">
+                            <h4>🛡️ Comment le corriger ?</h4>
+                            <p>Le serveur doit toujours imposer un algorithme spécifique (ex: HS256 ou RS256) et ne
+                                jamais accepter dynamiquement "alg: none".</p>
+                            <button class="btn btn--glass btn-small" id="btn-jwt-secure">Activer le contrôle strict de
+                                l'ALGO</button>
+                        </div>
+                    </div>
+
+                    <!-- REENTRANCY DEMO -->
+                    <div class="sandbox-panel" id="reentrancy-demo">
+                        <div class="sandbox-panel__header">
+                            <h3>Vulnerability: Smart Contract Reentrancy</h3>
+                            <p>Videz les fonds du contrat victime en effectuant des appels récursifs avant que ce
+                                dernier ne mette à jour votre solde.</p>
+                        </div>
+                        <div class="reentrancy-visuals">
+                            <div class="contract-box victim-contract">
+                                <h4>Vuln Contract (Bank)</h4>
+                                <div class="eth-balance">Total ETH: <span id="vuln-total">10.0</span></div>
+                                <div class="inner-balance">Attacker balance record: <span id="vuln-record">1.0</span>
+                                </div>
+                                <div class="contract-code">
+                                    <code>
+// withdraw()
+uint bal = balances[msg.sender];
+(bool ok,) = msg.sender.call{value: bal}("");
+<span class="bad-line" id="vuln-line-update">balances[msg.sender] = 0; // TROP TARD!</span>
+                  </code>
+                                </div>
+                            </div>
+
+                            <div class="reentrancy-arrows" id="reentrancy-arrows">
+                                <!-- Javascript will animate transactions here -->
+                            </div>
+
+                            <div class="contract-box attacker-contract">
+                                <h4>Attacker Contract</h4>
+                                <div class="eth-balance">Total ETH Stolen: <span id="attacker-stolen"
+                                        class="text-danger">0.0</span></div>
+                                <br>
+                                <button class="btn btn--danger" id="btn-hack-contract">Initialize Hack()</button>
+                            </div>
+                        </div>
+
+                        <div class="sandbox-explanation" style="margin-top:2rem;">
+                            <h4>🛡️ Comment le corriger ?</h4>
+                            <p>Il faut respecter le pattern <strong>Checks-Effects-Interactions</strong> : Mettre à jour
+                                l'état (le solde à 0) <strong>AVANT</strong> d'envoyer l'ETH (l'interaction externe).
+                            </p>
+                            <button class="btn btn--glass btn-small" id="btn-reentrancy-secure">Appliquer
+                                Checks-Effects-Interactions</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+      <footer class="footer">
+    <div class="footer__pattern"></div>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="index.html" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made">// construit avec passion & cafe</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <script src="js/i18n-data.js"></script>
+
+    <script src="js/sound-engine.js"></script>
+  <script src="js/command-palette.js"></script>
+
+    <script src="js/globals.js"></script>
+  <script src="js/easter-eggs.js"></script>
+    <script src="js/security-sandbox.js"></script>
+</body>
+
+</html>

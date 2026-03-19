@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CRM - Solution de gestion client complete avec Laravel et Next.js">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CRM Application - Alessandro Portfolio">
+    <meta property="og:description" content="CRM - Solution de gestion client complete avec Laravel et Next.js">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/projects/crm.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CRM Application - Alessandro Portfolio">
+    <meta name="twitter:description" content="CRM - Solution de gestion client complete avec Laravel et Next.js">
+  <title>CRM Application - Alessandro Portfolio</title>
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/projects/crm.html">
+
+  <link rel="manifest" href="../manifest.json">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="preload" href="../css/main.css" as="style">
+  <link rel="stylesheet" href="../css/project.css">
+  <link rel="stylesheet" href="../css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="../index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="../index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="../security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="../web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="../security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="../engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="../infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="../portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="../publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="../changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="../veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="../ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="../uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="../blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="../stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="../now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="../index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="../index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="../index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb__list">
+        <li class="breadcrumb__item"><a href="../index.html">Accueil</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item"><a href="../index.html#projects">Projets</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">CRM Application</li>
+      </ol>
+    </nav>
+    <!-- Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content">
+          <a href="../index.html#projects" class="project-hero__back reveal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Retour aux projets
+          </a>
+          <div class="project-hero__badge project-hero__badge--progress reveal">
+            <span class="project-hero__badge-dot"></span>
+            En cours
+          </div>
+          <h1 class="project-hero__title reveal">CRM Application</h1>
+          <p class="project-hero__description reveal">Une solution CRM complete construite avec Laravel en backend et Next.js en frontend. L'application offre la gestion des clients, des pipelines de vente, la facturation automatisee et des tableaux de bord analytiques. Conteneurisee avec Docker pour un deploiement simplifie.</p>
+          <div class="project-hero__meta reveal">
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Annee</span><span class="project-hero__meta-value">2024-2025</span></div>
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Role</span><span class="project-hero__meta-value">Full-Stack Developer</span></div>
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Type</span><span class="project-hero__meta-value">Application enterprise</span></div>
+          </div>
+          <div class="project-hero__actions reveal">
+            <a href="https://github.com/Pazificateur" target="_blank" class="btn btn--primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              Voir sur GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack -->
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Stack technique</span>
+          <h2 class="project-section__title">Technologies utilisees</h2>
+        </div>
+        <div class="stack-grid">
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+            </div>
+            <h3 class="stack-card__title">Laravel</h3>
+            <p class="stack-card__desc">Backend PHP</p>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3 class="stack-card__title">Next.js</h3>
+            <p class="stack-card__desc">Frontend React</p>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <h3 class="stack-card__title">Docker</h3>
+            <p class="stack-card__desc">Conteneurisation</p>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3 class="stack-card__title">Redis</h3>
+            <p class="stack-card__desc">Cache & sessions</p>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <h3 class="stack-card__title">PostgreSQL</h3>
+            <p class="stack-card__desc">Base de donnees</p>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <h3 class="stack-card__title">Stripe API</h3>
+            <p class="stack-card__desc">Paiements</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="project-section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Fonctionnalites</span>
+          <h2 class="project-section__title">Points cles</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+            </div>
+            <h3 class="feature-card__title">Pipeline de vente</h3>
+            <p class="feature-card__desc">Kanban drag & drop pour le suivi</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <h3 class="feature-card__title">Facturation auto</h3>
+            <p class="feature-card__desc">Generation PDF et envoi automatique</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <h3 class="feature-card__title">Dashboard analytics</h3>
+            <p class="feature-card__desc">KPIs, graphiques de performance</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3 class="feature-card__title">Gestion contacts</h3>
+            <p class="feature-card__desc">Import/export, tags, segmentation</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            </div>
+            <h3 class="feature-card__title">Notifications</h3>
+            <p class="feature-card__desc">Email et in-app en temps reel</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="feature-card__title">API RESTful</h3>
+            <p class="feature-card__desc">Endpoints documentes avec Swagger</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Approche</span>
+          <h2 class="project-section__title">Processus de developpement</h2>
+        </div>
+        <div class="process-steps">
+          <div class="process-step reveal">
+            <div class="process-step__number">01</div>
+            <div class="process-step__content">
+              <h3 class="process-step__title">Architecture</h3>
+              <p class="process-step__desc">Design de la BDD, API REST, microservices</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step__number">02</div>
+            <div class="process-step__content">
+              <h3 class="process-step__title">Backend Laravel</h3>
+              <p class="process-step__desc">Models, controllers, middleware, queues</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step__number">03</div>
+            <div class="process-step__content">
+              <h3 class="process-step__title">Frontend Next.js</h3>
+              <p class="process-step__desc">Pages, composants, state management</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step__number">04</div>
+            <div class="process-step__content">
+              <h3 class="process-step__title">DevOps</h3>
+              <p class="process-step__desc">Docker compose, CI/CD, monitoring</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code block example -->
+    <section class="project-section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Code</span>
+          <h2 class="project-section__title">Apercu technique</h2>
+        </div>
+        <div class="code-block reveal">
+          <div class="code-block__header">
+            <div class="code-block__dots">
+              <span class="code-block__dot code-block__dot--red"></span>
+              <span class="code-block__dot code-block__dot--yellow"></span>
+              <span class="code-block__dot code-block__dot--green"></span>
+            </div>
+            <span class="code-block__filename">docker-compose.yml</span>
+          </div>
+          <div class="code-block__body">
+            <div class="line"><span class="line-num"> 1</span><span class="keyword">version</span>: <span class="string">'3.8'</span></div>
+            <div class="line"><span class="line-num"> 2</span></div>
+            <div class="line"><span class="line-num"> 3</span><span class="keyword">services</span>:</div>
+            <div class="line"><span class="line-num"> 4</span>  <span class="comment"># Laravel API Backend</span></div>
+            <div class="line"><span class="line-num"> 5</span>  <span class="type">api</span>:</div>
+            <div class="line"><span class="line-num"> 6</span>    <span class="keyword">build</span>:</div>
+            <div class="line"><span class="line-num"> 7</span>      <span class="keyword">context</span>: <span class="string">./api</span></div>
+            <div class="line"><span class="line-num"> 8</span>      <span class="keyword">dockerfile</span>: <span class="string">Dockerfile</span></div>
+            <div class="line"><span class="line-num"> 9</span>    <span class="keyword">ports</span>:</div>
+            <div class="line"><span class="line-num">10</span>      - <span class="string">"8000:8000"</span></div>
+            <div class="line"><span class="line-num">11</span>    <span class="keyword">environment</span>:</div>
+            <div class="line"><span class="line-num">12</span>      - <span class="string">DB_HOST=postgres</span></div>
+            <div class="line"><span class="line-num">13</span>      - <span class="string">DB_PORT=5432</span></div>
+            <div class="line"><span class="line-num">14</span>      - <span class="string">REDIS_HOST=redis</span></div>
+            <div class="line"><span class="line-num">15</span>    <span class="keyword">depends_on</span>:</div>
+            <div class="line"><span class="line-num">16</span>      - <span class="type">postgres</span></div>
+            <div class="line"><span class="line-num">17</span>      - <span class="type">redis</span></div>
+            <div class="line"><span class="line-num">18</span>    <span class="keyword">volumes</span>:</div>
+            <div class="line"><span class="line-num">19</span>      - <span class="string">./api:/var/www/html</span></div>
+            <div class="line"><span class="line-num">20</span></div>
+            <div class="line"><span class="line-num">21</span>  <span class="comment"># Next.js Frontend</span></div>
+            <div class="line"><span class="line-num">22</span>  <span class="type">frontend</span>:</div>
+            <div class="line"><span class="line-num">23</span>    <span class="keyword">build</span>:</div>
+            <div class="line"><span class="line-num">24</span>      <span class="keyword">context</span>: <span class="string">./frontend</span></div>
+            <div class="line"><span class="line-num">25</span>    <span class="keyword">ports</span>:</div>
+            <div class="line"><span class="line-num">26</span>      - <span class="string">"3000:3000"</span></div>
+            <div class="line"><span class="line-num">27</span>    <span class="keyword">environment</span>:</div>
+            <div class="line"><span class="line-num">28</span>      - <span class="string">NEXT_PUBLIC_API_URL=http://api:8000</span></div>
+            <div class="line"><span class="line-num">29</span>    <span class="keyword">depends_on</span>:</div>
+            <div class="line"><span class="line-num">30</span>      - <span class="type">api</span></div>
+            <div class="line"><span class="line-num">31</span></div>
+            <div class="line"><span class="line-num">32</span>  <span class="comment"># PostgreSQL Database</span></div>
+            <div class="line"><span class="line-num">33</span>  <span class="type">postgres</span>:</div>
+            <div class="line"><span class="line-num">34</span>    <span class="keyword">image</span>: <span class="string">postgres:16-alpine</span></div>
+            <div class="line"><span class="line-num">35</span>    <span class="keyword">environment</span>:</div>
+            <div class="line"><span class="line-num">36</span>      - <span class="string">POSTGRES_DB=crm</span></div>
+            <div class="line"><span class="line-num">37</span>      - <span class="string">POSTGRES_USER=crm_user</span></div>
+            <div class="line"><span class="line-num">38</span>      - <span class="string">POSTGRES_PASSWORD=${DB_PASSWORD}</span></div>
+            <div class="line"><span class="line-num">39</span>    <span class="keyword">volumes</span>:</div>
+            <div class="line"><span class="line-num">40</span>      - <span class="string">pgdata:/var/lib/postgresql/data</span></div>
+            <div class="line"><span class="line-num">41</span>    <span class="keyword">ports</span>:</div>
+            <div class="line"><span class="line-num">42</span>      - <span class="string">"5432:5432"</span></div>
+            <div class="line"><span class="line-num">43</span></div>
+            <div class="line"><span class="line-num">44</span>  <span class="comment"># Redis Cache</span></div>
+            <div class="line"><span class="line-num">45</span>  <span class="type">redis</span>:</div>
+            <div class="line"><span class="line-num">46</span>    <span class="keyword">image</span>: <span class="string">redis:7-alpine</span></div>
+            <div class="line"><span class="line-num">47</span>    <span class="keyword">ports</span>:</div>
+            <div class="line"><span class="line-num">48</span>      - <span class="string">"6379:6379"</span></div>
+            <div class="line"><span class="line-num">49</span></div>
+            <div class="line"><span class="line-num">50</span><span class="keyword">volumes</span>:</div>
+            <div class="line"><span class="line-num">51</span>  <span class="type">pgdata</span>:</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <div class="container">
+      <nav class="project-nav">
+        <a href="extreme-alarm.html" class="project-nav__link project-nav__link--prev">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <div class="project-nav__link-content">
+            <span class="project-nav__link-label">Projet precedent</span>
+            <span class="project-nav__link-title">Extreme Alarm</span>
+          </div>
+        </a>
+        <a href="pazent-studio.html" class="project-nav__link project-nav__link--next">
+          <div class="project-nav__link-content">
+            <span class="project-nav__link-label">Projet suivant</span>
+            <span class="project-nav__link-title">PAZENT Studio</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </nav>
+    </div>
+  </main>
+    <footer class="footer">
+    <div class="footer__pattern"></div>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="index.html" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made">// construit avec passion & cafe</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/i18n-data.js"></script>
+  <script src="../js/sound-engine.js"></script>
+  <script src="../js/command-palette.js"></script>
+  <script src="../js/globals.js"></script>
+  <script src="../js/easter-eggs.js"></script>
+  <script src="../js/project.js"></script>
+</body>
+</html>

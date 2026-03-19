@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Stats — Métriques et statistiques du portfolio d'Alessandro.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Stats - Alessandro Portfolio">
+    <meta property="og:description" content="Stats — Métriques et statistiques du portfolio d'Alessandro.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/stats.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Stats - Alessandro Portfolio">
+    <meta name="twitter:description" content="Stats — Métriques et statistiques du portfolio d'Alessandro.">
+  <meta name="theme-color" content="#050508">
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/stats.html">
+  <title>Stats - Alessandro Portfolio</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/stats.css">
+  <link rel="stylesheet" href="css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <!-- Overlays -->
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+
+  <!-- Animated Background -->
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="stats.html" class="navbar__dropdown-item active">Stats</a>
+            <a href="now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#about" class="mobile-menu__link" data-i18n="nav.about">A propos</a>
+    <a href="index.html#skills" class="mobile-menu__link" data-i18n="nav.skills">Skills</a>
+    <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false">
+      <span data-i18n="nav.labs">Labs</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="mobile-menu__labs-submenu">
+      <a href="security-sandbox.html" class="mobile-menu__link">Interactive Sandbox</a>
+      <a href="web3-engineering.html" class="mobile-menu__link">Web3 Engineering</a>
+      <a href="security-lab.html" class="mobile-menu__link">Security Lab</a>
+      <a href="engineering.html" class="mobile-menu__link">Engineering</a>
+      <a href="infrastructure.html" class="mobile-menu__link">Infrastructure</a>
+      <a href="portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+      <a href="publications.html" class="mobile-menu__link">Publications</a>
+      <a href="changelog.html" class="mobile-menu__link">Changelog</a>
+      <a href="veille.html" class="mobile-menu__link">Veille Techno</a>
+      <a href="ctf.html" class="mobile-menu__link">CTF Writeups</a>
+      <a href="uses.html" class="mobile-menu__link">Uses / Setup</a>
+      <a href="blog/" class="mobile-menu__link">Blog</a>
+      <a href="stats.html" class="mobile-menu__link active">Stats</a>
+      <a href="now.html" class="mobile-menu__link">Now</a>
+    </div>
+    <a href="index.html#projects" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+    <a href="index.html#experience" class="mobile-menu__link" data-i18n="nav.experience">Parcours</a>
+    <a href="index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu__controls">
+      <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="langToggleMobile" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content" style="max-width:800px;">
+          <a href="index.html" class="project-hero__back reveal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span data-i18n="stats.hero.back">Retour au portfolio</span>
+          </a>
+          <div class="project-hero__badge project-hero__badge--done reveal">
+            <span class="project-hero__badge-dot"></span>
+            <span data-i18n="stats.hero.badge">Portfolio Metrics</span>
+          </div>
+          <h1 class="project-hero__title reveal">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#statsGrad)" stroke-width="2">
+              <defs><linearGradient id="statsGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+            </svg>
+            <span data-i18n="stats.hero.title">Stats</span>
+          </h1>
+          <p class="project-hero__description reveal" data-i18n="stats.hero.desc">Statistiques et métriques détaillées du portfolio : fichiers, lignes de code, technologies et fonctionnalités.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="project-section stats-section" id="overview">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="stats.overview.tag">Vue d'ensemble</span>
+          <h2 class="project-section__title" data-i18n="stats.overview.title">Overview</h2>
+        </div>
+
+        <div class="stats-grid">
+
+          <div class="stats-card reveal">
+            <div class="stats-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="stats-card__value" data-count="34">0</div>
+            <div class="stats-card__label" data-i18n="stats.overview.pages">HTML Pages</div>
+          </div>
+
+          <div class="stats-card reveal">
+            <div class="stats-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><path d="M17.5 10.5 21 3"/><circle cx="8.5" cy="8.5" r="2.5"/><path d="M4.5 12.5 8 5"/><circle cx="11" cy="14" r="2.5"/><path d="M7 18.5l4-6"/></svg>
+            </div>
+            <div class="stats-card__value"><span data-count="24">0</span> <span class="stats-card__sub">/ <span data-count="10900">0</span>+ <span data-i18n="stats.overview.lines">Lines</span></span></div>
+            <div class="stats-card__label" data-i18n="stats.overview.css">CSS Files</div>
+          </div>
+
+          <div class="stats-card reveal">
+            <div class="stats-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div class="stats-card__value"><span data-count="19">0</span> <span class="stats-card__sub">/ <span data-count="5600">0</span>+ <span data-i18n="stats.overview.lines">Lines</span></span></div>
+            <div class="stats-card__label" data-i18n="stats.overview.js">JS Files</div>
+          </div>
+
+          <div class="stats-card reveal">
+            <div class="stats-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+            <div class="stats-card__value" data-count="4">0</div>
+            <div class="stats-card__label" data-i18n="stats.overview.articles">Blog Articles</div>
+          </div>
+
+          <div class="stats-card reveal">
+            <div class="stats-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="stats-card__value" data-count="15">0</div>
+            <div class="stats-card__label" data-i18n="stats.overview.projects">Projects</div>
+          </div>
+
+          <div class="stats-card reveal">
+            <div class="stats-card__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="stats-card__value">2</div>
+            <div class="stats-card__label" data-i18n="stats.overview.langs">Languages FR/EN</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="project-section stats-section" id="techstack">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="stats.tech.tag">Technologies</span>
+          <h2 class="project-section__title" data-i18n="stats.tech.title">Tech Stack</h2>
+        </div>
+
+        <div class="stats-bars">
+
+          <div class="stats-bar reveal">
+            <div class="stats-bar__header">
+              <span class="stats-bar__label">HTML</span>
+              <span class="stats-bar__value" data-i18n="stats.tech.htmlFiles">34 files</span>
+            </div>
+            <div class="stats-bar__track">
+              <div class="stats-bar__fill" data-percent="100"></div>
+            </div>
+          </div>
+
+          <div class="stats-bar reveal">
+            <div class="stats-bar__header">
+              <span class="stats-bar__label">CSS</span>
+              <span class="stats-bar__value" data-i18n="stats.tech.cssFiles">24 files</span>
+            </div>
+            <div class="stats-bar__track">
+              <div class="stats-bar__fill" data-percent="70"></div>
+            </div>
+          </div>
+
+          <div class="stats-bar reveal">
+            <div class="stats-bar__header">
+              <span class="stats-bar__label">JavaScript</span>
+              <span class="stats-bar__value" data-i18n="stats.tech.jsFiles">19 files</span>
+            </div>
+            <div class="stats-bar__track">
+              <div class="stats-bar__fill" data-percent="56"></div>
+            </div>
+          </div>
+
+          <div class="stats-bar reveal">
+            <div class="stats-bar__header">
+              <span class="stats-bar__label">Web Audio</span>
+              <span class="stats-bar__value" data-i18n="stats.tech.audioEngine">1 engine</span>
+            </div>
+            <div class="stats-bar__track">
+              <div class="stats-bar__fill" data-percent="3"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="project-section stats-section" id="features">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="stats.features.tag">Fonctionnalités</span>
+          <h2 class="project-section__title" data-i18n="stats.features.title">Features</h2>
+        </div>
+
+        <div class="stats-checklist">
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.pwa">PWA + Offline</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.sound">Sound Engine</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.i18n">i18n FR/EN</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.theme">Dark/Light Theme</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.palette">Command Palette</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.404">404 Interactive</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.blog">Blog + RSS</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.cursor">Custom Cursor + Spotlight</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.transitions">Page Transitions</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.tilt">Tilt Cards</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.seo">SEO + Sitemap</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.print">Print Stylesheet</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.veille">Veille Techno</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.ctf">CTF Writeups</span>
+          </div>
+
+          <div class="stats-check reveal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="stats.features.contact">Contact Form</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__cta reveal">
+        <span class="footer__cta-tag" data-i18n="footer.cta.tag">// prochain projet</span>
+        <h2 class="footer__cta-title" data-i18n="footer.cta.title">Travaillons ensemble</h2>
+        <p class="footer__cta-text" data-i18n="footer.cta.text">Un projet en tête ? Discutons de comment je peux vous aider.</p>
+        <a href="index.html#contact" class="btn btn--primary" data-i18n="footer.cta.btn">Me contacter</a>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy" data-i18n="footer.copy">&copy; 2026 Alessandro - Pazificateur</p>
+        <p class="footer__made" data-i18n="footer.made">// construit avec passion & café</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n-data.js"></script>
+  <script src="js/sound-engine.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/globals.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="js/stats.js"></script>
+</body>
+</html>

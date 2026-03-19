@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Changelog — Historique des mises à jour du portfolio d'Alessandro.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Changelog - Alessandro Portfolio">
+    <meta property="og:description" content="Changelog — Historique des mises à jour du portfolio d'Alessandro.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/changelog.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Changelog - Alessandro Portfolio">
+    <meta name="twitter:description" content="Changelog — Historique des mises à jour du portfolio d'Alessandro.">
+  <meta name="theme-color" content="#050508">
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/changelog.html">
+  <title>Changelog - Alessandro Portfolio</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/changelog.css">
+  <link rel="stylesheet" href="css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <!-- Overlays -->
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+
+  <!-- Animated Background -->
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="changelog.html" class="navbar__dropdown-item active">Changelog</a>
+            <a href="veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#about" class="mobile-menu__link" data-i18n="nav.about">A propos</a>
+    <a href="index.html#skills" class="mobile-menu__link" data-i18n="nav.skills">Skills</a>
+    <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false">
+      <span data-i18n="nav.labs">Labs</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="mobile-menu__labs-submenu">
+      <a href="security-sandbox.html" class="mobile-menu__link">Interactive Sandbox</a>
+      <a href="web3-engineering.html" class="mobile-menu__link">Web3 Engineering</a>
+      <a href="security-lab.html" class="mobile-menu__link">Security Lab</a>
+      <a href="engineering.html" class="mobile-menu__link">Engineering</a>
+      <a href="infrastructure.html" class="mobile-menu__link">Infrastructure</a>
+      <a href="portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+      <a href="publications.html" class="mobile-menu__link">Publications</a>
+      <a href="changelog.html" class="mobile-menu__link active">Changelog</a>
+      <a href="veille.html" class="mobile-menu__link">Veille Techno</a>
+      <a href="ctf.html" class="mobile-menu__link">CTF Writeups</a>
+      <a href="uses.html" class="mobile-menu__link">Uses / Setup</a>
+      <a href="blog/" class="mobile-menu__link">Blog</a>
+      <a href="stats.html" class="mobile-menu__link">Stats</a>
+      <a href="now.html" class="mobile-menu__link">Now</a>
+    </div>
+    <a href="index.html#projects" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+    <a href="index.html#experience" class="mobile-menu__link" data-i18n="nav.experience">Parcours</a>
+    <a href="index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu__controls">
+      <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="langToggleMobile" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content" style="max-width:800px;">
+          <a href="index.html" class="project-hero__back reveal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span data-i18n="changelog.hero.back">Retour au portfolio</span>
+          </a>
+          <div class="project-hero__badge project-hero__badge--done reveal">
+            <span class="project-hero__badge-dot"></span>
+            <span data-i18n="changelog.hero.badge">Mises à jour</span>
+          </div>
+          <h1 class="project-hero__title reveal">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#clGrad)" stroke-width="2">
+              <defs><linearGradient id="clGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+            </svg>
+            <span data-i18n="changelog.hero.title">Changelog</span>
+          </h1>
+          <p class="project-hero__description reveal" data-i18n="changelog.hero.desc">Historique détaillé de toutes les mises à jour, nouvelles fonctionnalités et améliorations du portfolio.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="project-section changelog-section" id="changelog">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="changelog.section.tag">Versions</span>
+          <h2 class="project-section__title" data-i18n="changelog.section.title">Historique des versions</h2>
+        </div>
+
+        <div class="changelog-timeline">
+
+          <!-- v3.4 -->
+          <div class="changelog-version changelog-version--latest reveal">
+            <div class="changelog-version__header">
+              <span class="changelog-version__number">v3.4</span>
+              <span class="changelog-version__date">Mars 2026</span>
+            </div>
+            <h3 class="changelog-version__title" data-i18n="changelog.v34.title">Polish Final — CSS, Cache & Cohérence</h3>
+            <ul class="changelog-list">
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v34.e1">Consolidation de 30 sélecteurs CSS dupliqués dans main.css</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v34.e2">Service Worker — cache étendu à 27 assets (CSS/JS page-specific)</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--fix">Fix</span>
+                <span class="changelog-item__text" data-i18n="changelog.v34.f1">Version tag navbar synchronisé v3.3 sur les 35 pages</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--fix">Fix</span>
+                <span class="changelog-item__text" data-i18n="changelog.v34.f2">Traduction i18n manquante pour resume.html (resume.download)</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- v3.3 -->
+          <div class="changelog-version reveal">
+            <div class="changelog-version__header">
+              <span class="changelog-version__number">v3.3</span>
+              <span class="changelog-version__date">Mars 2026</span>
+            </div>
+            <h3 class="changelog-version__title" data-i18n="changelog.v33.title">RSS, Stats, Now, Easter Eggs & SEO avancé</h3>
+            <ul class="changelog-list">
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v33.f1">Flux RSS Atom — feed.xml pour les articles du blog</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v33.f2">Stats Dashboard — métriques, stack technique et features checklist</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v33.f3">Page /now — activités et projets en cours</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v33.f4">Easter Eggs — matrix, hack, party (tapez les mots-clés !)</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v33.f5">Témoignages — section avec 3 recommandations professionnelles</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v33.f6">Cookie banner RGPD + détection hors-ligne</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v33.e1">JSON-LD Person + TechArticle pour le SEO structuré</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v33.e2">Canonical links + SRI + breadcrumbs sur toutes les pages</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v33.e3">Blog enrichi — partage social, Giscus comments, articles liés</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v33.e4">Navbar cohérente 14 items + easter-eggs.js sur les 36 pages</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- v3.2 -->
+          <div class="changelog-version reveal">
+            <div class="changelog-version__header">
+              <span class="changelog-version__number">v3.2</span>
+              <span class="changelog-version__date">Mars 2026</span>
+            </div>
+            <h3 class="changelog-version__title" data-i18n="changelog.v32.title">Command Palette, CTF, Blog Index & SEO</h3>
+            <ul class="changelog-list">
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v32.f1">Command Palette — navigation Ctrl+K style VS Code</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v32.f2">CTF Writeups — page dédiée avec writeups HackTheBox, TryHackMe, Root-Me</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v32.f3">Uses / Setup — stack technique, outils et hardware</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v32.f4">Blog Index — page listing avec filtres par catégorie</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v32.f5">Formulaire de contact — avec fallback mailto</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v32.f6">GitHub Stats — repos et stars en temps réel dans le hero</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v32.e1">OG/Twitter meta tags sur toutes les pages pour le partage social</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v32.e2">Print stylesheet + bouton télécharger CV sur resume.html</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v32.e3">Skip-to-content link + détection prefers-color-scheme</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v32.e4">robots.txt + sitemap.xml pour le SEO</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- v3.1 -->
+          <div class="changelog-version reveal">
+            <div class="changelog-version__header">
+              <span class="changelog-version__number">v3.1</span>
+              <span class="changelog-version__date">Mars 2026</span>
+            </div>
+            <h3 class="changelog-version__title" data-i18n="changelog.v31.title">Sound Design, PWA, Blog & Veille</h3>
+            <ul class="changelog-list">
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v31.f1">Sound Engine — moteur audio Web Audio API avec 4 sons interactifs</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v31.f2">Progressive Web App — manifest, service worker, mode hors-ligne</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v31.f3">Page 404 interactive — terminal, commandes, Matrix rain canvas</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v31.f4">Blog — articles techniques complets avec TOC et barre de lecture</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v31.f5">Veille Techno — flux RSS curatés avec filtres par catégorie</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v31.f6">Page Changelog — historique complet des versions du portfolio</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v31.e1">Navbar enrichie avec toggle son et liens vers les nouvelles pages</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v31.e2">Publications transformées en cartes-liens vers articles complets</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- v3.0 -->
+          <div class="changelog-version reveal">
+            <div class="changelog-version__header">
+              <span class="changelog-version__number">v3.0</span>
+              <span class="changelog-version__date">Février 2026</span>
+            </div>
+            <h3 class="changelog-version__title" data-i18n="changelog.v30.title">Refonte complète — Architecture moderne</h3>
+            <ul class="changelog-list">
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--breaking">Breaking</span>
+                <span class="changelog-item__text" data-i18n="changelog.v30.b1">Refonte complète HTML/CSS/JS vanilla — suppression de tout framework</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v30.f1">Dark/Light theme avec persistance localStorage</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v30.f2">Système i18n FR/EN complet avec window.__i18n</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v30.f3">Custom cursor + mouse spotlight</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v30.f4">Page transitions avec panels animés</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v30.f5">15 pages projets + 9 pages labs/sections</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v30.e1">Architecture BEM, globals.js partagé, CSS modulaire</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v30.e2">Scroll reveal animations, typing tags, staggered titles</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- v2.0 -->
+          <div class="changelog-version reveal">
+            <div class="changelog-version__header">
+              <span class="changelog-version__number">v2.0</span>
+              <span class="changelog-version__date">2025</span>
+            </div>
+            <h3 class="changelog-version__title" data-i18n="changelog.v20.title">Portfolio React — SPA moderne</h3>
+            <ul class="changelog-list">
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v20.f1">Single Page Application avec React et React Router</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v20.f2">Animations Framer Motion et scroll-based effects</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--enhancement">Enhancement</span>
+                <span class="changelog-item__text" data-i18n="changelog.v20.e1">Design system avec styled-components</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- v1.0 -->
+          <div class="changelog-version reveal">
+            <div class="changelog-version__header">
+              <span class="changelog-version__number">v1.0</span>
+              <span class="changelog-version__date">2024</span>
+            </div>
+            <h3 class="changelog-version__title" data-i18n="changelog.v10.title">Premier portfolio — HTML/CSS basique</h3>
+            <ul class="changelog-list">
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v10.f1">Portfolio statique HTML/CSS avec sections projets et contact</span>
+              </li>
+              <li class="changelog-item">
+                <span class="changelog-tag changelog-tag--feature">Feature</span>
+                <span class="changelog-item__text" data-i18n="changelog.v10.f2">Responsive design mobile-first</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__cta reveal">
+        <span class="footer__cta-tag" data-i18n="footer.cta.tag">// prochain projet</span>
+        <h2 class="footer__cta-title" data-i18n="footer.cta.title">Travaillons ensemble</h2>
+        <p class="footer__cta-text" data-i18n="footer.cta.text">Un projet en tête ? Discutons de comment je peux vous aider.</p>
+        <a href="index.html#contact" class="btn btn--primary" data-i18n="footer.cta.btn">Me contacter</a>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy" data-i18n="footer.copy">&copy; 2026 Alessandro - Pazificateur</p>
+        <p class="footer__made" data-i18n="footer.made">// construit avec passion & café</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n-data.js"></script>
+  <script src="js/sound-engine.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/globals.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="js/changelog.js"></script>
+</body>
+</html>

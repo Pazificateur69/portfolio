@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Infrastructure & DevOps - CI/CD pipelines, deployment automation, performance optimization et monitoring pour projets Web3 par Alessandro.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Infrastructure & DevOps - Alessandro Portfolio">
+    <meta property="og:description" content="Infrastructure & DevOps - CI/CD pipelines, deployment automation, performance optimization et monitoring pour projets Web3 par Alessandro.">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/infrastructure.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Infrastructure & DevOps - Alessandro Portfolio">
+    <meta name="twitter:description" content="Infrastructure & DevOps - CI/CD pipelines, deployment automation, performance optimization et monitoring pour projets Web3 par Alessandro.">
+  <meta name="theme-color" content="#050508">
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/infrastructure.html">
+  <title>Infrastructure & DevOps - Alessandro Portfolio</title>
+
+  <link rel="manifest" href="manifest.json">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/project.css">
+  <link rel="stylesheet" href="css/infrastructure.css">
+  <link rel="preload" href="css/main.css" as="style">
+  <link rel="stylesheet" href="css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <!-- Overlays -->
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+
+  <!-- Animated Background -->
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="infrastructure.html" class="navbar__dropdown-item active">Infrastructure</a>
+            <a href="portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#about" class="mobile-menu__link" data-i18n="nav.about">A propos</a>
+    <a href="index.html#skills" class="mobile-menu__link" data-i18n="nav.skills">Skills</a>
+    <button class="mobile-menu__labs-toggle mobile-menu__link" aria-expanded="false">
+      <span data-i18n="nav.labs">Labs</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div class="mobile-menu__labs-submenu">
+      <a href="security-sandbox.html" class="mobile-menu__link">Interactive Sandbox</a>
+      <a href="web3-engineering.html" class="mobile-menu__link">Web3 Engineering</a>
+      <a href="security-lab.html" class="mobile-menu__link">Security Lab</a>
+      <a href="engineering.html" class="mobile-menu__link">Engineering</a>
+      <a href="infrastructure.html" class="mobile-menu__link active">Infrastructure</a>
+      <a href="portfolio-audit.html" class="mobile-menu__link">Portfolio Audit</a>
+      <a href="publications.html" class="mobile-menu__link">Publications</a>
+      <a href="changelog.html" class="mobile-menu__link">Changelog</a>
+      <a href="veille.html" class="mobile-menu__link">Veille Techno</a>
+      <a href="ctf.html" class="mobile-menu__link">CTF Writeups</a>
+      <a href="uses.html" class="mobile-menu__link">Uses / Setup</a>
+      <a href="blog/" class="mobile-menu__link">Blog</a>
+      <a href="stats.html" class="mobile-menu__link">Stats</a>
+      <a href="now.html" class="mobile-menu__link">Now</a>
+    </div>
+    <a href="index.html#projects" class="mobile-menu__link" data-i18n="nav.projects">Projets</a>
+    <a href="index.html#experience" class="mobile-menu__link" data-i18n="nav.experience">Parcours</a>
+    <a href="index.html#contact" class="mobile-menu__link" data-i18n="nav.contact">Contact</a>
+    <div class="mobile-menu__controls">
+      <button class="navbar__control-btn" id="soundToggleMobile" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+      <button class="navbar__control-btn" id="themeToggleMobile" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="navbar__control-btn" id="langToggleMobile" aria-label="Switch language">EN</button>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         1. HERO
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content" style="max-width:800px;">
+          <a href="index.html" class="project-hero__back reveal">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Retour au portfolio
+          </a>
+
+          <div class="project-hero__badge project-hero__badge--done reveal">
+            <span class="project-hero__badge-dot"></span>
+            <span data-i18n="infra.hero.badge">Production-ready</span>
+          </div>
+
+          <h1 class="project-hero__title reveal">
+            <svg class="infra-hero-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#infraGrad)" stroke-width="2">
+              <defs><linearGradient id="infraGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#06b6d4"/></linearGradient></defs>
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+            <span data-i18n="infra.hero.title">Infrastructure &amp; DevOps</span>
+          </h1>
+
+          <p class="project-hero__description reveal" data-i18n="infra.hero.desc">
+            Pipelines CI/CD, automatisation des d&eacute;ployements, monitoring en temps r&eacute;el et optimisation des performances. Une infrastructure robuste pour des applications Web3 fiables.
+          </p>
+
+          <div class="project-hero__meta reveal">
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label" data-i18n="infra.meta.domain">Domaine</span>
+              <span class="project-hero__meta-value" data-i18n="infra.meta.domain.val">DevOps &amp; Infrastructure</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label" data-i18n="infra.meta.tools">Outils</span>
+              <span class="project-hero__meta-value" data-i18n="infra.meta.tools.val">GitHub Actions, Hardhat, Alchemy, Vercel</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label" data-i18n="infra.meta.approach">Approche</span>
+              <span class="project-hero__meta-value" data-i18n="infra.meta.approach.val">Automatisation &amp; Zero-downtime</span>
+            </div>
+            <div class="project-hero__meta-item">
+              <span class="project-hero__meta-label" data-i18n="infra.meta.monitoring">Monitoring</span>
+              <span class="project-hero__meta-value" data-i18n="infra.meta.monitoring.val">Uptime, Alertes, M&eacute;triques</span>
+            </div>
+          </div>
+
+          <div class="project-hero__actions reveal">
+            <a href="index.html" class="btn btn--glass">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Portfolio
+            </a>
+            <a href="https://github.com/Pazificateur" target="_blank" class="btn btn--primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+
+          <!-- Stats -->
+          <div class="infra-stats reveal">
+            <div class="infra-stat">
+              <div class="infra-stat__number" data-count="8">0</div>
+              <div class="infra-stat__label" data-i18n="infra.stat.pipelines">Pipelines CI/CD</div>
+            </div>
+            <div class="infra-stat__divider"></div>
+            <div class="infra-stat">
+              <div class="infra-stat__number" data-count="120">0</div>
+              <div class="infra-stat__label" data-i18n="infra.stat.deployments">D&eacute;ployements</div>
+            </div>
+            <div class="infra-stat__divider"></div>
+            <div class="infra-stat">
+              <div class="infra-stat__number" data-count="99">0</div>
+              <div class="infra-stat__label" data-i18n="infra.stat.uptime">Uptime %</div>
+            </div>
+            <div class="infra-stat__divider"></div>
+            <div class="infra-stat">
+              <div class="infra-stat__number" data-count="12">0</div>
+              <div class="infra-stat__label" data-i18n="infra.stat.contracts">Contrats d&eacute;ploy&eacute;s</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         2. GIT BRANCHING MODEL
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" style="background:var(--bg-secondary);" id="git-branching">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="infra.section.git.tag">Version Control</span>
+          <h2 class="project-section__title" data-i18n="infra.section.git.title">Git Branching Model</h2>
+        </div>
+
+        <p class="infra-intro-text reveal">
+          Workflow Git structur&eacute; inspir&eacute; du mod&egrave;le GitFlow, adapt&eacute; aux projets Web3 avec des branches d&eacute;di&eacute;es pour les smart contracts et les audits de s&eacute;curit&eacute;.
+        </p>
+
+        <!-- Git Branch Diagram -->
+        <div class="git-diagram reveal" id="gitDiagram">
+          <div class="git-diagram__canvas">
+            <!-- Main branch -->
+            <div class="git-branch git-branch--main" data-branch="main">
+              <div class="git-branch__label">main</div>
+              <div class="git-branch__line"></div>
+              <div class="git-commit" data-tooltip="v1.0.0 - Initial release">
+                <div class="git-commit__dot"></div>
+                <div class="git-commit__tag">v1.0.0</div>
+              </div>
+              <div class="git-commit" data-tooltip="v1.1.0 - New features merged">
+                <div class="git-commit__dot"></div>
+                <div class="git-commit__tag">v1.1.0</div>
+              </div>
+              <div class="git-commit" data-tooltip="v1.1.1 - Hotfix applied">
+                <div class="git-commit__dot"></div>
+                <div class="git-commit__tag">v1.1.1</div>
+              </div>
+              <div class="git-commit" data-tooltip="v2.0.0 - Major upgrade">
+                <div class="git-commit__dot"></div>
+                <div class="git-commit__tag">v2.0.0</div>
+              </div>
+            </div>
+
+            <!-- Develop branch -->
+            <div class="git-branch git-branch--develop" data-branch="develop">
+              <div class="git-branch__label">develop</div>
+              <div class="git-branch__line"></div>
+              <div class="git-commit">
+                <div class="git-commit__dot"></div>
+              </div>
+              <div class="git-commit">
+                <div class="git-commit__dot"></div>
+              </div>
+              <div class="git-commit">
+                <div class="git-commit__dot"></div>
+              </div>
+              <div class="git-commit">
+                <div class="git-commit__dot"></div>
+              </div>
+              <div class="git-commit">
+                <div class="git-commit__dot"></div>
+              </div>
+            </div>
+
+            <!-- Feature branch -->
+            <div class="git-branch git-branch--feature" data-branch="feature">
+              <div class="git-branch__label">feature/staking-v2</div>
+              <div class="git-branch__line"></div>
+              <div class="git-commit">
+                <div class="git-commit__dot"></div>
+                <div class="git-commit__msg">feat: add stake()</div>
+              </div>
+              <div class="git-commit">
+                <div class="git-commit__dot"></div>
+                <div class="git-commit__msg">test: unit tests</div>
+              </div>
+              <div class="git-commit git-commit--merge">
+                <div class="git-commit__dot"></div>
+                <div class="git-commit__msg">merge &rarr; develop</div>
+              </div>
+            </div>
+
+            <!-- Hotfix branch -->
+            <div class="git-branch git-branch--hotfix" data-branch="hotfix">
+              <div class="git-branch__label">hotfix/reentrancy-fix</div>
+              <div class="git-branch__line"></div>
+              <div class="git-commit">
+                <div class="git-commit__dot"></div>
+                <div class="git-commit__msg">fix: ReentrancyGuard</div>
+              </div>
+              <div class="git-commit git-commit--merge">
+                <div class="git-commit__dot"></div>
+                <div class="git-commit__msg">merge &rarr; main + develop</div>
+              </div>
+            </div>
+
+            <!-- Merge arrows (SVG) -->
+            <svg class="git-diagram__arrows" viewBox="0 0 800 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Feature to develop merge -->
+              <path class="git-arrow git-arrow--feature" d="M 520 240 C 540 240, 540 160, 560 160" stroke="#10b981" stroke-width="2" stroke-dasharray="6 3" fill="none"/>
+              <!-- Hotfix to main merge -->
+              <path class="git-arrow git-arrow--hotfix" d="M 440 300 C 460 300, 480 80, 500 80" stroke="#ef4444" stroke-width="2" stroke-dasharray="6 3" fill="none"/>
+              <!-- Develop to main merge -->
+              <path class="git-arrow git-arrow--develop" d="M 580 160 C 600 160, 620 80, 640 80" stroke="#3b82f6" stroke-width="2" stroke-dasharray="6 3" fill="none"/>
+            </svg>
+          </div>
+
+          <!-- Branch legend -->
+          <div class="git-legend">
+            <div class="git-legend__item">
+              <span class="git-legend__color" style="background: var(--purple);"></span>
+              <span>main</span>
+              <span class="git-legend__desc">Production stable, tags s&eacute;mantiques</span>
+            </div>
+            <div class="git-legend__item">
+              <span class="git-legend__color" style="background: #3b82f6;"></span>
+              <span>develop</span>
+              <span class="git-legend__desc">Int&eacute;gration continue, staging</span>
+            </div>
+            <div class="git-legend__item">
+              <span class="git-legend__color" style="background: #10b981;"></span>
+              <span>feature/*</span>
+              <span class="git-legend__desc">Nouvelles fonctionnalit&eacute;s isol&eacute;es</span>
+            </div>
+            <div class="git-legend__item">
+              <span class="git-legend__color" style="background: #ef4444;"></span>
+              <span>hotfix/*</span>
+              <span class="git-legend__desc">Correctifs urgents production</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Git Workflow Terminal -->
+        <div class="infra-terminal reveal">
+          <div class="infra-terminal__header">
+            <span class="infra-terminal__dot"></span>
+            <span class="infra-terminal__dot"></span>
+            <span class="infra-terminal__dot"></span>
+            <span class="infra-terminal__title">git-workflow.sh</span>
+          </div>
+          <div class="infra-terminal__body">
+            <div class="line"><span class="prompt">$</span> <span class="cmd">git checkout -b feature/staking-v2 develop</span></div>
+            <div class="line"><span class="output">Switched to a new branch 'feature/staking-v2'</span></div>
+            <div class="line"><span class="prompt">$</span> <span class="cmd">npx hardhat compile</span></div>
+            <div class="line"><span class="success">Compiled 12 Solidity files successfully</span></div>
+            <div class="line"><span class="prompt">$</span> <span class="cmd">npx hardhat test</span></div>
+            <div class="line"><span class="success">42 passing (3.2s)</span></div>
+            <div class="line"><span class="prompt">$</span> <span class="cmd">git add . && git commit -m "feat: implement staking v2 with compound rewards"</span></div>
+            <div class="line"><span class="prompt">$</span> <span class="cmd">git checkout develop && git merge --no-ff feature/staking-v2</span></div>
+            <div class="line"><span class="success">Merge made by the 'recursive' strategy.</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         3. RELEASE STRATEGY
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="release">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="infra.section.release.tag">Release Management</span>
+          <h2 class="project-section__title" data-i18n="infra.section.release.title">Strat&eacute;gie de Release</h2>
+        </div>
+
+        <div class="infra-release-grid">
+
+          <!-- Semantic Versioning -->
+          <div class="infra-release-card reveal">
+            <div class="infra-release-card__icon" style="background: rgba(139, 92, 246, 0.12);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+            </div>
+            <h3>Semantic Versioning</h3>
+            <p>Convention SemVer stricte pour tous les contrats et packages. Chaque release suit le format <code>MAJOR.MINOR.PATCH</code>.</p>
+            <div class="infra-version-example">
+              <div class="infra-version-part infra-version-part--major">
+                <span class="infra-version-part__num">2</span>
+                <span class="infra-version-part__label">MAJOR</span>
+                <span class="infra-version-part__desc">Breaking changes</span>
+              </div>
+              <span class="infra-version-dot">.</span>
+              <div class="infra-version-part infra-version-part--minor">
+                <span class="infra-version-part__num">3</span>
+                <span class="infra-version-part__label">MINOR</span>
+                <span class="infra-version-part__desc">New features</span>
+              </div>
+              <span class="infra-version-dot">.</span>
+              <div class="infra-version-part infra-version-part--patch">
+                <span class="infra-version-part__num">1</span>
+                <span class="infra-version-part__label">PATCH</span>
+                <span class="infra-version-part__desc">Bug fixes</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Changelog Generation -->
+          <div class="infra-release-card reveal">
+            <div class="infra-release-card__icon" style="background: rgba(16, 185, 129, 0.12);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <h3>Changelog Automatis&eacute;</h3>
+            <p>G&eacute;n&eacute;ration automatique du changelog via <code>conventional-commits</code>. Chaque merge sur main d&eacute;clenche la mise &agrave; jour.</p>
+            <div class="infra-changelog-preview">
+              <div class="infra-changelog__entry">
+                <span class="infra-changelog__type infra-changelog__type--feat">feat</span>
+                <span>Add compound staking rewards (#42)</span>
+              </div>
+              <div class="infra-changelog__entry">
+                <span class="infra-changelog__type infra-changelog__type--fix">fix</span>
+                <span>Prevent reentrancy in withdraw() (#38)</span>
+              </div>
+              <div class="infra-changelog__entry">
+                <span class="infra-changelog__type infra-changelog__type--perf">perf</span>
+                <span>Optimize gas usage in batch transfers (#35)</span>
+              </div>
+              <div class="infra-changelog__entry">
+                <span class="infra-changelog__type infra-changelog__type--docs">docs</span>
+                <span>Update NatSpec documentation (#33)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Release Automation -->
+          <div class="infra-release-card reveal">
+            <div class="infra-release-card__icon" style="background: rgba(245, 158, 11, 0.12);">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3>Release Automation</h3>
+            <p>Workflow GitHub Actions automatis&eacute; : tag push &rarr; build &rarr; test &rarr; deploy &rarr; release notes &rarr; notification.</p>
+            <div class="infra-release-flow">
+              <div class="infra-release-flow__step">
+                <span class="infra-release-flow__icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                </span>
+                <span>git tag v2.3.1</span>
+              </div>
+              <div class="infra-release-flow__arrow">&rarr;</div>
+              <div class="infra-release-flow__step">
+                <span class="infra-release-flow__icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </span>
+                <span>CI/CD Build</span>
+              </div>
+              <div class="infra-release-flow__arrow">&rarr;</div>
+              <div class="infra-release-flow__step">
+                <span class="infra-release-flow__icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </span>
+                <span>Deploy</span>
+              </div>
+              <div class="infra-release-flow__arrow">&rarr;</div>
+              <div class="infra-release-flow__step">
+                <span class="infra-release-flow__icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                </span>
+                <span>Notify</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         4. DEPLOYMENT PIPELINE
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" style="background:var(--bg-secondary);" id="pipeline">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="infra.section.pipeline.tag">CI/CD Pipeline</span>
+          <h2 class="project-section__title" data-i18n="infra.section.pipeline.title">Pipeline de D&eacute;ployement</h2>
+        </div>
+
+        <p class="infra-intro-text reveal">
+          Pipeline complet pour le d&eacute;ploiement de smart contracts sur Arbitrum. Chaque &eacute;tape est automatis&eacute;e avec des gates de validation et des rollbacks automatiques.
+        </p>
+
+        <!-- Pipeline Visualization -->
+        <div class="pipeline reveal" id="pipeline-viz">
+          <div class="pipeline__steps">
+
+            <div class="pipeline__step" data-step="1">
+              <div class="pipeline__step-icon pipeline__step-icon--compile">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <div class="pipeline__step-content">
+                <h4>Compile</h4>
+                <p>Compilation Solidity via Hardhat avec optimisations. V&eacute;rification des ABIs et g&eacute;n&eacute;ration des typings TypeScript.</p>
+                <div class="pipeline__step-details">
+                  <code>npx hardhat compile --force</code>
+                  <span class="pipeline__step-time">~12s</span>
+                </div>
+              </div>
+              <div class="pipeline__step-status" data-status="pending">
+                <span class="pipeline__step-status-dot"></span>
+              </div>
+            </div>
+
+            <div class="pipeline__connector">
+              <div class="pipeline__connector-line"></div>
+            </div>
+
+            <div class="pipeline__step" data-step="2">
+              <div class="pipeline__step-icon pipeline__step-icon--test">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div class="pipeline__step-content">
+                <h4>Test</h4>
+                <p>Tests unitaires, tests d'int&eacute;gration et tests de fuzzing. Couverture minimale requise : 95%.</p>
+                <div class="pipeline__step-details">
+                  <code>npx hardhat test && npx hardhat coverage</code>
+                  <span class="pipeline__step-time">~45s</span>
+                </div>
+              </div>
+              <div class="pipeline__step-status" data-status="pending">
+                <span class="pipeline__step-status-dot"></span>
+              </div>
+            </div>
+
+            <div class="pipeline__connector">
+              <div class="pipeline__connector-line"></div>
+            </div>
+
+            <div class="pipeline__step" data-step="3">
+              <div class="pipeline__step-icon pipeline__step-icon--audit">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="pipeline__step-content">
+                <h4>Security Audit</h4>
+                <p>Analyse statique avec Slither, d&eacute;tection de vuln&eacute;rabilit&eacute;s connues. V&eacute;rification des patterns OpenZeppelin.</p>
+                <div class="pipeline__step-details">
+                  <code>slither . --config-file slither.config.json</code>
+                  <span class="pipeline__step-time">~30s</span>
+                </div>
+              </div>
+              <div class="pipeline__step-status" data-status="pending">
+                <span class="pipeline__step-status-dot"></span>
+              </div>
+            </div>
+
+            <div class="pipeline__connector">
+              <div class="pipeline__connector-line"></div>
+            </div>
+
+            <div class="pipeline__step" data-step="4">
+              <div class="pipeline__step-icon pipeline__step-icon--deploy">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </div>
+              <div class="pipeline__step-content">
+                <h4>Deploy</h4>
+                <p>D&eacute;ploiement sur Arbitrum via Hardhat Ignition. Transactions sign&eacute;es avec le wallet de d&eacute;ploiement s&eacute;curis&eacute;.</p>
+                <div class="pipeline__step-details">
+                  <code>npx hardhat ignition deploy ./ignition/modules/main.ts --network arbitrum</code>
+                  <span class="pipeline__step-time">~60s</span>
+                </div>
+              </div>
+              <div class="pipeline__step-status" data-status="pending">
+                <span class="pipeline__step-status-dot"></span>
+              </div>
+            </div>
+
+            <div class="pipeline__connector">
+              <div class="pipeline__connector-line"></div>
+            </div>
+
+            <div class="pipeline__step" data-step="5">
+              <div class="pipeline__step-icon pipeline__step-icon--verify">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div class="pipeline__step-content">
+                <h4>Verify</h4>
+                <p>V&eacute;rification du source code sur Arbiscan. Publication des ABIs et des adresses de contrats.</p>
+                <div class="pipeline__step-details">
+                  <code>npx hardhat verify --network arbitrum DEPLOYED_ADDRESS</code>
+                  <span class="pipeline__step-time">~20s</span>
+                </div>
+              </div>
+              <div class="pipeline__step-status" data-status="pending">
+                <span class="pipeline__step-status-dot"></span>
+              </div>
+            </div>
+
+            <div class="pipeline__connector">
+              <div class="pipeline__connector-line"></div>
+            </div>
+
+            <div class="pipeline__step" data-step="6">
+              <div class="pipeline__step-icon pipeline__step-icon--monitor">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div class="pipeline__step-content">
+                <h4>Monitor</h4>
+                <p>Surveillance post-d&eacute;ploiement : &eacute;v&eacute;nements on-chain, alertes de s&eacute;curit&eacute;, m&eacute;triques de gas.</p>
+                <div class="pipeline__step-details">
+                  <code>Tenderly + OpenZeppelin Defender monitoring</code>
+                  <span class="pipeline__step-time">ongoing</span>
+                </div>
+              </div>
+              <div class="pipeline__step-status" data-status="pending">
+                <span class="pipeline__step-status-dot"></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Pipeline GitHub Actions YAML -->
+        <div class="code-block reveal">
+          <div class="code-block__header">
+            <div class="code-block__dots">
+              <span class="code-block__dot"></span>
+              <span class="code-block__dot"></span>
+              <span class="code-block__dot"></span>
+            </div>
+            <span class="code-block__filename">.github/workflows/deploy.yml</span>
+            <span class="code-block__lang">YAML</span>
+          </div>
+          <div class="code-block__body">
+            <div class="line"><span class="keyword">name:</span> Deploy Smart Contracts</div>
+            <div class="line"><span class="keyword">on:</span></div>
+            <div class="line">  <span class="keyword">push:</span></div>
+            <div class="line">    <span class="keyword">tags:</span> [<span class="string">'v*'</span>]</div>
+            <div class="line"></div>
+            <div class="line"><span class="keyword">jobs:</span></div>
+            <div class="line">  <span class="keyword">deploy:</span></div>
+            <div class="line">    <span class="keyword">runs-on:</span> ubuntu-latest</div>
+            <div class="line">    <span class="keyword">steps:</span></div>
+            <div class="line">      - <span class="keyword">uses:</span> actions/checkout@v4</div>
+            <div class="line">      - <span class="keyword">uses:</span> actions/setup-node@v4</div>
+            <div class="line">      - <span class="keyword">run:</span> <span class="string">npm ci</span></div>
+            <div class="line">      - <span class="keyword">run:</span> <span class="string">npx hardhat compile</span></div>
+            <div class="line">      - <span class="keyword">run:</span> <span class="string">npx hardhat test</span></div>
+            <div class="line">      - <span class="keyword">run:</span> <span class="string">slither . --config slither.config.json</span></div>
+            <div class="line">      - <span class="keyword">run:</span> <span class="string">npx hardhat ignition deploy --network arbitrum</span></div>
+            <div class="line">        <span class="keyword">env:</span></div>
+            <div class="line">          <span class="comment">DEPLOYER_KEY: ${{ secrets.DEPLOYER_KEY }}</span></div>
+            <div class="line">          <span class="comment">ARBISCAN_API_KEY: ${{ secrets.ARBISCAN_KEY }}</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         5. RPC INTERACTION
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="rpc">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="infra.section.rpc.tag">Blockchain RPC</span>
+          <h2 class="project-section__title" data-i18n="infra.section.rpc.title">Interaction RPC</h2>
+        </div>
+
+        <p class="infra-intro-text reveal">
+          Architecture multi-provider avec failover automatique. Le portfolio interagit avec la blockchain Arbitrum via des noeuds RPC redondants pour garantir la disponibilit&eacute;.
+        </p>
+
+        <div class="rpc-architecture reveal">
+          <!-- RPC Flow Diagram -->
+          <div class="rpc-flow">
+            <div class="rpc-flow__node rpc-flow__node--app">
+              <div class="rpc-flow__node-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <span>Portfolio dApp</span>
+            </div>
+            <div class="rpc-flow__arrow">
+              <svg width="40" height="24" viewBox="0 0 40 24"><path d="M 0 12 L 30 12 M 24 6 L 30 12 L 24 18" stroke="var(--purple)" stroke-width="2" fill="none"/></svg>
+            </div>
+            <div class="rpc-flow__node rpc-flow__node--ethers">
+              <div class="rpc-flow__node-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              </div>
+              <span>ethers.js v6</span>
+            </div>
+            <div class="rpc-flow__arrow">
+              <svg width="40" height="24" viewBox="0 0 40 24"><path d="M 0 12 L 30 12 M 24 6 L 30 12 L 24 18" stroke="var(--purple)" stroke-width="2" fill="none"/></svg>
+            </div>
+            <div class="rpc-flow__providers">
+              <div class="rpc-flow__node rpc-flow__node--provider rpc-flow__node--primary">
+                <div class="rpc-flow__node-status rpc-flow__node-status--active"></div>
+                <span>Alchemy</span>
+                <span class="rpc-flow__node-tag">Primary</span>
+              </div>
+              <div class="rpc-flow__node rpc-flow__node--provider rpc-flow__node--fallback">
+                <div class="rpc-flow__node-status rpc-flow__node-status--standby"></div>
+                <span>Infura</span>
+                <span class="rpc-flow__node-tag">Fallback</span>
+              </div>
+              <div class="rpc-flow__node rpc-flow__node--provider rpc-flow__node--public">
+                <div class="rpc-flow__node-status rpc-flow__node-status--standby"></div>
+                <span>Public RPC</span>
+                <span class="rpc-flow__node-tag">Last resort</span>
+              </div>
+            </div>
+            <div class="rpc-flow__arrow">
+              <svg width="40" height="24" viewBox="0 0 40 24"><path d="M 0 12 L 30 12 M 24 6 L 30 12 L 24 18" stroke="var(--purple)" stroke-width="2" fill="none"/></svg>
+            </div>
+            <div class="rpc-flow__node rpc-flow__node--chain">
+              <div class="rpc-flow__node-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </div>
+              <span>Arbitrum One</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RPC Provider Cards -->
+        <div class="rpc-grid reveal">
+          <div class="rpc-card">
+            <div class="rpc-card__header">
+              <h4>Alchemy</h4>
+              <span class="rpc-card__badge rpc-card__badge--primary">Primary</span>
+            </div>
+            <div class="rpc-card__metrics">
+              <div class="rpc-card__metric">
+                <span class="rpc-card__metric-value">&lt;50ms</span>
+                <span class="rpc-card__metric-label">Latency</span>
+              </div>
+              <div class="rpc-card__metric">
+                <span class="rpc-card__metric-value">99.99%</span>
+                <span class="rpc-card__metric-label">Uptime</span>
+              </div>
+              <div class="rpc-card__metric">
+                <span class="rpc-card__metric-value">300 CU/s</span>
+                <span class="rpc-card__metric-label">Rate limit</span>
+              </div>
+            </div>
+            <p class="rpc-card__desc">Enhanced APIs, WebSockets, trace/debug support. Utilis&eacute; pour les lectures on-chain, l'&eacute;coute d'&eacute;v&eacute;nements et les simulations de transactions.</p>
+          </div>
+
+          <div class="rpc-card">
+            <div class="rpc-card__header">
+              <h4>Infura</h4>
+              <span class="rpc-card__badge rpc-card__badge--fallback">Fallback</span>
+            </div>
+            <div class="rpc-card__metrics">
+              <div class="rpc-card__metric">
+                <span class="rpc-card__metric-value">&lt;80ms</span>
+                <span class="rpc-card__metric-label">Latency</span>
+              </div>
+              <div class="rpc-card__metric">
+                <span class="rpc-card__metric-value">99.95%</span>
+                <span class="rpc-card__metric-label">Uptime</span>
+              </div>
+              <div class="rpc-card__metric">
+                <span class="rpc-card__metric-value">100 req/s</span>
+                <span class="rpc-card__metric-label">Rate limit</span>
+              </div>
+            </div>
+            <p class="rpc-card__desc">Provider redondant activ&eacute; automatiquement en cas de timeout ou d'erreur 429 sur le provider primaire. Health-check toutes les 30s.</p>
+          </div>
+
+          <div class="rpc-card">
+            <div class="rpc-card__header">
+              <h4>Public RPC</h4>
+              <span class="rpc-card__badge rpc-card__badge--public">Last resort</span>
+            </div>
+            <div class="rpc-card__metrics">
+              <div class="rpc-card__metric">
+                <span class="rpc-card__metric-value">&lt;200ms</span>
+                <span class="rpc-card__metric-label">Latency</span>
+              </div>
+              <div class="rpc-card__metric">
+                <span class="rpc-card__metric-value">99.5%</span>
+                <span class="rpc-card__metric-label">Uptime</span>
+              </div>
+              <div class="rpc-card__metric">
+                <span class="rpc-card__metric-value">Variable</span>
+                <span class="rpc-card__metric-label">Rate limit</span>
+              </div>
+            </div>
+            <p class="rpc-card__desc">Endpoint public Arbitrum. Utilis&eacute; uniquement si les deux providers premium sont indisponibles. Pas de garantie SLA.</p>
+          </div>
+        </div>
+
+        <!-- Failover Code -->
+        <div class="code-block reveal">
+          <div class="code-block__header">
+            <div class="code-block__dots">
+              <span class="code-block__dot"></span>
+              <span class="code-block__dot"></span>
+              <span class="code-block__dot"></span>
+            </div>
+            <span class="code-block__filename">src/providers/rpc-failover.ts</span>
+            <span class="code-block__lang">TypeScript</span>
+          </div>
+          <div class="code-block__body">
+            <div class="line"><span class="keyword">import</span> { FallbackProvider, JsonRpcProvider } <span class="keyword">from</span> <span class="string">'ethers'</span>;</div>
+            <div class="line"></div>
+            <div class="line"><span class="keyword">const</span> <span class="function">createProvider</span> = (): FallbackProvider => {</div>
+            <div class="line">  <span class="keyword">return new</span> <span class="function">FallbackProvider</span>([</div>
+            <div class="line">    {</div>
+            <div class="line">      provider: <span class="keyword">new</span> <span class="function">JsonRpcProvider</span>(<span class="string">`https://arb-mainnet.g.alchemy.com/v2/${ALCHEMY_KEY}`</span>),</div>
+            <div class="line">      priority: <span class="number">1</span>, stallTimeout: <span class="number">2000</span>, weight: <span class="number">2</span></div>
+            <div class="line">    },</div>
+            <div class="line">    {</div>
+            <div class="line">      provider: <span class="keyword">new</span> <span class="function">JsonRpcProvider</span>(<span class="string">`https://arbitrum-mainnet.infura.io/v3/${INFURA_KEY}`</span>),</div>
+            <div class="line">      priority: <span class="number">2</span>, stallTimeout: <span class="number">3000</span>, weight: <span class="number">1</span></div>
+            <div class="line">    },</div>
+            <div class="line">    {</div>
+            <div class="line">      provider: <span class="keyword">new</span> <span class="function">JsonRpcProvider</span>(<span class="string">'https://arb1.arbitrum.io/rpc'</span>),</div>
+            <div class="line">      priority: <span class="number">3</span>, stallTimeout: <span class="number">5000</span>, weight: <span class="number">1</span></div>
+            <div class="line">    }</div>
+            <div class="line">  ]);</div>
+            <div class="line">};</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         6. MONITORING
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" style="background:var(--bg-secondary);" id="monitoring">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="infra.section.monitoring.tag">Monitoring</span>
+          <h2 class="project-section__title" data-i18n="infra.section.monitoring.title">Surveillance &amp; Alertes</h2>
+        </div>
+
+        <div class="monitoring-grid">
+
+          <!-- Uptime Card -->
+          <div class="monitoring-card reveal">
+            <div class="monitoring-card__header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              <h4>Uptime Monitoring</h4>
+              <span class="monitoring-card__status monitoring-card__status--up">Operational</span>
+            </div>
+            <div class="monitoring-card__uptime-bars">
+              <div class="uptime-bar" data-uptime="100" title="Feb 18"></div>
+              <div class="uptime-bar" data-uptime="100" title="Feb 19"></div>
+              <div class="uptime-bar" data-uptime="99.8" title="Feb 20"></div>
+              <div class="uptime-bar" data-uptime="100" title="Feb 21"></div>
+              <div class="uptime-bar" data-uptime="100" title="Feb 22"></div>
+              <div class="uptime-bar" data-uptime="99.9" title="Feb 23"></div>
+              <div class="uptime-bar" data-uptime="100" title="Feb 24"></div>
+              <div class="uptime-bar" data-uptime="100" title="Feb 25"></div>
+              <div class="uptime-bar" data-uptime="100" title="Feb 26"></div>
+              <div class="uptime-bar" data-uptime="100" title="Feb 27"></div>
+              <div class="uptime-bar" data-uptime="99.7" title="Feb 28"></div>
+              <div class="uptime-bar" data-uptime="100" title="Mar 1"></div>
+              <div class="uptime-bar" data-uptime="100" title="Mar 2"></div>
+              <div class="uptime-bar" data-uptime="100" title="Mar 3"></div>
+            </div>
+            <div class="monitoring-card__footer">
+              <span>99.96% uptime</span>
+              <span>14 derniers jours</span>
+            </div>
+          </div>
+
+          <!-- Error Tracking -->
+          <div class="monitoring-card reveal">
+            <div class="monitoring-card__header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <h4>Error Tracking</h4>
+            </div>
+            <div class="monitoring-card__errors">
+              <div class="error-item">
+                <div class="error-item__severity error-item__severity--warning">WARN</div>
+                <div class="error-item__content">
+                  <span class="error-item__msg">RPC timeout on Alchemy (fallback triggered)</span>
+                  <span class="error-item__time">il y a 3h</span>
+                </div>
+              </div>
+              <div class="error-item">
+                <div class="error-item__severity error-item__severity--info">INFO</div>
+                <div class="error-item__content">
+                  <span class="error-item__msg">Auto-reconnect WebSocket successful</span>
+                  <span class="error-item__time">il y a 3h</span>
+                </div>
+              </div>
+              <div class="error-item">
+                <div class="error-item__severity error-item__severity--ok">OK</div>
+                <div class="error-item__content">
+                  <span class="error-item__msg">Deployment v2.3.1 verified on Arbiscan</span>
+                  <span class="error-item__time">il y a 12h</span>
+                </div>
+              </div>
+              <div class="error-item">
+                <div class="error-item__severity error-item__severity--ok">OK</div>
+                <div class="error-item__content">
+                  <span class="error-item__msg">All health checks passing (8/8)</span>
+                  <span class="error-item__time">il y a 1j</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alerting -->
+          <div class="monitoring-card reveal">
+            <div class="monitoring-card__header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <h4>Alerting Channels</h4>
+            </div>
+            <div class="monitoring-card__alerts">
+              <div class="alert-channel">
+                <div class="alert-channel__icon" style="background: rgba(88, 101, 242, 0.12);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5865F2" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <div>
+                  <strong>Discord Webhook</strong>
+                  <p>Alertes pipeline, erreurs critiques, notifications de d&eacute;ploiement</p>
+                </div>
+              </div>
+              <div class="alert-channel">
+                <div class="alert-channel__icon" style="background: rgba(16, 185, 129, 0.12);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div>
+                  <strong>Email</strong>
+                  <p>Rapports quotidiens de sant&eacute;, r&eacute;sum&eacute; hebdomadaire des m&eacute;triques</p>
+                </div>
+              </div>
+              <div class="alert-channel">
+                <div class="alert-channel__icon" style="background: rgba(239, 68, 68, 0.12);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <div>
+                  <strong>PagerDuty</strong>
+                  <p>Incidents critiques uniquement : contrat paus&eacute;, drain d&eacute;tect&eacute;, RPC down</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         7. PERFORMANCE & OPTIMIZATION
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <section class="project-section" id="performance">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag" data-i18n="infra.section.perf.tag">Performance</span>
+          <h2 class="project-section__title" data-i18n="infra.section.perf.title">Optimisation &amp; Scores</h2>
+        </div>
+
+        <!-- Lighthouse Scores -->
+        <div class="perf-lighthouse reveal">
+          <h3 class="perf-lighthouse__title">Lighthouse Scores</h3>
+          <div class="perf-lighthouse__grid">
+            <div class="perf-score" data-score="96">
+              <svg class="perf-score__ring" viewBox="0 0 120 120">
+                <circle class="perf-score__ring-bg" cx="60" cy="60" r="52" fill="none" stroke-width="8"/>
+                <circle class="perf-score__ring-fill" cx="60" cy="60" r="52" fill="none" stroke-width="8" stroke-dasharray="326.73" stroke-dashoffset="326.73" data-target="13.07"/>
+              </svg>
+              <div class="perf-score__value" data-count="96">0</div>
+              <div class="perf-score__label">Performance</div>
+            </div>
+            <div class="perf-score" data-score="100">
+              <svg class="perf-score__ring" viewBox="0 0 120 120">
+                <circle class="perf-score__ring-bg" cx="60" cy="60" r="52" fill="none" stroke-width="8"/>
+                <circle class="perf-score__ring-fill" cx="60" cy="60" r="52" fill="none" stroke-width="8" stroke-dasharray="326.73" stroke-dashoffset="326.73" data-target="0"/>
+              </svg>
+              <div class="perf-score__value" data-count="100">0</div>
+              <div class="perf-score__label">Accessibility</div>
+            </div>
+            <div class="perf-score" data-score="95">
+              <svg class="perf-score__ring" viewBox="0 0 120 120">
+                <circle class="perf-score__ring-bg" cx="60" cy="60" r="52" fill="none" stroke-width="8"/>
+                <circle class="perf-score__ring-fill" cx="60" cy="60" r="52" fill="none" stroke-width="8" stroke-dasharray="326.73" stroke-dashoffset="326.73" data-target="16.34"/>
+              </svg>
+              <div class="perf-score__value" data-count="95">0</div>
+              <div class="perf-score__label">Best Practices</div>
+            </div>
+            <div class="perf-score" data-score="100">
+              <svg class="perf-score__ring" viewBox="0 0 120 120">
+                <circle class="perf-score__ring-bg" cx="60" cy="60" r="52" fill="none" stroke-width="8"/>
+                <circle class="perf-score__ring-fill" cx="60" cy="60" r="52" fill="none" stroke-width="8" stroke-dasharray="326.73" stroke-dashoffset="326.73" data-target="0"/>
+              </svg>
+              <div class="perf-score__value" data-count="100">0</div>
+              <div class="perf-score__label">SEO</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Optimization Techniques -->
+        <div class="perf-techniques-grid">
+
+          <!-- Web Optimization -->
+          <div class="perf-card reveal">
+            <div class="perf-card__header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <h4>Web Performance</h4>
+            </div>
+            <div class="perf-card__items">
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>Critical CSS Inlining</strong>
+                  <p>Above-the-fold CSS inlin&eacute; dans le &lt;head&gt; pour un FCP &lt; 1.2s</p>
+                </div>
+              </div>
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>Lazy Loading</strong>
+                  <p>Images, sections et composants charg&eacute;s via IntersectionObserver</p>
+                </div>
+              </div>
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>Asset Optimization</strong>
+                  <p>Minification CSS/JS, compression Brotli, cache headers optimis&eacute;s</p>
+                </div>
+              </div>
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>Font Optimization</strong>
+                  <p>Preconnect, font-display: swap, sous-ensembles Unicode</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gas Optimization -->
+          <div class="perf-card reveal">
+            <div class="perf-card__header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <h4>Gas Optimization</h4>
+            </div>
+            <div class="perf-card__items">
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>Storage Packing</strong>
+                  <p>Variables Solidity pack&eacute;es en slots de 32 bytes pour r&eacute;duire les SSTORE</p>
+                </div>
+              </div>
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>Batch Operations</strong>
+                  <p>Multicall pattern pour regrouper les appels et &eacute;conomiser du gas</p>
+                </div>
+              </div>
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>Custom Errors</strong>
+                  <p>Remplacement des strings revert par des custom errors (Solidity 0.8.4+)</p>
+                </div>
+              </div>
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>Immutable Variables</strong>
+                  <p>Utilisation de <code>immutable</code> et <code>constant</code> pour &eacute;viter les lectures storage</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contract Size Optimization -->
+          <div class="perf-card reveal">
+            <div class="perf-card__header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              <h4>Contract Size</h4>
+            </div>
+            <div class="perf-card__items">
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>EIP-2535 Diamond Pattern</strong>
+                  <p>Modularisation via facets pour rester sous la limite de 24KB</p>
+                </div>
+              </div>
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>Library Extraction</strong>
+                  <p>Logique r&eacute;utilisable extraite en libraries d&eacute;ploy&eacute;es s&eacute;par&eacute;ment</p>
+                </div>
+              </div>
+              <div class="perf-card__item">
+                <span class="perf-card__item-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <div>
+                  <strong>Optimizer Runs</strong>
+                  <p>Compiler settings optimis&eacute;s : 200 runs pour l'&eacute;quilibre taille/gas</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contract Size Bar -->
+            <div class="perf-size-bar">
+              <div class="perf-size-bar__header">
+                <span>Taille du contrat principal</span>
+                <span class="perf-size-bar__value"><span data-count="18.2" class="perf-counter">0</span> KB / 24 KB</span>
+              </div>
+              <div class="perf-size-bar__track">
+                <div class="perf-size-bar__fill" data-width="75.8"></div>
+                <div class="perf-size-bar__limit"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Performance Metrics Terminal -->
+        <div class="infra-terminal reveal">
+          <div class="infra-terminal__header">
+            <span class="infra-terminal__dot"></span>
+            <span class="infra-terminal__dot"></span>
+            <span class="infra-terminal__dot"></span>
+            <span class="infra-terminal__title">lighthouse-report.sh</span>
+          </div>
+          <div class="infra-terminal__body">
+            <div class="line"><span class="prompt">$</span> <span class="cmd">npx lighthouse https://pazent.fr --output=json --quiet</span></div>
+            <div class="line"><span class="output">Running Lighthouse audit...</span></div>
+            <div class="line"><span class="success">Performance:    96  </span><span class="bar">||||||||||||||||||||</span></div>
+            <div class="line"><span class="success">Accessibility: 100  </span><span class="bar">|||||||||||||||||||||</span></div>
+            <div class="line"><span class="success">Best Practices: 95  </span><span class="bar">|||||||||||||||||||</span></div>
+            <div class="line"><span class="success">SEO:           100  </span><span class="bar">|||||||||||||||||||||</span></div>
+            <div class="line"></div>
+            <div class="line"><span class="prompt">$</span> <span class="cmd">npx hardhat size-contracts</span></div>
+            <div class="line"><span class="keyword">Contract          Size (KB)  Limit</span></div>
+            <div class="line"><span class="output">StakingVault      18.2       24.0   </span><span class="success">OK</span></div>
+            <div class="line"><span class="output">GovernanceToken    8.4       24.0   </span><span class="success">OK</span></div>
+            <div class="line"><span class="output">RewardDistributor 12.1       24.0   </span><span class="success">OK</span></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+    <footer class="footer">
+    <div class="footer__pattern"></div>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="index.html" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made">// construit avec passion & cafe</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n-data.js"></script>
+  <script src="js/sound-engine.js"></script>
+  <script src="js/command-palette.js"></script>
+  <script src="js/globals.js"></script>
+  <script src="js/easter-eggs.js"></script>
+  <script src="js/infrastructure.js"></script>
+</body>
+</html>

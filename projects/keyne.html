@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Keyne - Gestionnaire de mots de passe securise avec chiffrement E2E">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Keyne - Alessandro Portfolio">
+    <meta property="og:description" content="Keyne - Gestionnaire de mots de passe securise avec chiffrement E2E">
+    <meta property="og:url" content="https://pazificateur.github.io/portfolio/projects/keyne.html">
+    <meta property="og:image" content="https://pazificateur.github.io/portfolio/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Keyne - Alessandro Portfolio">
+    <meta name="twitter:description" content="Keyne - Gestionnaire de mots de passe securise avec chiffrement E2E">
+  <title>Keyne - Alessandro Portfolio</title>
+  <link rel="canonical" href="https://pazificateur.github.io/portfolio/projects/keyne.html">
+
+  <link rel="manifest" href="../manifest.json">
+
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050508'/><text x='50' y='62' font-family='monospace' font-size='40' font-weight='bold' fill='%238b5cf6' text-anchor='middle'>{A}</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="preload" href="../css/main.css" as="style">
+  <link rel="stylesheet" href="../css/project.css">
+  <link rel="stylesheet" href="../css/command-palette.css">
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor">
+    <div class="custom-cursor__dot" id="cursorDot"></div>
+    <div class="custom-cursor__circle" id="cursorCircle"></div>
+  </div>
+
+  <!-- Mouse Spotlight -->
+  <div class="mouse-spotlight" id="mouseSpotlight"></div>
+
+  <div class="scanline-overlay"></div>
+  <div class="noise-overlay"></div>
+  <div class="page-transition" id="pageTransition"><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div><div class="page-transition__panel"></div></div>
+  <div class="loader" id="loader"><div class="loader__content"><div class="loader__logo">{A}</div><div class="loader__progress"><div class="loader__progress-bar" id="loaderProgress"></div></div></div></div>
+  <div class="bg-animated">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <a href="../index.html" class="navbar__logo">
+        <span class="navbar__logo-bracket">{</span><span class="navbar__logo-text">A</span><span class="navbar__logo-bracket">}</span>
+        <span class="navbar__logo-tag">v3.3</span>
+      </a>
+      <div class="navbar__links">
+        <a href="../index.html#about" class="navbar__link" data-i18n="nav.about">A propos</a>
+        <a href="../index.html#skills" class="navbar__link" data-i18n="nav.skills">Skills</a>
+        <div class="navbar__dropdown" id="navDropdownLabs">
+          <button class="navbar__dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            <span data-i18n="nav.labs">Labs</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="navbar__dropdown-menu" role="menu">
+            <a href="../security-sandbox.html" class="navbar__dropdown-item">Interactive Sandbox</a>
+            <a href="../web3-engineering.html" class="navbar__dropdown-item">Web3 Engineering</a>
+            <a href="../security-lab.html" class="navbar__dropdown-item">Security Lab</a>
+            <a href="../engineering.html" class="navbar__dropdown-item">Engineering</a>
+            <a href="../infrastructure.html" class="navbar__dropdown-item">Infrastructure</a>
+            <a href="../portfolio-audit.html" class="navbar__dropdown-item">Portfolio Audit</a>
+            <a href="../publications.html" class="navbar__dropdown-item">Publications</a>
+            <a href="../changelog.html" class="navbar__dropdown-item">Changelog</a>
+            <a href="../veille.html" class="navbar__dropdown-item">Veille Techno</a>
+            <a href="../ctf.html" class="navbar__dropdown-item">CTF Writeups</a>
+            <a href="../uses.html" class="navbar__dropdown-item">Uses / Setup</a>
+            <a href="../blog/" class="navbar__dropdown-item">Blog</a>
+            <a href="../stats.html" class="navbar__dropdown-item">Stats</a>
+            <a href="../now.html" class="navbar__dropdown-item">Now</a>
+          </div>
+        </div>
+        <a href="../index.html#projects" class="navbar__link" data-i18n="nav.projects">Projets</a>
+        <a href="../index.html#experience" class="navbar__link" data-i18n="nav.experience">Parcours</a>
+        <a href="../index.html#contact" class="navbar__link" data-i18n="nav.contact">Contact</a>
+      </div>
+      <div class="navbar__controls">
+        <button class="navbar__control-btn" id="soundToggle" aria-label="Toggle sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
+        <button class="navbar__control-btn" id="themeToggle" aria-label="Toggle theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="navbar__control-btn" id="langToggle" aria-label="Switch language">EN</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol class="breadcrumb__list">
+        <li class="breadcrumb__item"><a href="../index.html">Accueil</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item"><a href="../index.html#projects">Projets</a></li>
+        <li class="breadcrumb__separator">/</li>
+        <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">Keyne</li>
+      </ol>
+    </nav>
+    <!-- Hero -->
+    <section class="project-hero">
+      <div class="container">
+        <div class="project-hero__content">
+          <a href="../index.html#projects" class="project-hero__back reveal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Retour aux projets
+          </a>
+          <div class="project-hero__badge project-hero__badge--done reveal">
+            <span class="project-hero__badge-dot"></span>
+            Termine
+          </div>
+          <h1 class="project-hero__title reveal">Keyne</h1>
+          <p class="project-hero__description reveal">Keyne est un gestionnaire de mots de passe moderne et securise. Concu avec une approche security-first, il utilise le chiffrement de bout en bout pour garantir que seul l'utilisateur peut acceder a ses donnees. L'interface intuitive permet une gestion simple des identifiants avec synchronisation multi-appareils.</p>
+          <div class="project-hero__meta reveal">
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Annee</span><span class="project-hero__meta-value">2024</span></div>
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Role</span><span class="project-hero__meta-value">Lead Developer</span></div>
+            <div class="project-hero__meta-item"><span class="project-hero__meta-label">Type</span><span class="project-hero__meta-value">Projet personnel</span></div>
+          </div>
+          <div class="project-hero__actions reveal">
+            <a href="https://github.com/Pazificateur" target="_blank" class="btn btn--primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              Voir sur GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack -->
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Stack technique</span>
+          <h2 class="project-section__title">Technologies utilisees</h2>
+        </div>
+        <div class="stack-grid">
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><circle cx="12" cy="12" r="2"/><path d="M12 2a10 10 0 0 1 0 20 10 10 0 0 1 0-20"/><path d="M2 12h20"/></svg>
+            </div>
+            <h3 class="stack-card__title">React</h3>
+            <p class="stack-card__desc">Frontend framework</p>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+            <h3 class="stack-card__title">TypeScript</h3>
+            <p class="stack-card__desc">Type safety</p>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <h3 class="stack-card__title">Node.js</h3>
+            <p class="stack-card__desc">Backend API</p>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h3 class="stack-card__title">AES-256</h3>
+            <p class="stack-card__desc">Chiffrement</p>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <h3 class="stack-card__title">PostgreSQL</h3>
+            <p class="stack-card__desc">Base de donnees</p>
+          </div>
+          <div class="stack-card reveal">
+            <div class="stack-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="stack-card__title">JWT</h3>
+            <p class="stack-card__desc">Authentification</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="project-section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Fonctionnalites</span>
+          <h2 class="project-section__title">Points cles</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h3 class="feature-card__title">Chiffrement E2E</h3>
+            <p class="feature-card__desc">AES-256-GCM pour tous les mots de passe</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+            </div>
+            <h3 class="feature-card__title">Generateur de mots de passe</h3>
+            <p class="feature-card__desc">Parametrable: longueur, caracteres speciaux</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9m-9 9a9 9 0 0 1 9-9"/></svg>
+            </div>
+            <h3 class="feature-card__title">Synchronisation multi-appareils</h3>
+            <p class="feature-card__desc">Acces depuis n'importe quel appareil</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+            <h3 class="feature-card__title">Auto-fill intelligent</h3>
+            <p class="feature-card__desc">Remplissage auto des formulaires</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <h3 class="feature-card__title">Audit de securite</h3>
+            <p class="feature-card__desc">Verification de la robustesse des mots de passe</p>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            </div>
+            <h3 class="feature-card__title">Mode hors-ligne</h3>
+            <p class="feature-card__desc">Acces aux mots de passe sans connexion</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section class="project-section">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Approche</span>
+          <h2 class="project-section__title">Processus de developpement</h2>
+        </div>
+        <div class="process-steps">
+          <div class="process-step reveal">
+            <div class="process-step__number">01</div>
+            <div class="process-step__content">
+              <h3 class="process-step__title">Research & Security Architecture</h3>
+              <p class="process-step__desc">Analyse des standards de chiffrement, choix AES-256-GCM, architecture zero-knowledge</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step__number">02</div>
+            <div class="process-step__content">
+              <h3 class="process-step__title">API Development</h3>
+              <p class="process-step__desc">API REST securisee avec Node.js, authentification JWT, rate limiting</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step__number">03</div>
+            <div class="process-step__content">
+              <h3 class="process-step__title">Frontend & UX</h3>
+              <p class="process-step__desc">Interface React avec TypeScript, design system, animations</p>
+            </div>
+          </div>
+          <div class="process-step reveal">
+            <div class="process-step__number">04</div>
+            <div class="process-step__content">
+              <h3 class="process-step__title">Testing & Security Audit</h3>
+              <p class="process-step__desc">Tests unitaires, pentest de l'API, verification du chiffrement</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code block example -->
+    <section class="project-section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="project-section__header reveal">
+          <span class="project-section__tag">Code</span>
+          <h2 class="project-section__title">Apercu technique</h2>
+        </div>
+        <div class="code-block reveal">
+          <div class="code-block__header">
+            <div class="code-block__dots">
+              <span class="code-block__dot code-block__dot--red"></span>
+              <span class="code-block__dot code-block__dot--yellow"></span>
+              <span class="code-block__dot code-block__dot--green"></span>
+            </div>
+            <span class="code-block__filename">encryption.ts</span>
+          </div>
+          <div class="code-block__body">
+            <div class="line"><span class="line-num"> 1</span><span class="keyword">import</span> crypto <span class="keyword">from</span> <span class="string">'crypto'</span>;</div>
+            <div class="line"><span class="line-num"> 2</span></div>
+            <div class="line"><span class="line-num"> 3</span><span class="keyword">const</span> <span class="type">ALGORITHM</span> = <span class="string">'aes-256-gcm'</span>;</div>
+            <div class="line"><span class="line-num"> 4</span><span class="keyword">const</span> <span class="type">IV_LENGTH</span> = <span class="string">16</span>;</div>
+            <div class="line"><span class="line-num"> 5</span><span class="keyword">const</span> <span class="type">TAG_LENGTH</span> = <span class="string">16</span>;</div>
+            <div class="line"><span class="line-num"> 6</span></div>
+            <div class="line"><span class="line-num"> 7</span><span class="keyword">interface</span> <span class="type">EncryptedData</span> {</div>
+            <div class="line"><span class="line-num"> 8</span>  iv: <span class="type">string</span>;</div>
+            <div class="line"><span class="line-num"> 9</span>  content: <span class="type">string</span>;</div>
+            <div class="line"><span class="line-num">10</span>  tag: <span class="type">string</span>;</div>
+            <div class="line"><span class="line-num">11</span>}</div>
+            <div class="line"><span class="line-num">12</span></div>
+            <div class="line"><span class="line-num">13</span><span class="keyword">export</span> <span class="keyword">async function</span> <span class="func">encrypt</span>(</div>
+            <div class="line"><span class="line-num">14</span>  plaintext: <span class="type">string</span>,</div>
+            <div class="line"><span class="line-num">15</span>  masterKey: <span class="type">Buffer</span></div>
+            <div class="line"><span class="line-num">16</span>): <span class="type">Promise</span>&lt;<span class="type">EncryptedData</span>&gt; {</div>
+            <div class="line"><span class="line-num">17</span>  <span class="comment">// Generate a random initialization vector</span></div>
+            <div class="line"><span class="line-num">18</span>  <span class="keyword">const</span> iv = crypto.<span class="func">randomBytes</span>(<span class="type">IV_LENGTH</span>);</div>
+            <div class="line"><span class="line-num">19</span></div>
+            <div class="line"><span class="line-num">20</span>  <span class="comment">// Create cipher with AES-256-GCM</span></div>
+            <div class="line"><span class="line-num">21</span>  <span class="keyword">const</span> cipher = crypto.<span class="func">createCipheriv</span>(</div>
+            <div class="line"><span class="line-num">22</span>    <span class="type">ALGORITHM</span>, masterKey, iv</div>
+            <div class="line"><span class="line-num">23</span>  );</div>
+            <div class="line"><span class="line-num">24</span></div>
+            <div class="line"><span class="line-num">25</span>  <span class="comment">// Encrypt the plaintext</span></div>
+            <div class="line"><span class="line-num">26</span>  <span class="keyword">let</span> encrypted = cipher.<span class="func">update</span>(plaintext, <span class="string">'utf8'</span>, <span class="string">'hex'</span>);</div>
+            <div class="line"><span class="line-num">27</span>  encrypted += cipher.<span class="func">final</span>(<span class="string">'hex'</span>);</div>
+            <div class="line"><span class="line-num">28</span></div>
+            <div class="line"><span class="line-num">29</span>  <span class="comment">// Get authentication tag</span></div>
+            <div class="line"><span class="line-num">30</span>  <span class="keyword">const</span> tag = cipher.<span class="func">getAuthTag</span>();</div>
+            <div class="line"><span class="line-num">31</span></div>
+            <div class="line"><span class="line-num">32</span>  <span class="keyword">return</span> {</div>
+            <div class="line"><span class="line-num">33</span>    iv: iv.<span class="func">toString</span>(<span class="string">'hex'</span>),</div>
+            <div class="line"><span class="line-num">34</span>    content: encrypted,</div>
+            <div class="line"><span class="line-num">35</span>    tag: tag.<span class="func">toString</span>(<span class="string">'hex'</span>),</div>
+            <div class="line"><span class="line-num">36</span>  };</div>
+            <div class="line"><span class="line-num">37</span>}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <div class="container">
+      <nav class="project-nav">
+        <div class="project-nav__placeholder"></div>
+        <a href="crypto-dashboard.html" class="project-nav__link project-nav__link--next">
+          <div class="project-nav__link-content">
+            <span class="project-nav__link-label">Projet suivant</span>
+            <span class="project-nav__link-title">Dashboard Crypto</span>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </nav>
+    </div>
+  </main>
+    <footer class="footer">
+    <div class="footer__pattern"></div>
+    <div class="footer__marquee" aria-hidden="true">
+      <div class="footer__marquee-track">
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">PAZIFICATEUR</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">CYBERSECURITY</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+        <span class="footer__marquee-text">FULL-STACK</span>
+        <span class="footer__marquee-sep">&mdash;</span>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer__bottom">
+        <div class="footer__bottom-left">
+          <a href="index.html" class="footer__brand">
+            <span class="footer__brand-bracket">{</span>
+            <span class="footer__brand-text">PAZIFICATEUR</span>
+            <span class="footer__brand-bracket">}</span>
+          </a>
+          <p class="footer__copy">&copy; 2026 Alessandro</p>
+        </div>
+        <div class="footer__socials">
+          <a href="https://github.com/Pazificateur" target="_blank" rel="noopener" class="footer__social-link" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://pazent.fr" target="_blank" rel="noopener" class="footer__social-link" title="PAZENT Studio">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+          <a href="mailto:contact@pazent.fr" class="footer__social-link" title="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+        </div>
+        <div class="footer__bottom-right">
+          <p class="footer__made">// construit avec passion & cafe</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/i18n-data.js"></script>
+  <script src="../js/sound-engine.js"></script>
+  <script src="../js/command-palette.js"></script>
+  <script src="../js/globals.js"></script>
+  <script src="../js/easter-eggs.js"></script>
+  <script src="../js/project.js"></script>
+</body>
+</html>
