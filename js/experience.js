@@ -478,3 +478,216 @@
     : init();
 
 })();
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ADDITIONAL EXPERIENCE LAYERS — v2
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* 13. FLOATING CODE TAGS — meilleure animation */
+(function initFloaters() {
+  const floaters = document.querySelectorAll('.hero__float');
+  if (!floaters.length || isMobile()) return;
+
+  floaters.forEach((f, i) => {
+    const speed = 3 + i * 0.7;
+    const amp = 8 + i * 4;
+    const offset = i * 1.2;
+    let start;
+
+    (function animate(ts) {
+      if (!start) start = ts;
+      const t = (ts - start) / 1000;
+      const y = Math.sin(t / speed * Math.PI * 2 + offset) * amp;
+      const x = Math.cos(t / (speed * 1.3) * Math.PI * 2 + offset) * (amp * 0.4);
+      f.style.transform = `translate(${x}px, ${y}px) translateY(${window.scrollY * (0.06 + i * 0.02)}px)`;
+      requestAnimationFrame(animate);
+    })(performance.now());
+  });
+})();
+
+/* 14. STAGGERED TOOL TAGS hover */
+(function initToolTags() {
+  document.querySelectorAll('.tool-tag').forEach(tag => {
+    tag.addEventListener('mouseenter', () => {
+      tag.style.color = '#6e00ff';
+      tag.style.borderColor = 'rgba(110,0,255,0.4)';
+      tag.style.background = 'rgba(110,0,255,0.08)';
+      tag.style.transform = 'translateY(-2px)';
+      tag.style.transition = 'all .2s cubic-bezier(.16,1,.3,1)';
+    });
+    tag.addEventListener('mouseleave', () => {
+      tag.style.color = '';
+      tag.style.borderColor = '';
+      tag.style.background = '';
+      tag.style.transform = '';
+    });
+  });
+})();
+
+/* 15. SKILL PROGRESS BARS — avec data-value */
+(function initSkillBarsV2() {
+  const bars = document.querySelectorAll('.skill-item__progress');
+  if (!bars.length) return;
+
+  bars.forEach(bar => {
+    const val = bar.dataset.value;
+    if (val) bar.style.width = val + '%';
+  });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const bar = e.target;
+      const w = bar.dataset.value ? bar.dataset.value + '%' : bar.style.width;
+      bar.style.width = '0%';
+      bar.style.transition = 'none';
+      requestAnimationFrame(() => {
+        bar.style.transition = 'width 1.2s cubic-bezier(.16,1,.3,1)';
+        requestAnimationFrame(() => { bar.style.width = w; });
+      });
+      io.unobserve(bar);
+    });
+  }, { threshold: 0.3 });
+
+  bars.forEach(b => io.observe(b));
+})();
+
+/* 16. CODE EDITORS — typing effect */
+(function initCodeEditors() {
+  const editors = document.querySelectorAll('.code-editor');
+  if (!editors.length) return;
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'none';
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.2 });
+
+  editors.forEach(ed => {
+    ed.style.opacity = '0';
+    ed.style.transform = 'translateY(20px)';
+    ed.style.transition = 'opacity .6s ease, transform .6s cubic-bezier(.16,1,.3,1)';
+    io.observe(ed);
+  });
+})();
+
+/* 17. GITHUB STATS — fetch réel */
+(function initGithubStats() {
+  const repoEl = document.getElementById('ghRepos');
+  const starEl = document.getElementById('ghStars');
+  if (!repoEl && !starEl) return;
+
+  fetch('https://api.github.com/users/Pazificateur69', { headers: { 'Accept': 'application/vnd.github.v3+json' } })
+    .then(r => r.json())
+    .then(d => {
+      if (repoEl && d.public_repos) {
+        const t = d.public_repos;
+        let c = 0;
+        const timer = setInterval(() => {
+          c = Math.min(c + 1, t);
+          repoEl.textContent = c;
+          if (c >= t) clearInterval(timer);
+        }, 40);
+      }
+    })
+    .catch(() => {});
+
+  // Stars total
+  fetch('https://api.github.com/users/Pazificateur69/repos?per_page=100')
+    .then(r => r.json())
+    .then(repos => {
+      if (!Array.isArray(repos)) return;
+      const stars = repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
+      if (starEl) {
+        let c = 0;
+        const timer = setInterval(() => {
+          c = Math.min(c + 1, stars || 0);
+          starEl.textContent = c;
+          if (c >= (stars || 0)) clearInterval(timer);
+        }, 80);
+      }
+    })
+    .catch(() => {});
+})();
+
+/* 18. SECTION TRANSITION LINES — horizontal rules entre sections */
+(function initSectionLines() {
+  const css = document.createElement('style');
+  css.textContent = `
+    .section + .section::before,
+    .section--alt + .section::before,
+    .section + .section--alt::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(110,0,255,0.15), rgba(0,212,255,0.1), transparent);
+      margin: 0;
+    }
+
+    /* Timeline dots enhanced */
+    .timeline__dot {
+      position: relative;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .timeline__item:hover .timeline__dot {
+      transform: scale(1.3);
+    }
+
+    /* Code editor cursor blink */
+    .code-editor__code::after {
+      content: '|';
+      color: #6e00ff;
+      animation: blink 1s step-end infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* Tool tag base style override */
+    .tool-tag {
+      transition: color .2s, border-color .2s, background .2s, transform .2s;
+    }
+
+    /* Project card image hover zoom */
+    .project-card__image img,
+    .project-card__mockup img {
+      transition: transform .5s cubic-bezier(.16,1,.3,1);
+    }
+    .project-card:hover .project-card__image img,
+    .project-card:hover .project-card__mockup img {
+      transform: scale(1.04);
+    }
+
+    /* Hero badge pill */
+    .hero__badge {
+      border: 1px solid rgba(63,185,80,0.3);
+      background: rgba(63,185,80,0.06);
+      backdrop-filter: blur(8px);
+      transition: border-color .3s, background .3s;
+    }
+    .hero__badge:hover {
+      border-color: rgba(63,185,80,0.5);
+      background: rgba(63,185,80,0.1);
+    }
+
+    /* Stats number gradient */
+    .hero__stat-number {
+      background: linear-gradient(135deg, #fff 40%, rgba(167,139,250,.9));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Float code tags */
+    .hero__float { will-change: transform; }
+    .hero__float-code {
+      backdrop-filter: blur(12px);
+      background: rgba(10,10,16,0.7);
+      border: 1px solid rgba(110,0,255,0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+  `;
+  document.head.appendChild(css);
+})();
