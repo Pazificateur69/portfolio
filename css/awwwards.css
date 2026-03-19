@@ -128,47 +128,16 @@ body.threejs-active #particlesCanvas {
 }
 
 /* ─── GLITCH EFFECT on hero name ─────────────────────────────────────────── */
-.hero__title-name {
-  position: relative;
-  display: inline-block;
-}
-.hero__title-name.glitch-active {
-  animation: none;
-}
-.hero__title-name::before,
-.hero__title-name::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  opacity: 0;
-}
-.hero__title-name::before {
-  color: #ff00ff;
-  z-index: 1;
-}
-.hero__title-name::after {
-  color: #00ffff;
-  z-index: -1;
-}
-.hero__title-name.glitching::before {
-  opacity: 0.8;
-  animation: glitch-before 0.3s steps(1) forwards;
-}
-.hero__title-name.glitching::after {
-  opacity: 0.8;
-  animation: glitch-after 0.3s steps(1) forwards;
-}
-.hero__title-name.glitching {
-  animation: glitch-main 0.3s steps(1) forwards;
-}
 
-@keyframes glitch-main {
-  0%   { transform: translate(0); }
-  10%  { transform: translate(-2px, 1px); clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%); }
+
+
+
+
+
+
+
+
+
   20%  { transform: translate(2px, -1px); clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%); }
   30%  { transform: translate(-1px, 2px); }
   40%  { transform: translate(1px, -2px); clip-path: polygon(0 40%, 100% 40%, 100% 55%, 0 55%); }
@@ -179,26 +148,19 @@ body.threejs-active #particlesCanvas {
   90%  { transform: translate(-1px, 0); }
   100% { transform: translate(0); clip-path: none; }
 }
-@keyframes glitch-before {
-  0%   { transform: translate(-3px, 0); opacity: 0.8; }
-  25%  { transform: translate(3px, -2px); clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%); }
+
   50%  { transform: translate(-2px, 2px); clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%); }
   75%  { transform: translate(3px, 0); clip-path: polygon(0 0, 100% 0, 100% 15%, 0 15%); }
   100% { transform: translate(0); opacity: 0; clip-path: none; }
 }
-@keyframes glitch-after {
-  0%   { transform: translate(3px, 0); opacity: 0.7; }
-  25%  { transform: translate(-3px, 2px); clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%); }
+
   50%  { transform: translate(2px, -2px); clip-path: polygon(0 10%, 100% 10%, 100% 30%, 0 30%); }
   75%  { transform: translate(-2px, 1px); clip-path: polygon(0 70%, 100% 70%, 100% 90%, 0 90%); }
   100% { transform: translate(0); opacity: 0; clip-path: none; }
 }
 
 /* Scan line sweep over glitch */
-.hero__title-name.glitching::before {
-  background: linear-gradient(transparent 0%, rgba(110, 0, 255, 0.1) 50%, transparent 100%);
-  background-size: 100% 4px;
-}
+
 
 /* ─── ENHANCED CUSTOM CURSOR ──────────────────────────────────────────────── */
 .cursor-trail {
@@ -279,19 +241,13 @@ body.cursor-view .custom-cursor__dot {
 }
 
 /* Typing appear animation for hero name chars */
-@keyframes char-appear-glitch {
-  0%   { opacity: 0; transform: translateY(20px) skewX(-10deg); filter: blur(4px); }
+
   30%  { opacity: 0.7; transform: translateY(-3px) skewX(5deg); filter: blur(1px); }
   60%  { opacity: 0.9; transform: translateY(2px) skewX(-2deg); filter: blur(0); }
   80%  { transform: translateY(-1px) skewX(1deg); }
   100% { opacity: 1; transform: translateY(0) skewX(0); filter: blur(0); }
 }
-.hero__title-name .char {
-  display: inline-block;
-  opacity: 0;
-  animation: char-appear-glitch 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  animation-play-state: paused;
-}
+
 
 /* ─── GSAP REVEAL STATES ──────────────────────────────────────────────────── */
 .gsap-reveal {
@@ -490,9 +446,7 @@ body.no-gsap .skill-item__progress {
   .project-card__light {
     display: none;
   }
-  .hero__title-name.glitching {
-    animation: none;
-  }
+  
 }
 
 /* ─── HERO SUBTITLE WORD REVEAL ──────────────────────────────────────────── */

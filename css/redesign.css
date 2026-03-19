@@ -591,3 +591,33 @@ a.link--accent:hover {
   .section__title { font-size: 1.75rem !important; }
   .hero__description { font-size: 0.92rem !important; }
 }
+
+/* ─── FORCE CLEAN HERO NAME — no effects ─── */
+.hero__title-name,
+.hero__title-name::before,
+.hero__title-name::after,
+.hero__title-name.glitching,
+.hero__title-name.colored,
+.hero__title-name .char {
+  background: none !important;
+  background-image: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: rgba(255,255,255,0.93) !important;
+  color: rgba(255,255,255,0.93) !important;
+  animation: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+  clip-path: none !important;
+  opacity: 1 !important;
+  font-size: clamp(3.5rem, 9vw, 7rem) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.05em !important;
+  line-height: 0.92 !important;
+}
+.hero__title-name::before,
+.hero__title-name::after {
+  display: none !important;
+  content: none !important;
+}
+/* ─── FORCE CLEAN END ─── */

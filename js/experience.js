@@ -94,19 +94,12 @@
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         position: relative;
       }
-      .hero__title-name::after {
-        content: attr(data-text);
-        position: absolute; inset: 0;
-        background: linear-gradient(135deg, #6e00ff, #00d4ff);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-        opacity: 0; transition: opacity 1.2s ease;
-      }
-      .hero__title-name.colored::after { opacity: 1; }
+  
     `;
     document.head.appendChild(css);
 
     const titleName = document.querySelector('.hero__title-name');
-    if (titleName) titleName.setAttribute('data-text', titleName.textContent);
+
 
     const enters = document.querySelectorAll('.hero-enter');
     window.addEventListener('load', () => {
@@ -116,9 +109,7 @@
           el.style.animationDelay = '0s';
         }, i * 100 + 200);
       });
-      setTimeout(() => {
-        if (titleName) titleName.classList.add('colored');
-      }, enters.length * 100 + 800);
+  
     });
   }
 
