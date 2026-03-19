@@ -1,497 +1,593 @@
 /* ═══════════════════════════════════════════════════════════════════════════
    REDESIGN.CSS — pazent.fr
-   Style direction: Vercel × Linear × Framer
-   Monochrome sophistication with surgical purple accents
-   Less is more. Precision over decoration.
+   Direction: Pentagram × Instrument × Vercel
+   Clean. Considered. Professional with character.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ─── New Design Tokens ─── */
+/* ─── Tokens ─── */
 :root {
-  /* Palette resserée - plus de clarté */
-  --redesign-bg: #060608;
-  --redesign-surface: #0c0c0f;
-  --redesign-surface-2: #111116;
-  --redesign-border: rgba(255,255,255,0.06);
-  --redesign-border-hover: rgba(255,255,255,0.12);
-
-  /* Une seule couleur d'accent, cohérente partout */
-  --redesign-accent: #7c3aed;
-  --redesign-accent-soft: rgba(124,58,237,0.12);
-  --redesign-accent-glow: rgba(124,58,237,0.25);
-  --redesign-cyan: #06b6d4;
-
-  /* Typographie raffinée */
-  --redesign-text: rgba(255,255,255,0.92);
-  --redesign-text-2: rgba(255,255,255,0.52);
-  --redesign-text-3: rgba(255,255,255,0.28);
-
-  /* Spacing cohérent */
-  --redesign-radius: 10px;
-  --redesign-radius-lg: 16px;
+  --c-bg: #08080a;
+  --c-surface: #0f0f12;
+  --c-surface2: #161619;
+  --c-border: rgba(255,255,255,0.07);
+  --c-border-hover: rgba(255,255,255,0.14);
+  --c-text: rgba(255,255,255,0.90);
+  --c-text-2: rgba(255,255,255,0.48);
+  --c-text-3: rgba(255,255,255,0.24);
+  --c-accent: #7c3aed;
+  --c-accent-2: #06b6d4;
+  --c-accent-soft: rgba(124,58,237,0.10);
+  --c-green: #10b981;
+  --r: 12px;
+  --r-sm: 8px;
+  --transition: 0.25s cubic-bezier(.16,1,.3,1);
 }
 
-/* ─── Background — plus profond et plus propre ─── */
-body { background: var(--redesign-bg) !important; }
-
-.bg-glow {
-  opacity: 0.03 !important;
-  filter: blur(120px) !important;
+/* ─── Base ─── */
+html { scroll-behavior: smooth; }
+body {
+  background: var(--c-bg) !important;
+  color: var(--c-text) !important;
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
 }
+
+/* Supprimer les overlays agressifs */
+.scanline-overlay { display: none !important; }
+.noise-overlay { opacity: 0.015 !important; }
+.bg-glow { opacity: 0.025 !important; filter: blur(160px) !important; }
 .bg-grid {
   background-image:
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px) !important;
-  background-size: 60px 60px !important;
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px) !important;
+  background-size: 48px 48px !important;
 }
-.scanline-overlay { opacity: 0 !important; }
 
-/* ─── Navbar — Glass premium ─── */
+/* ─── Navbar ─── */
 .navbar {
-  background: rgba(6,6,8,0.6) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  background: rgba(8,8,10,0.72) !important;
+  backdrop-filter: blur(20px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
   border-bottom: 1px solid rgba(255,255,255,0.05) !important;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.03) !important;
 }
-.navbar.scrolled {
-  background: rgba(6,6,8,0.85) !important;
-}
-.navbar__logo {
+.navbar__logo-text {
+  font-size: 0.95rem !important;
   font-weight: 700 !important;
-  letter-spacing: -0.04em !important;
-  font-size: 1.1rem !important;
+  letter-spacing: -0.03em !important;
+  color: rgba(255,255,255,0.9) !important;
 }
 .navbar__link {
-  font-size: 0.85rem !important;
+  font-size: 0.82rem !important;
   font-weight: 450 !important;
-  letter-spacing: 0.01em !important;
-  color: rgba(255,255,255,0.5) !important;
+  color: rgba(255,255,255,0.45) !important;
+  transition: color var(--transition) !important;
 }
-.navbar__link:hover { color: rgba(255,255,255,0.9) !important; }
+.navbar__link:hover { color: rgba(255,255,255,0.85) !important; }
 
-/* ─── Hero — Centré, épuré, impactant ─── */
+/* ─── Hero ─── */
 .hero {
-  background: var(--redesign-bg) !important;
-  min-height: 100vh !important;
-  display: flex !important;
-  align-items: center !important;
+  background: var(--c-bg) !important;
+  padding-top: 100px !important;
 }
 .hero__greeting {
-  font-size: 0.85rem !important;
-  font-weight: 500 !important;
-  color: rgba(255,255,255,0.4) !important;
-  letter-spacing: 0.05em !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
+  color: rgba(255,255,255,0.35) !important;
+  display: block !important;
+  margin-bottom: 16px !important;
 }
 .hero__title-name {
-  font-size: clamp(3rem, 8vw, 6.5rem) !important;
+  font-size: clamp(3.5rem, 9vw, 7rem) !important;
   font-weight: 800 !important;
-  letter-spacing: -0.04em !important;
-  line-height: 0.95 !important;
-  color: rgba(255,255,255,0.95) !important;
-}
-.hero__role-static,
-.hero__role-dynamic,
-.hero__role-cursor {
-  font-size: clamp(1rem, 2.5vw, 1.4rem) !important;
-  color: rgba(255,255,255,0.45) !important;
-  font-weight: 400 !important;
-}
-.hero__role-cursor { color: var(--redesign-accent) !important; }
-.hero__description {
-  font-size: 1.05rem !important;
-  line-height: 1.7 !important;
-  color: rgba(255,255,255,0.45) !important;
-  font-weight: 400 !important;
-  max-width: 480px !important;
-}
-.hero__badge {
-  font-size: 0.78rem !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.02em !important;
-  border-radius: 100px !important;
-  padding: 5px 12px !important;
-}
-.hero__stat-number {
-  font-size: 2rem !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.04em !important;
-  color: rgba(255,255,255,0.9) !important;
+  letter-spacing: -0.05em !important;
+  line-height: 0.92 !important;
+  color: rgba(255,255,255,0.93) !important;
+  display: block !important;
+  background: none !important;
   -webkit-text-fill-color: initial !important;
+  background-clip: initial !important;
 }
-.hero__stat-label {
-  font-size: 0.78rem !important;
-  color: rgba(255,255,255,0.35) !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
-  font-weight: 500 !important;
+.hero__roles {
+  margin-top: 20px !important;
+  font-size: clamp(1rem, 2.2vw, 1.35rem) !important;
+  font-weight: 400 !important;
+  color: rgba(255,255,255,0.38) !important;
 }
-.hero__stat-plus { color: var(--redesign-accent) !important; }
-.hero__float-code {
-  font-size: 0.75rem !important;
-  font-weight: 500 !important;
-  padding: 6px 12px !important;
-  border-radius: 6px !important;
-  background: rgba(12,12,15,0.85) !important;
-  border: 1px solid rgba(255,255,255,0.07) !important;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.3) !important;
-  letter-spacing: -0.01em !important;
+.hero__role-cursor {
+  color: var(--c-accent) !important;
+  animation: blink 1s step-end infinite !important;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.hero__description {
+  font-size: 1rem !important;
+  line-height: 1.72 !important;
+  color: rgba(255,255,255,0.42) !important;
+  max-width: 460px !important;
+  font-weight: 400 !important;
+  margin-top: 20px !important;
 }
 
-/* ─── Buttons ─── */
+/* Badge disponible */
+.hero__badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  padding: 5px 12px !important;
+  background: rgba(16,185,129,0.07) !important;
+  border: 1px solid rgba(16,185,129,0.2) !important;
+  border-radius: 100px !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  color: rgba(255,255,255,0.55) !important;
+  letter-spacing: 0.01em !important;
+  margin-bottom: 28px !important;
+}
+.hero__badge-dot {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background: var(--c-green) !important;
+  box-shadow: 0 0 6px var(--c-green) !important;
+  flex-shrink: 0 !important;
+  animation: pulseGreen 2.5s ease infinite !important;
+}
+@keyframes pulseGreen {
+  0%,100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+  50% { box-shadow: 0 0 0 5px rgba(16,185,129,0); }
+}
+
+/* Floaters — discrets, pros */
+.hero__float-code {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.72rem !important;
+  font-weight: 400 !important;
+  padding: 5px 10px !important;
+  border-radius: 6px !important;
+  background: rgba(15,15,18,0.85) !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  color: rgba(255,255,255,0.35) !important;
+  letter-spacing: -0.01em !important;
+  box-shadow: none !important;
+}
+
+/* Stats hero */
+.hero__stat-number {
+  font-size: 2.2rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.05em !important;
+  color: rgba(255,255,255,0.88) !important;
+  -webkit-text-fill-color: initial !important;
+  background: none !important;
+  background-clip: initial !important;
+  line-height: 1 !important;
+}
+.hero__stat-plus { color: var(--c-accent) !important; font-size: 1.4rem !important; }
+.hero__stat-label {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: rgba(255,255,255,0.28) !important;
+  font-weight: 600 !important;
+  margin-top: 4px !important;
+  display: block !important;
+}
+
+/* ─── Boutons ─── */
 .btn {
   font-size: 0.875rem !important;
   font-weight: 500 !important;
-  border-radius: 8px !important;
-  padding: 10px 18px !important;
   letter-spacing: -0.01em !important;
+  border-radius: 8px !important;
+  transition: all var(--transition) !important;
+  padding: 10px 18px !important;
 }
 .btn--primary {
-  background: var(--redesign-accent) !important;
-  border: 1px solid transparent !important;
-  box-shadow: 0 0 0 1px rgba(124,58,237,0.3), 0 4px 20px rgba(124,58,237,0.2) !important;
+  background: var(--c-accent) !important;
   color: #fff !important;
+  border: none !important;
+  box-shadow: 0 0 0 1px rgba(124,58,237,0.4), 0 4px 16px rgba(124,58,237,0.18) !important;
 }
 .btn--primary:hover {
   background: #6d28d9 !important;
-  box-shadow: 0 0 0 1px rgba(124,58,237,0.4), 0 8px 32px rgba(124,58,237,0.3) !important;
+  box-shadow: 0 0 0 1px rgba(124,58,237,0.5), 0 8px 28px rgba(124,58,237,0.28) !important;
   transform: translateY(-1px) !important;
 }
 .btn--glass {
   background: rgba(255,255,255,0.04) !important;
-  border: 1px solid rgba(255,255,255,0.08) !important;
-  color: rgba(255,255,255,0.7) !important;
+  border: 1px solid rgba(255,255,255,0.09) !important;
+  color: rgba(255,255,255,0.62) !important;
 }
 .btn--glass:hover {
-  background: rgba(255,255,255,0.07) !important;
-  border-color: rgba(255,255,255,0.14) !important;
-  color: rgba(255,255,255,0.9) !important;
+  background: rgba(255,255,255,0.08) !important;
+  border-color: rgba(255,255,255,0.16) !important;
+  color: rgba(255,255,255,0.88) !important;
   transform: translateY(-1px) !important;
 }
 
-/* ─── Section headers ─── */
+/* ─── Sections ─── */
+.section { background: var(--c-bg) !important; }
+.section--alt { background: var(--c-surface) !important; }
+
 .section__tag {
-  font-size: 0.72rem !important;
+  font-size: 0.7rem !important;
   font-weight: 600 !important;
-  letter-spacing: 0.12em !important;
+  letter-spacing: 0.14em !important;
   text-transform: uppercase !important;
-  color: var(--redesign-accent) !important;
-  opacity: 0.8 !important;
+  color: var(--c-accent) !important;
+  display: block !important;
+  margin-bottom: 10px !important;
 }
 .section__title {
-  font-size: clamp(2rem, 5vw, 3.2rem) !important;
+  font-size: clamp(1.9rem, 4.5vw, 3rem) !important;
   font-weight: 700 !important;
   letter-spacing: -0.04em !important;
   line-height: 1.08 !important;
   color: rgba(255,255,255,0.92) !important;
 }
-.section { background: var(--redesign-bg) !important; }
-.section--alt { background: var(--redesign-surface) !important; }
 
-/* ─── Cards — minimalistes et précises ─── */
-.project-card, .skill-card, .about__detail-card, .web3__card, .contact__card {
-  background: var(--redesign-surface) !important;
-  border: 1px solid var(--redesign-border) !important;
-  border-radius: var(--redesign-radius-lg) !important;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(.16,1,.3,1) !important;
+/* ─── Cards — clean & considered ─── */
+.project-card {
+  background: var(--c-surface) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r) !important;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition) !important;
 }
-.project-card:hover, .skill-card:hover, .web3__card:hover {
-  border-color: rgba(124,58,237,0.2) !important;
-  box-shadow: 0 0 0 1px rgba(124,58,237,0.08), 0 20px 60px rgba(0,0,0,0.4) !important;
+.project-card:hover {
+  border-color: rgba(124,58,237,0.22) !important;
+  box-shadow: 0 0 0 1px rgba(124,58,237,0.06), 0 16px 48px rgba(0,0,0,0.36) !important;
 }
 .project-card__title {
+  font-size: 1.05rem !important;
   font-weight: 600 !important;
-  letter-spacing: -0.02em !important;
-  color: rgba(255,255,255,0.9) !important;
+  letter-spacing: -0.025em !important;
+  color: rgba(255,255,255,0.88) !important;
 }
 .project-card__desc {
-  font-size: 0.9rem !important;
-  color: rgba(255,255,255,0.45) !important;
-  line-height: 1.6 !important;
+  font-size: 0.875rem !important;
+  color: rgba(255,255,255,0.42) !important;
+  line-height: 1.65 !important;
 }
 .project-card__tags span {
-  font-size: 0.72rem !important;
+  font-size: 0.68rem !important;
   font-weight: 500 !important;
   background: rgba(255,255,255,0.04) !important;
   border: 1px solid rgba(255,255,255,0.07) !important;
-  color: rgba(255,255,255,0.5) !important;
+  color: rgba(255,255,255,0.42) !important;
+  border-radius: 100px !important;
+  padding: 2px 8px !important;
+}
+.project-card__status--done {
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  background: rgba(16,185,129,0.08) !important;
+  border: 1px solid rgba(16,185,129,0.18) !important;
+  color: #34d399 !important;
   border-radius: 100px !important;
   padding: 2px 9px !important;
-  letter-spacing: 0.01em !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase !important;
+}
+.project-card__status--progress {
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  background: rgba(124,58,237,0.08) !important;
+  border: 1px solid rgba(124,58,237,0.2) !important;
+  color: #a78bfa !important;
+  border-radius: 100px !important;
+  padding: 2px 9px !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase !important;
 }
 
 /* ─── Skill cards ─── */
+.skill-card {
+  background: var(--c-surface) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r) !important;
+  transition: border-color var(--transition), box-shadow var(--transition) !important;
+}
+.skill-card:hover {
+  border-color: rgba(255,255,255,0.11) !important;
+}
 .skill-card__title {
-  font-size: 1rem !important;
+  font-size: 0.95rem !important;
   font-weight: 600 !important;
   letter-spacing: -0.02em !important;
   color: rgba(255,255,255,0.88) !important;
 }
 .skill-card__subtitle {
-  font-size: 0.75rem !important;
-  color: rgba(255,255,255,0.35) !important;
+  font-size: 0.72rem !important;
+  color: rgba(255,255,255,0.3) !important;
   font-weight: 500 !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase !important;
 }
 .skill-item__name {
-  font-size: 0.83rem !important;
-  color: rgba(255,255,255,0.6) !important;
+  font-size: 0.82rem !important;
+  color: rgba(255,255,255,0.55) !important;
 }
 .skill-item__value {
-  font-size: 0.83rem !important;
-  color: rgba(255,255,255,0.4) !important;
-  font-family: 'JetBrains Mono', monospace !important;
-}
-.skill-item__bar {
-  background: rgba(255,255,255,0.04) !important;
-  border-radius: 100px !important;
-  height: 3px !important;
-}
-.skill-item__progress {
-  height: 3px !important;
-  border-radius: 100px !important;
-}
-.skill-item__progress--green { background: linear-gradient(90deg, var(--redesign-accent), var(--redesign-cyan)) !important; }
-.skill-item__progress--blue { background: linear-gradient(90deg, #3b82f6, var(--redesign-cyan)) !important; }
-.skill-item__progress--gold { background: linear-gradient(90deg, #f59e0b, #fbbf24) !important; }
-.skill-item__progress--purple { background: linear-gradient(90deg, var(--redesign-accent), #a78bfa) !important; }
-
-/* ─── About terminal ─── */
-.about__terminal {
-  background: rgba(0,0,0,0.4) !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
-  border-radius: 10px !important;
-}
-.about__terminal-header {
-  background: rgba(255,255,255,0.03) !important;
-  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
-}
-
-/* ─── Code editors ─── */
-.code-editor {
-  background: rgba(0,0,0,0.5) !important;
-  border: 1px solid rgba(255,255,255,0.06) !important;
-  border-radius: var(--redesign-radius-lg) !important;
-}
-.code-editor__header {
-  background: rgba(255,255,255,0.02) !important;
-  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
-}
-.code-editor__filename {
-  font-size: 0.78rem !important;
-  color: rgba(255,255,255,0.4) !important;
-  font-weight: 500 !important;
-}
-
-/* ─── Tool tags (marquee) ─── */
-.tool-tag {
-  background: rgba(255,255,255,0.03) !important;
-  border: 1px solid rgba(255,255,255,0.07) !important;
-  color: rgba(255,255,255,0.45) !important;
-  font-size: 0.8rem !important;
-  font-weight: 500 !important;
-  border-radius: 6px !important;
-  padding: 5px 12px !important;
-  letter-spacing: -0.01em !important;
-}
-
-/* ─── Timeline ─── */
-.timeline__title {
-  font-size: 1.05rem !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.02em !important;
-  color: rgba(255,255,255,0.88) !important;
-}
-.timeline__company {
-  font-size: 0.82rem !important;
-  color: var(--redesign-accent) !important;
-  font-weight: 500 !important;
-}
-.timeline__date {
   font-size: 0.78rem !important;
   color: rgba(255,255,255,0.3) !important;
   font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: -0.02em !important;
 }
-.timeline__desc {
-  font-size: 0.88rem !important;
-  color: rgba(255,255,255,0.42) !important;
-  line-height: 1.6 !important;
+.skill-item__bar {
+  height: 2px !important;
+  background: rgba(255,255,255,0.05) !important;
+  border-radius: 100px !important;
+  overflow: hidden !important;
 }
-.timeline__dot {
-  background: var(--redesign-accent) !important;
-  border: 2px solid rgba(124,58,237,0.3) !important;
+.skill-item__progress {
+  height: 2px !important;
+  border-radius: 100px !important;
 }
-.timeline__line {
-  background: rgba(255,255,255,0.06) !important;
-}
+.skill-item__progress--green,
+.skill-item__progress--blue { background: linear-gradient(90deg, var(--c-accent), var(--c-accent-2)) !important; }
+.skill-item__progress--gold { background: linear-gradient(90deg, #f59e0b, #fbbf24) !important; }
+.skill-item__progress--purple { background: linear-gradient(90deg, var(--c-accent), #a78bfa) !important; }
 
-/* ─── Contact section ─── */
-.contact__card { padding: 20px !important; }
-.contact__card-title {
-  font-size: 0.9rem !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.01em !important;
-  color: rgba(255,255,255,0.8) !important;
-}
-.contact__card-value {
-  font-size: 0.85rem !important;
+/* ─── Tool tags ─── */
+.tool-tag {
+  background: rgba(255,255,255,0.03) !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
   color: rgba(255,255,255,0.4) !important;
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
+  padding: 4px 11px !important;
+  letter-spacing: -0.01em !important;
+  transition: all 0.2s ease !important;
+}
+.tool-tag:hover {
+  color: rgba(255,255,255,0.72) !important;
+  background: rgba(255,255,255,0.06) !important;
+  border-color: rgba(255,255,255,0.11) !important;
 }
 
 /* ─── Filter buttons ─── */
 .filter-btn {
-  font-size: 0.8rem !important;
+  font-size: 0.78rem !important;
   font-weight: 500 !important;
   border-radius: 8px !important;
   padding: 6px 14px !important;
   background: rgba(255,255,255,0.03) !important;
   border: 1px solid rgba(255,255,255,0.07) !important;
-  color: rgba(255,255,255,0.45) !important;
-  letter-spacing: 0 !important;
+  color: rgba(255,255,255,0.4) !important;
+  transition: all 0.2s ease !important;
 }
 .filter-btn--active {
-  background: var(--redesign-accent-soft) !important;
-  border-color: rgba(124,58,237,0.3) !important;
+  background: rgba(124,58,237,0.1) !important;
+  border-color: rgba(124,58,237,0.28) !important;
   color: #a78bfa !important;
 }
 .filter-btn:not(.filter-btn--active):hover {
-  color: rgba(255,255,255,0.7) !important;
-  border-color: rgba(255,255,255,0.12) !important;
+  color: rgba(255,255,255,0.65) !important;
+  border-color: rgba(255,255,255,0.11) !important;
 }
 
-/* ─── Scroll indicator ─── */
-.scroll-indicator__line {
-  background: linear-gradient(180deg, rgba(255,255,255,0.3), transparent) !important;
+/* ─── About section ─── */
+.about__text p {
+  color: rgba(255,255,255,0.48) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.78 !important;
 }
-.scroll-indicator {
-  color: rgba(255,255,255,0.25) !important;
-  font-size: 0.7rem !important;
-  letter-spacing: 0.12em !important;
+.about__text strong { color: rgba(255,255,255,0.78) !important; font-weight: 600 !important; }
+.about__terminal {
+  background: rgba(0,0,0,0.45) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+.about__terminal-header {
+  background: rgba(255,255,255,0.02) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  padding: 10px 14px !important;
+}
+.about__terminal-title {
+  font-size: 0.75rem !important;
+  color: rgba(255,255,255,0.3) !important;
+  font-family: 'JetBrains Mono', monospace !important;
+}
+.about__detail-label {
+  font-size: 0.68rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: rgba(255,255,255,0.28) !important;
+}
+.about__detail-value {
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
+  color: rgba(255,255,255,0.72) !important;
+}
+.about__detail-card {
+  background: var(--c-surface) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-sm) !important;
+  transition: border-color var(--transition) !important;
+}
+.about__detail-card:hover { border-color: var(--c-border-hover) !important; }
+
+/* ─── Timeline ─── */
+.timeline__title {
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  color: rgba(255,255,255,0.86) !important;
+}
+.timeline__company {
+  font-size: 0.8rem !important;
+  color: var(--c-accent) !important;
+  font-weight: 500 !important;
+}
+.timeline__date {
+  font-size: 0.72rem !important;
+  color: rgba(255,255,255,0.28) !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 0 !important;
+}
+.timeline__desc {
+  font-size: 0.85rem !important;
+  color: rgba(255,255,255,0.4) !important;
+  line-height: 1.65 !important;
+}
+.timeline__dot {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  background: var(--c-accent) !important;
+  border: 2px solid rgba(124,58,237,0.25) !important;
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.08) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+.timeline__item:hover .timeline__dot {
+  transform: scale(1.25) !important;
+  box-shadow: 0 0 0 5px rgba(124,58,237,0.15), 0 0 12px rgba(124,58,237,0.3) !important;
+}
+.timeline__line { background: rgba(255,255,255,0.05) !important; }
+
+/* ─── Web3 cards ─── */
+.web3__card {
+  background: var(--c-surface) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r) !important;
+  transition: border-color var(--transition), box-shadow var(--transition) !important;
+}
+.web3__card:hover {
+  border-color: rgba(255,255,255,0.1) !important;
+}
+.web3__card-title {
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  color: rgba(255,255,255,0.85) !important;
+}
+.web3__card-desc {
+  font-size: 0.83rem !important;
+  color: rgba(255,255,255,0.38) !important;
+  line-height: 1.62 !important;
+}
+.web3__card-link {
+  font-size: 0.8rem !important;
+  color: var(--c-accent) !important;
+  font-weight: 500 !important;
+  opacity: 0.75 !important;
+  transition: opacity 0.2s !important;
+}
+.web3__card-link:hover { opacity: 1 !important; }
+
+/* ─── Contact ─── */
+.contact__card {
+  background: var(--c-surface) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r) !important;
+  transition: border-color var(--transition) !important;
+}
+.contact__card:hover { border-color: rgba(255,255,255,0.1) !important; }
+
+/* ─── Code editors ─── */
+.code-editor {
+  background: rgba(0,0,0,0.55) !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  border-radius: var(--r) !important;
+}
+.code-editor__header {
+  background: rgba(255,255,255,0.02) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+  padding: 10px 14px !important;
+}
+.code-editor__filename {
+  font-size: 0.75rem !important;
+  color: rgba(255,255,255,0.35) !important;
+}
+.code-editor__lang {
+  font-size: 0.68rem !important;
+  color: rgba(255,255,255,0.2) !important;
+  margin-left: auto !important;
 }
 
 /* ─── Footer ─── */
 .footer {
-  background: var(--redesign-bg) !important;
+  background: var(--c-bg) !important;
   border-top: 1px solid rgba(255,255,255,0.05) !important;
 }
-.footer__brand {
-  font-weight: 700 !important;
-  letter-spacing: -0.03em !important;
-}
 .footer__copy {
-  font-size: 0.78rem !important;
+  font-size: 0.75rem !important;
   color: rgba(255,255,255,0.2) !important;
 }
 
-/* ─── Web3 cards ─── */
-.web3__card-title {
-  font-size: 1rem !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.02em !important;
-  color: rgba(255,255,255,0.88) !important;
+/* ─── Section number watermark ─── */
+.section__header { position: relative !important; overflow: hidden !important; }
+.section__header[data-number]::after {
+  content: attr(data-number) !important;
+  position: absolute !important;
+  top: -10px !important; right: -5px !important;
+  font-size: 5rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.05em !important;
+  color: rgba(255,255,255,0.022) !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  line-height: 1 !important;
 }
-.web3__card-desc {
-  font-size: 0.85rem !important;
-  color: rgba(255,255,255,0.4) !important;
-  line-height: 1.6 !important;
-}
-.web3__card-link {
-  font-size: 0.82rem !important;
-  color: var(--redesign-accent) !important;
-  font-weight: 500 !important;
-  opacity: 0.8 !important;
-  letter-spacing: -0.01em !important;
-}
-.web3__card-link:hover { opacity: 1 !important; }
 
-/* ─── About section ─── */
-.about__text p {
-  color: rgba(255,255,255,0.5) !important;
-  font-size: 0.97rem !important;
-  line-height: 1.75 !important;
+/* ─── Link accent ─── */
+a.link--accent {
+  color: rgba(255,255,255,0.65) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.18) !important;
+  transition: color 0.2s, border-color 0.2s !important;
+  text-decoration: none !important;
 }
-.about__text strong { color: rgba(255,255,255,0.8) !important; }
-.about__detail-label {
-  font-size: 0.72rem !important;
-  color: rgba(255,255,255,0.3) !important;
+a.link--accent:hover {
+  color: rgba(255,255,255,0.9) !important;
+  border-color: rgba(255,255,255,0.4) !important;
+}
+
+/* ─── Scroll indicator ─── */
+.scroll-indicator {
+  color: rgba(255,255,255,0.2) !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.14em !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
-  font-weight: 600 !important;
 }
-.about__detail-value {
-  font-size: 0.9rem !important;
-  color: rgba(255,255,255,0.75) !important;
-  font-weight: 500 !important;
-}
+.scroll-indicator__line { background: rgba(255,255,255,0.15) !important; }
 
 /* ─── Back to top ─── */
 .back-to-top {
-  background: rgba(12,12,15,0.9) !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
+  background: var(--c-surface) !important;
+  border: 1px solid var(--c-border) !important;
   border-radius: 10px !important;
-  width: 40px !important;
-  height: 40px !important;
+  color: rgba(255,255,255,0.5) !important;
+  width: 40px !important; height: 40px !important;
+}
+.back-to-top:hover {
+  border-color: var(--c-border-hover) !important;
+  color: rgba(255,255,255,0.8) !important;
 }
 
-/* ─── Project status badges ─── */
-.project-card__status {
-  font-size: 0.7rem !important;
-  font-weight: 600 !important;
-  border-radius: 100px !important;
-  padding: 2px 8px !important;
-  letter-spacing: 0.04em !important;
-  text-transform: uppercase !important;
-}
-.project-card__status--done {
-  background: rgba(16,185,129,0.1) !important;
-  color: #34d399 !important;
-  border: 1px solid rgba(52,211,153,0.2) !important;
-}
-.project-card__status--progress {
-  background: rgba(124,58,237,0.1) !important;
-  color: #a78bfa !important;
-  border: 1px solid rgba(167,139,250,0.2) !important;
+/* ─── Smooth transitions globaux ─── */
+.project-card, .skill-card, .web3__card, .about__detail-card, .contact__card, .code-editor {
+  will-change: transform, box-shadow !important;
 }
 
-/* ─── Section number watermark ─── */
-.section__header[data-number]::after {
-  font-size: 5rem !important;
-  color: rgba(255,255,255,0.025) !important;
-}
+/* ─── Selection ─── */
+::selection { background: rgba(124,58,237,0.28); color: #fff; }
 
-/* ─── Gradient accents cohérents ─── */
-.gradient-text,
-.gradient-purple,
-[class*="gradient"] {
-  background: linear-gradient(135deg, var(--redesign-accent), var(--redesign-cyan)) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-}
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.35); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.6); }
 
-/* ─── Icons dans les cards ─── */
-.project-card__icon,
-.skill-card__icon,
-.about__detail-icon,
-.contact__card-icon {
-  border-radius: 10px !important;
-  opacity: 0.85 !important;
-}
+/* ─── Focus ─── */
+:focus-visible { outline: 2px solid rgba(124,58,237,0.7); outline-offset: 3px; border-radius: 4px; }
 
-/* ─── Dividers ─── */
-.section-divider svg path {
-  fill: var(--redesign-surface) !important;
-}
-
-/* ─── Mobile adjustments ─── */
+/* ─── Mobile ─── */
 @media (max-width: 768px) {
-  .hero__title-name { font-size: 2.8rem !important; letter-spacing: -0.03em !important; }
-  .section__title { font-size: 1.8rem !important; }
-  .filter-btn { font-size: 0.75rem !important; padding: 5px 10px !important; }
+  .hero__title-name { font-size: 2.8rem !important; }
+  .section__title { font-size: 1.75rem !important; }
+  .hero__description { font-size: 0.92rem !important; }
 }
-
-/* ─── Smooth all transitions ─── */
-*, *::before, *::after {
-  transition-timing-function: cubic-bezier(.16,1,.3,1) !important;
-}
-a, button, .btn { transition-duration: 0.2s !important; }
-.project-card, .skill-card, .web3__card, .about__detail-card { transition-duration: 0.3s !important; }
