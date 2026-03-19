@@ -1,0 +1,550 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   AWWWARDS EDITION — Advanced Visual Effects
+   Three.js, Glitch, GSAP, Custom Cursor, Preloader, 3D Cards, CRT, Noise
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Three.js Canvas ─────────────────────────────────────────────────────── */
+#threeCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+#threeCanvas.ready {
+  opacity: 1;
+}
+
+/* Ensure existing bg-animated is above Three.js canvas */
+.bg-animated {
+  z-index: 1;
+}
+/* Hide 2D particles when Three.js is active */
+body.threejs-active #particlesCanvas {
+  opacity: 0;
+}
+
+/* ─── CINEMATIC PRELOADER ─────────────────────────────────────────────────── */
+#loader {
+  background: #050508;
+  z-index: 100002;
+}
+.loader__cinematic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+}
+.loader__logo-wrap {
+  position: relative;
+}
+.loader__logo-ring {
+  position: absolute;
+  inset: -16px;
+  border: 1px solid rgba(110, 0, 255, 0.3);
+  border-radius: 50%;
+  animation: ring-spin 3s linear infinite;
+}
+.loader__logo-ring::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: #6e00ff;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 12px #6e00ff;
+}
+@keyframes ring-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.loader__typing-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: rgba(110, 0, 255, 0.8);
+  letter-spacing: 0.3em;
+  min-height: 1.2em;
+  text-transform: uppercase;
+}
+.loader__typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: #6e00ff;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 0.7s step-end infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+.loader__progress-enhanced {
+  width: 200px;
+  height: 1px;
+  background: rgba(110, 0, 255, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+.loader__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6e00ff, #00d4ff);
+  width: 0%;
+  transition: width 0.1s linear;
+  position: relative;
+}
+.loader__progress-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 4px;
+  height: 5px;
+  background: #00d4ff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00d4ff;
+}
+.loader__percent {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: rgba(0, 212, 255, 0.6);
+  letter-spacing: 0.2em;
+  margin-top: 0.5rem;
+}
+/* Loader exit: wipe effect */
+.loader.exit {
+  animation: loader-wipe 0.8s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+@keyframes loader-wipe {
+  0% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  100% { clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); }
+}
+
+/* ─── GLITCH EFFECT on hero name ─────────────────────────────────────────── */
+.hero__title-name {
+  position: relative;
+  display: inline-block;
+}
+.hero__title-name.glitch-active {
+  animation: none;
+}
+.hero__title-name::before,
+.hero__title-name::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+}
+.hero__title-name::before {
+  color: #ff00ff;
+  z-index: 1;
+}
+.hero__title-name::after {
+  color: #00ffff;
+  z-index: -1;
+}
+.hero__title-name.glitching::before {
+  opacity: 0.8;
+  animation: glitch-before 0.3s steps(1) forwards;
+}
+.hero__title-name.glitching::after {
+  opacity: 0.8;
+  animation: glitch-after 0.3s steps(1) forwards;
+}
+.hero__title-name.glitching {
+  animation: glitch-main 0.3s steps(1) forwards;
+}
+
+@keyframes glitch-main {
+  0%   { transform: translate(0); }
+  10%  { transform: translate(-2px, 1px); clip-path: polygon(0 15%, 100% 15%, 100% 30%, 0 30%); }
+  20%  { transform: translate(2px, -1px); clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%); }
+  30%  { transform: translate(-1px, 2px); }
+  40%  { transform: translate(1px, -2px); clip-path: polygon(0 40%, 100% 40%, 100% 55%, 0 55%); }
+  50%  { transform: translate(0); }
+  60%  { transform: translate(3px, 1px); clip-path: polygon(0 5%, 100% 5%, 100% 20%, 0 20%); }
+  70%  { transform: translate(-2px, -1px); }
+  80%  { transform: translate(1px, 2px); }
+  90%  { transform: translate(-1px, 0); }
+  100% { transform: translate(0); clip-path: none; }
+}
+@keyframes glitch-before {
+  0%   { transform: translate(-3px, 0); opacity: 0.8; }
+  25%  { transform: translate(3px, -2px); clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%); }
+  50%  { transform: translate(-2px, 2px); clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%); }
+  75%  { transform: translate(3px, 0); clip-path: polygon(0 0, 100% 0, 100% 15%, 0 15%); }
+  100% { transform: translate(0); opacity: 0; clip-path: none; }
+}
+@keyframes glitch-after {
+  0%   { transform: translate(3px, 0); opacity: 0.7; }
+  25%  { transform: translate(-3px, 2px); clip-path: polygon(0 40%, 100% 40%, 100% 60%, 0 60%); }
+  50%  { transform: translate(2px, -2px); clip-path: polygon(0 10%, 100% 10%, 100% 30%, 0 30%); }
+  75%  { transform: translate(-2px, 1px); clip-path: polygon(0 70%, 100% 70%, 100% 90%, 0 90%); }
+  100% { transform: translate(0); opacity: 0; clip-path: none; }
+}
+
+/* Scan line sweep over glitch */
+.hero__title-name.glitching::before {
+  background: linear-gradient(transparent 0%, rgba(110, 0, 255, 0.1) 50%, transparent 100%);
+  background-size: 100% 4px;
+}
+
+/* ─── ENHANCED CUSTOM CURSOR ──────────────────────────────────────────────── */
+.cursor-trail {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(110, 0, 255, 0.6);
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+/* Cursor on project cards */
+body.cursor-view .custom-cursor__circle {
+  width: 60px;
+  height: 60px;
+  border-color: #00d4ff;
+  background: rgba(0, 212, 255, 0.1);
+}
+body.cursor-view .custom-cursor__dot::after {
+  content: 'VIEW';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 7px;
+  letter-spacing: 0.1em;
+  color: #00d4ff;
+  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+}
+body.cursor-view .custom-cursor__dot {
+  position: relative;
+  background: transparent;
+  width: 0;
+  height: 0;
+}
+
+/* ─── PAGE TRANSITION ENHANCED ───────────────────────────────────────────── */
+.page-transition__sweep {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  pointer-events: none;
+  background: linear-gradient(135deg, #6e00ff 0%, #00d4ff 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.page-transition__sweep.active {
+  animation: sweep-out 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+.page-transition__sweep.exit {
+  animation: sweep-in 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+@keyframes sweep-out {
+  0%   { transform: scaleX(0); transform-origin: left center; }
+  50%  { transform: scaleX(1); transform-origin: left center; }
+  50.01% { transform: scaleX(1); transform-origin: right center; }
+  100% { transform: scaleX(0); transform-origin: right center; }
+}
+@keyframes sweep-in {
+  0%   { transform: scaleX(0); transform-origin: left center; }
+  100% { transform: scaleX(1); transform-origin: left center; }
+}
+
+/* ─── MAGNETIC BUTTONS ENHANCED ──────────────────────────────────────────── */
+.magnetic {
+  transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  will-change: transform;
+}
+
+/* ─── HERO SECTION ENHANCEMENTS ──────────────────────────────────────────── */
+.hero {
+  position: relative;
+  z-index: 2;
+}
+
+/* Typing appear animation for hero name chars */
+@keyframes char-appear-glitch {
+  0%   { opacity: 0; transform: translateY(20px) skewX(-10deg); filter: blur(4px); }
+  30%  { opacity: 0.7; transform: translateY(-3px) skewX(5deg); filter: blur(1px); }
+  60%  { opacity: 0.9; transform: translateY(2px) skewX(-2deg); filter: blur(0); }
+  80%  { transform: translateY(-1px) skewX(1deg); }
+  100% { opacity: 1; transform: translateY(0) skewX(0); filter: blur(0); }
+}
+.hero__title-name .char {
+  display: inline-block;
+  opacity: 0;
+  animation: char-appear-glitch 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation-play-state: paused;
+}
+
+/* ─── GSAP REVEAL STATES ──────────────────────────────────────────────────── */
+.gsap-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.gsap-reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+.gsap-reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+}
+.gsap-word {
+  display: inline-block;
+  overflow: hidden;
+}
+.gsap-word-inner {
+  display: inline-block;
+  transform: translateY(110%);
+}
+
+/* ─── ENHANCED PROJECT CARDS 3D ──────────────────────────────────────────── */
+.project-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+  transition: transform 0.1s ease, box-shadow 0.3s ease !important;
+}
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(110, 0, 255, 0.2) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.project-card:hover::before {
+  opacity: 1;
+}
+/* Glow border follows mouse */
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--card-angle, 0deg) at var(--mx, 50%) var(--my, 50%),
+    #6e00ff 0deg,
+    #00d4ff 60deg,
+    transparent 120deg
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.project-card:hover::after {
+  opacity: 0.6;
+  animation: border-rotate 3s linear infinite;
+}
+@keyframes border-rotate {
+  from { --card-angle: 0deg; }
+  to { --card-angle: 360deg; }
+}
+/* Light reflection */
+.project-card__light {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--lx, 50%) var(--ly, 50%),
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.project-card:hover .project-card__light {
+  opacity: 1;
+}
+
+/* ─── BACKGROUND NOISE ENHANCED ──────────────────────────────────────────── */
+.noise-overlay {
+  animation: noise-shift 0.15s steps(1) infinite;
+}
+@keyframes noise-shift {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-1%, -1%); }
+  20%  { transform: translate(1%, 0); }
+  30%  { transform: translate(0, 1%); }
+  40%  { transform: translate(-1%, 1%); }
+  50%  { transform: translate(1%, -1%); }
+  60%  { transform: translate(0, -1%); }
+  70%  { transform: translate(-1%, 0); }
+  80%  { transform: translate(1%, 1%); }
+  90%  { transform: translate(0, 0); }
+  100% { transform: translate(-1%, -1%); }
+}
+
+/* ─── CRT SCANLINES ENHANCED ─────────────────────────────────────────────── */
+.scanline-overlay {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  animation: scanlines-scroll 10s linear infinite;
+}
+@keyframes scanlines-scroll {
+  from { background-position: 0 0; }
+  to   { background-position: 0 40px; }
+}
+
+/* ─── SKILL BARS GSAP READY ───────────────────────────────────────────────── */
+.skill-item__progress {
+  width: 0 !important; /* Reset — GSAP will animate */
+  transition: none !important;
+}
+.skill-item__progress.animated {
+  transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+/* Fallback for non-GSAP pages */
+body.no-gsap .skill-item__progress {
+  transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* ─── HERO PIN SPACER (GSAP) ─────────────────────────────────────────────── */
+.hero-pin-wrapper {
+  position: relative;
+}
+
+/* ─── SECTION WORD REVEAL ─────────────────────────────────────────────────── */
+.split-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.split-word-inner {
+  display: inline-block;
+}
+
+/* ─── COUNTER NUMBER ─────────────────────────────────────────────────────── */
+.hero__stat-number {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── SECTION TRANSITIONS (GSAP driven) ─────────────────────────────────── */
+.section__header [data-number] {
+  position: relative;
+}
+
+/* ─── ENHANCED NOISE CANVAS ──────────────────────────────────────────────── */
+#noiseCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+}
+
+/* ─── FOOTER CTA GLOW ────────────────────────────────────────────────────── */
+.footer__cta {
+  position: relative;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #threeCanvas {
+    display: none;
+  }
+  .cursor-trail {
+    display: none;
+  }
+  .project-card::before,
+  .project-card::after {
+    display: none;
+  }
+  .project-card__light {
+    display: none;
+  }
+  .hero__title-name.glitching {
+    animation: none;
+  }
+}
+
+/* ─── HERO SUBTITLE WORD REVEAL ──────────────────────────────────────────── */
+.section__title .split-line {
+  overflow: hidden;
+  display: block;
+}
+.section__title .split-line-inner {
+  display: block;
+  transform: translateY(100%);
+}
+
+/* ─── SCROLL PROGRESS ENHANCED ───────────────────────────────────────────── */
+.scroll-progress {
+  z-index: 9999;
+}
+
+/* ─── PRELOADER LOGO ENHANCED ────────────────────────────────────────────── */
+.loader__logo {
+  position: relative;
+  z-index: 1;
+}
+.loader__logo-glitch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── AWWWARDS BADGE (optional fun) ─────────────────────────────────────── */
+.aww-badge {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: right center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: rgba(110, 0, 255, 0.4);
+  z-index: 100;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* ─── GSAP BATCH REVEAL ──────────────────────────────────────────────────── */
+.gsap-batch {
+  opacity: 0;
+  transform: translateY(50px);
+}
