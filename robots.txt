@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pazificateur.github.io/portfolio/sitemap.xml
+Sitemap: https://pazent.fr/sitemap.xml
