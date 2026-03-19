@@ -54,6 +54,12 @@
   <link rel="stylesheet" href="css/main.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="css/main.css"></noscript>
   <link rel="stylesheet" href="css/command-palette.css">
+  <link rel="stylesheet" href="css/awwwards.css">
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"></script>
+  <!-- GSAP + ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -209,6 +215,7 @@
   <main>
     <!-- HERO -->
     <section class="hero" id="hero">
+      <canvas id="three-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
       <div class="hero__content">
         <div class="hero__badge hero-enter">
           <span class="hero__badge-dot"></span>
@@ -1650,6 +1657,12 @@
     </div>
   </footer>
 
+  <!-- Three.js + GSAP CDN (loaded first, before custom scripts) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/gsap-animations.js"></script>
   <script src="js/i18n-data.js" defer></script>
   <script src="js/sound-engine.js" defer></script>
   <script src="js/command-palette.js"></script>
@@ -1709,6 +1722,13 @@
       <line x1="12" y1="19" x2="20" y2="19"></line>
     </svg>
   </button>
+
+  <!-- ✨ Visual FX Premium -->
+  <script src="js/preloader.js"></script>
+  <script src="js/glitch.js"></script>
+  <script src="js/cursor-trail.js"></script>
+  <script src="js/cards-3d.js"></script>
+  <script src="js/page-transition.js"></script>
 
 </body>
 
