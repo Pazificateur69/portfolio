@@ -1,0 +1,35 @@
+name: 🚀 Deploy to pazent.fr
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Hostinger
+
+    steps:
+      - name: 📦 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔑 Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p 65002 82.25.113.36 >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: 📤 Deploy via rsync
+        run: |
+          rsync -az --delete \
+            -e "ssh -i ~/.ssh/deploy_key -p 65002 -o StrictHostKeyChecking=no" \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='*.md' \
+            ./ \
+            u736310720@82.25.113.36:~/domains/pazent.fr/public_html/
+
+      - name: ✅ Done
+        run: echo "Deployed to pazent.fr at $(date)"
