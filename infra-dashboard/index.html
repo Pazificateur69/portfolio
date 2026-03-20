@@ -384,7 +384,8 @@ function openService(name) {
   event.target.closest('.service-card').classList.add('active');
   document.getElementById('panel-title').textContent = name.toUpperCase() + ' — Live Service';
 
-  const proxyUrl = '/proxy.php?s=' + name;
+  // Use VM1 proxy directly (http://82.70.248.117:3000/?s=service)
+  const proxyUrl = 'http://82.70.248.117:3000/?s=' + name;
   const content = document.getElementById('panel').querySelector('.panel-content');
   content.innerHTML = '<iframe src="' + proxyUrl + '" style="width:100%;height:600px;border:none;border-radius:8px;" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"></iframe>';
 
