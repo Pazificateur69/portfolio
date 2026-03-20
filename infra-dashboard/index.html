@@ -192,7 +192,17 @@ function openService(key) {
   document.querySelectorAll('.service').forEach(s => s.classList.remove('active'));
   event.target.closest('.service').classList.add('active');
   document.getElementById('vtitle').textContent = svc.name;
-  const html = `
+  
+  // Try to load via proxy
+  const proxyUrl = `/proxy.php/${key}/`;
+  
+  // Create iframe
+  const iframeHtml = `<iframe style="width:100%;height:500px;border:none;border-radius:6px;" src="${proxyUrl}"></iframe>`;
+  document.getElementById('vcontent').innerHTML = iframeHtml;
+  
+  // If iframe fails, show instructions
+  document.querySelector('#vcontent iframe').onerror = function() {
+    const html = `
 <div class="terminal-line"><span class="info">📍 ${svc.name}</span></div>
 <div class="terminal-line"><span class="output">Host: ${svc.host}:${svc.port}</span></div>
 <div class="terminal-line"><span class="output">Protocol: ${svc.protocol.toUpperCase()}</span></div>
@@ -201,8 +211,10 @@ ${svc.pass ? `<div class="terminal-line"><span class="output">Pass: ${svc.pass}<
 <div class="terminal-line" style="margin-top: 10px; border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px;"><span class="info">🔗 SSH Tunnel:</span></div>
 <div class="terminal-line" style="word-break: break-all;"><span class="prompt">$</span> <span class="output">ssh -i ~/.ssh/id_ed25519 -L ${svc.port}:${svc.host}:${svc.port} ubuntu@82.70.248.117</span></div>
 <div class="terminal-line"><span class="output">Then: ${svc.protocol}://localhost:${svc.port}</span></div>
-`;
-  document.getElementById('vcontent').innerHTML = html;
+    `;
+    document.getElementById('vcontent').innerHTML = html;
+  };
+  
   document.getElementById('viewer').classList.add('active');
 }
 
