@@ -4,29 +4,22 @@
  * Usage: /proxy.php?s=SERVICE[&path=/sub/path]
  * Services: wazuh, grafana, prometheus, alertmanager, adminer, ldap
  *
- * Strategy: curl follows redirects internally (FOLLOWLOCATION),
- * then injects <base href> into HTML so the browser loads
- * all assets directly from the correct backend (valid cert or SSL bypass).
- *
- * Direct backends (no tunnel needed — Plesk server, ports open):
- *   wazuh   → https://195.35.28.51:8444/
- *   adminer → http://195.35.28.51:8081/
- *   ldap    → http://195.35.28.51:8085/
- *
- * Tunnel backends (Oracle private network via Cloudflare Tunnel):
- *   grafana/prometheus/alertmanager → CF tunnel on VM1
+ * All services go through Cloudflare Tunnel (valid cert, no SSL errors).
+ * Two tunnels:
+ *   CF_VM1  = VM1 tunnel → Grafana, Prometheus, Alertmanager, Adminer, LDAP
+ *   CF_WAZ  = Plesk tunnel → Wazuh dashboard (HTTPS port 8444)
  */
 
-// Cloudflare tunnel for Oracle private network services
-$CF = 'https://boost-variation-sculpture-enables.trycloudflare.com';
+$CF_VM1 = 'https://boost-variation-sculpture-enables.trycloudflare.com';
+$CF_WAZ = 'https://wellness-boat-effectively-tricks.trycloudflare.com';
 
 $BACKENDS = [
-    'wazuh'        => 'https://195.35.28.51:8444',
-    'adminer'      => 'http://195.35.28.51:8081',
-    'ldap'         => 'http://195.35.28.51:8085',
-    'grafana'      => $CF . '/grafana',
-    'prometheus'   => $CF . '/prometheus',
-    'alertmanager' => $CF . '/alertmanager',
+    'wazuh'        => $CF_WAZ,
+    'adminer'      => $CF_VM1 . '/adminer',
+    'ldap'         => $CF_VM1 . '/ldap',
+    'grafana'      => $CF_VM1 . '/grafana',
+    'prometheus'   => $CF_VM1 . '/prometheus',
+    'alertmanager' => $CF_VM1 . '/alertmanager',
 ];
 
 // --- Parse request ---------------------------------------------------------
