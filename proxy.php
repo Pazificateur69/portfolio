@@ -6,18 +6,27 @@
  *
  * Strategy: curl follows redirects internally (FOLLOWLOCATION),
  * then injects <base href> into HTML so the browser loads
- * all assets/API calls directly from the CF tunnel (valid Cloudflare cert).
+ * all assets directly from the correct backend (valid cert or SSL bypass).
+ *
+ * Direct backends (no tunnel needed — Plesk server, ports open):
+ *   wazuh   → https://195.35.28.51:8444/
+ *   adminer → http://195.35.28.51:8081/
+ *   ldap    → http://195.35.28.51:8085/
+ *
+ * Tunnel backends (Oracle private network via Cloudflare Tunnel):
+ *   grafana/prometheus/alertmanager → CF tunnel on VM1
  */
 
+// Cloudflare tunnel for Oracle private network services
 $CF = 'https://bless-graphs-bibliographic-nickname.trycloudflare.com';
 
 $BACKENDS = [
-    'wazuh'        => $CF . '/wazuh',
+    'wazuh'        => 'https://195.35.28.51:8444',
+    'adminer'      => 'http://195.35.28.51:8081',
+    'ldap'         => 'http://195.35.28.51:8085',
     'grafana'      => $CF . '/grafana',
     'prometheus'   => $CF . '/prometheus',
     'alertmanager' => $CF . '/alertmanager',
-    'adminer'      => $CF . '/adminer',
-    'ldap'         => $CF . '/ldap',
 ];
 
 // --- Parse request ---------------------------------------------------------
