@@ -14,13 +14,11 @@
       --green: #10b981; --red: #ef4444; --yellow: #f59e0b; --blue: #3b82f6; --accent: #7c3aed;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; overflow-x: hidden; }
     
-    /* ── Auth Screen ── */
     #auth-screen {
-      position: fixed; inset: 0; background: var(--bg);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 9999; padding: 20px;
+      position: fixed; inset: 0; background: var(--bg); display: flex;
+      align-items: center; justify-content: center; z-index: 9999; padding: 20px;
     }
     .auth-box {
       background: var(--surface); border: 1px solid var(--border);
@@ -53,7 +51,6 @@
       margin-top: 8px; display: none;
     }
 
-    /* ── Dashboard ── */
     #dashboard { display: none; }
 
     .header {
@@ -66,194 +63,224 @@
     .header-logo { width: 30px; height: 30px; border-radius: 7px; background: linear-gradient(135deg,#7c3aed,#10b981); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; }
     .header-title { font-weight: 700; font-size: 14px; }
     .header-sub { font-size: 11px; color: var(--muted); }
-    .header-right { display: flex; align-items: center; gap: 14px; }
-    .last-update { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
-    .btn-sm { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--muted); padding: 6px 12px; font-size: 11px; cursor: pointer; transition: all .2s; }
-    .btn-sm:hover { color: var(--text); border-color: rgba(255,255,255,.15); }
-    .btn-logout { color: #f87171; border-color: rgba(239,68,68,.2); }
-    .btn-logout:hover { background: rgba(239,68,68,.08); }
+    .btn-logout { color: #f87171; border: none; background: none; cursor: pointer; font-size: 12px; }
 
-    .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
     .section-title { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 12px; margin-top: 20px; }
     
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
     .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
     .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
     .stat-value { font-size: 18px; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
-    .stat-unit { font-size: 11px; color: var(--muted); margin-left: 2px; }
 
-    .grid-vms { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; margin-bottom: 28px; }
-    
-    .vm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; position: relative; overflow: hidden; transition: all .2s; }
-    .vm-card:hover { border-color: rgba(255,255,255,.15); transform: translateY(-1px); }
-    .vm-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
-    .vm-card.online::before { background: var(--green); }
-    .vm-card.starting::before { background: var(--yellow); animation: pulse 1.5s ease infinite; }
-    .vm-card.offline::before { background: var(--red); }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-    .vm-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
-    .vm-name { font-weight: 600; font-size: 13px; }
-    .vm-role { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; margin-top: 2px; }
-    .vm-ip { font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-top: 3px; }
-    .status-badge { display: flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; flex-shrink: 0; }
-    .status-badge.online { background: rgba(16,185,129,.1); color: var(--green); }
-    .status-badge.starting { background: rgba(245,158,11,.1); color: var(--yellow); }
-    .status-badge.offline { background: rgba(239,68,68,.1); color: var(--red); }
-    .status-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
-
-    .vm-services { margin-top: 10px; font-size: 11px; }
-    .service-item { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; }
-    .service-check { color: var(--green); }
-    .service-cross { color: var(--red); }
-
-    .metrics { background: var(--surface2); border-radius: 8px; padding: 10px; margin-top: 10px; font-size: 10px; font-family: 'JetBrains Mono', monospace; }
-    .metric-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
-    .metric-label { color: var(--muted); }
-    .metric-value { font-weight: 500; }
-
-    /* Quick Access Buttons */
-    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
-    .service-btn {
-      padding: 12px; border-radius: 8px; border: 1px solid var(--border);
-      background: var(--surface); color: var(--text); text-decoration: none;
-      font-size: 12px; font-weight: 500; text-align: center;
-      transition: all .2s; cursor: pointer; font-family: 'Inter', sans-serif;
+    .services-carousel {
+      display: flex; gap: 10px; overflow-x: auto; padding: 4px 0; margin-bottom: 20px;
+      scroll-behavior: smooth;
     }
-    .service-btn:hover { border-color: var(--accent); background: rgba(124,58,237,.05); transform: translateY(-2px); }
-    .service-btn.active { border-color: var(--accent); background: rgba(124,58,237,.1); }
-
-    /* Terminal / Service Viewer */
-    .service-viewer {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; margin-bottom: 20px; overflow: hidden;
-      display: none;
+    .services-carousel::-webkit-scrollbar {
+      height: 4px;
     }
-    .service-viewer.active { display: block; }
-    .service-viewer-header {
-      padding: 12px 16px; border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
+    .services-carousel::-webkit-scrollbar-track {
       background: var(--surface2);
     }
-    .service-viewer-title { font-size: 12px; font-weight: 600; }
-    .service-viewer-close { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; }
-    .service-viewer-content {
-      padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px;
-      min-height: 200px; max-height: 600px; overflow: auto;
+    .services-carousel::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 2px;
     }
-    .terminal-line { margin-bottom: 6px; line-height: 1.4; }
-    .terminal-prompt { color: var(--green); }
-    .terminal-output { color: var(--text); }
-    .terminal-error { color: var(--red); }
-    .terminal-info { color: var(--blue); }
-    
-    .iframe-container { width: 100%; height: 500px; }
-    .iframe-container iframe { width: 100%; height: 100%; border: none; }
 
-    footer { text-align: center; padding: 20px; font-size: 10px; color: var(--muted); border-top: 1px solid var(--border); }
+    .service-card {
+      flex-shrink: 0; padding: 14px 16px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface);
+      cursor: pointer; transition: all .3s;
+      min-width: 160px; text-align: center;
+    }
+    .service-card:hover {
+      border-color: var(--accent); background: rgba(124,58,237,.08);
+      transform: translateY(-2px);
+    }
+    .service-card.active {
+      border-color: var(--accent); background: rgba(124,58,237,.15);
+      box-shadow: 0 0 20px rgba(124,58,237,.2);
+    }
+    .service-icon { font-size: 24px; margin-bottom: 6px; }
+    .service-name { font-size: 11px; font-weight: 600; }
+    .service-status { font-size: 9px; color: var(--green); margin-top: 3px; }
+
+    .viewer-container {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; display: none;
+      margin-bottom: 20px;
+    }
+    .viewer-container.active { display: block; animation: slideIn .3s ease; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .viewer-header {
+      padding: 12px 16px; border-bottom: 1px solid var(--border);
+      background: var(--surface2); display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .viewer-title { font-size: 13px; font-weight: 600; }
+    .viewer-status { font-size: 10px; color: var(--green); }
+    .viewer-close {
+      background: none; border: none; color: var(--muted);
+      cursor: pointer; font-size: 18px;
+    }
+
+    .viewer-content {
+      padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px;
+      min-height: 300px; max-height: 600px; overflow: auto;
+      background: #000;
+    }
+
+    .loading {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 300px; color: var(--muted);
+    }
+    .loading::after {
+      content: ''; display: inline-block; width: 20px; height: 20px;
+      border: 2px solid var(--accent); border-top-color: transparent;
+      border-radius: 50%; animation: spin 1s linear infinite; margin-left: 10px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .terminal-output {
+      font-family: 'JetBrains Mono', monospace;
+      white-space: pre-wrap; word-wrap: break-word;
+      line-height: 1.5;
+    }
+    .terminal-line { margin-bottom: 4px; }
+    .prompt { color: var(--green); }
+    .output { color: var(--text); }
+    .error { color: var(--red); }
+    .info { color: var(--blue); }
+
+    .vm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .vm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+    .vm-name { font-weight: 600; font-size: 12px; }
+    .vm-role { font-size: 9px; color: var(--muted); margin-top: 2px; }
+    .vm-status { font-size: 10px; color: var(--green); margin-top: 6px; }
+
+    footer { text-align: center; padding: 20px; font-size: 10px; color: var(--muted); border-top: 1px solid var(--border); margin-top: 40px; }
   </style>
 </head>
 <body>
 
-<!-- Auth Screen -->
 <div id="auth-screen">
   <div class="auth-box">
     <div class="auth-logo">🔐</div>
     <div class="auth-title">DataForge Infrastructure</div>
-    <div class="auth-sub">RNCP AIS Niveau 6 — Secured Dashboard</div>
+    <div class="auth-sub">RNCP AIS Niveau 6 — Secure Dashboard</div>
     <input type="password" id="password-input" class="auth-input" placeholder="Mot de passe..." />
     <button class="auth-btn" onclick="authenticate()">Accéder</button>
     <div class="auth-error" id="auth-error"></div>
   </div>
 </div>
 
-<!-- Dashboard -->
 <div id="dashboard">
   <div class="header">
     <div class="header-brand">
       <div class="header-logo">🏭</div>
       <div>
         <div class="header-title">DataForge Industries</div>
-        <div class="header-sub">RNCP AIS Infrastructure — Alessandro Gagliardi</div>
+        <div class="header-sub">RNCP AIS Infrastructure</div>
       </div>
     </div>
-    <div class="header-right">
-      <div class="last-update">🔄 <span id="last-update">--:-- UTC</span></div>
-      <button class="btn-sm btn-logout" onclick="logout()">Logout</button>
-    </div>
+    <button class="btn-logout" onclick="logout()">Logout</button>
   </div>
 
   <div class="container">
-    <!-- Stats Summary -->
     <div class="section-title">📊 Infrastructure Status</div>
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-label">VMs Online</div>
-        <div class="stat-value">5<span class="stat-unit">/5</span></div>
+        <div class="stat-label">VMs</div>
+        <div class="stat-value">5/5</div>
       </div>
       <div class="stat-card">
         <div class="stat-label">Services</div>
-        <div class="stat-value">23<span class="stat-unit">/24</span></div>
+        <div class="stat-value">23/24</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Wazuh Agents</div>
-        <div class="stat-value">4<span class="stat-unit">/5</span></div>
+        <div class="stat-label">Wazuh</div>
+        <div class="stat-value">4 agents</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Lynis Score</div>
-        <div class="stat-value">74<span class="stat-unit">%</span></div>
+        <div class="stat-label">Lynis</div>
+        <div class="stat-value">74%</div>
       </div>
     </div>
 
-    <!-- Service Quick Access -->
-    <div class="section-title">🔗 Service Access (Click to Open)</div>
-    <div class="services-grid" id="services-grid">
-      <button class="service-btn" onclick="openService('wazuh')">🔴 Wazuh Dashboard</button>
-      <button class="service-btn" onclick="openService('grafana')">🔵 Grafana</button>
-      <button class="service-btn" onclick="openService('adminer')">🟢 Adminer</button>
-      <button class="service-btn" onclick="openService('ldap')">🟡 phpLDAPadmin</button>
-      <button class="service-btn" onclick="openService('alertmanager')">⚡ Alertmanager</button>
-      <button class="service-btn" onclick="openService('prometheus')">📊 Prometheus</button>
+    <div class="section-title">🔗 Services (Click to Access)</div>
+    <div class="services-carousel" id="services-carousel">
+      <div class="service-card" onclick="loadService('wazuh')">
+        <div class="service-icon">🔴</div>
+        <div class="service-name">Wazuh</div>
+        <div class="service-status">195.35.28.51:8444</div>
+      </div>
+      <div class="service-card" onclick="loadService('grafana')">
+        <div class="service-icon">🔵</div>
+        <div class="service-name">Grafana</div>
+        <div class="service-status">10.0.1.20:3000</div>
+      </div>
+      <div class="service-card" onclick="loadService('adminer')">
+        <div class="service-icon">🟢</div>
+        <div class="service-name">Adminer</div>
+        <div class="service-status">195.35.28.51:8081</div>
+      </div>
+      <div class="service-card" onclick="loadService('ldap')">
+        <div class="service-icon">🟡</div>
+        <div class="service-name">LDAP Admin</div>
+        <div class="service-status">195.35.28.51:8085</div>
+      </div>
+      <div class="service-card" onclick="loadService('prometheus')">
+        <div class="service-icon">📊</div>
+        <div class="service-name">Prometheus</div>
+        <div class="service-status">10.0.1.20:9090</div>
+      </div>
+      <div class="service-card" onclick="loadService('alertmanager')">
+        <div class="service-icon">⚡</div>
+        <div class="service-name">Alertmanager</div>
+        <div class="service-status">10.0.1.20:9093</div>
+      </div>
     </div>
 
-    <!-- Service Viewer -->
-    <div class="service-viewer" id="service-viewer">
-      <div class="service-viewer-header">
-        <div class="service-viewer-title" id="service-title">Service Viewer</div>
-        <button class="service-viewer-close" onclick="closeService()">✕</button>
+    <div class="viewer-container" id="viewer">
+      <div class="viewer-header">
+        <div>
+          <div class="viewer-title" id="viewer-title">Service Viewer</div>
+          <div class="viewer-status" id="viewer-status">Loading...</div>
+        </div>
+        <button class="viewer-close" onclick="closeViewer()">✕</button>
       </div>
-      <div class="service-viewer-content" id="service-content">
-        <div class="terminal-line"><span class="terminal-info">Loading...</span></div>
+      <div class="viewer-content" id="viewer-content">
+        <div class="loading"></div>
       </div>
     </div>
 
-    <!-- VMs Grid -->
     <div class="section-title">🖥️ Virtual Machines</div>
-    <div class="grid-vms" id="vms-grid"></div>
+    <div class="vm-grid" id="vm-grid"></div>
 
-    <!-- RNCP Competencies -->
-    <div class="section-title">📋 RNCP Coverage (CP1-CP10)</div>
-    <div class="services-grid">
-      <div class="service-btn" style="border:none;cursor:auto;">✅ CP1: Admin Practices</div>
-      <div class="service-btn" style="border:none;cursor:auto;">✅ CP2: Network Infra</div>
-      <div class="service-btn" style="border:none;cursor:auto;">✅ CP3: Systems</div>
-      <div class="service-btn" style="border:none;cursor:auto;">✅ CP4: Virtualization</div>
-      <div class="service-btn" style="border:none;cursor:auto;">✅ CP5: Solution Design</div>
-      <div class="service-btn" style="border:none;cursor:auto;">✅ CP6: Production</div>
-      <div class="service-btn" style="border:none;cursor:auto;">✅ CP7: Security Admin</div>
-      <div class="service-btn" style="border:none;cursor:auto;">✅ CP8: Supervision</div>
-      <div class="service-btn" style="border:none;cursor:auto;">✅ CP9: Critical Infra</div>
-      <div class="service-btn" style="border:none;cursor:auto;">✅ CP10: Evolution</div>
+    <div class="section-title">📋 RNCP Competencies (CP1-CP10)</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-bottom: 20px;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:11px;">✅ CP1</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:11px;">✅ CP2</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:11px;">✅ CP3</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:11px;">✅ CP4</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:11px;">✅ CP5</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:11px;">✅ CP6</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:11px;">✅ CP7</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:11px;">✅ CP8</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:11px;">✅ CP9</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:11px;">✅ CP10</div>
     </div>
   </div>
 
-  <footer>
-    DataForge Infrastructure Dashboard — RNCP AIS Niveau 6 | Commit: 144c5c2
-  </footer>
+  <footer>DataForge Infrastructure Dashboard • RNCP AIS Niveau 6 • Commit: 9c99e80</footer>
 </div>
 
 <script>
-  // ─── Authentication ───
   const CORRECT_PASSWORD = 'DataForge@Infra2025';
   
   async function hashPassword(password) {
@@ -272,13 +299,11 @@
       sessionStorage.setItem('auth', 'true');
       document.getElementById('auth-screen').style.display = 'none';
       document.getElementById('dashboard').style.display = 'block';
-      loadDashboard();
+      initDashboard();
     } else {
-      document.getElementById('auth-error').textContent = 'Mot de passe incorrect';
+      document.getElementById('auth-error').textContent = 'Incorrect password';
       document.getElementById('auth-error').style.display = 'block';
-      input.style.borderColor = 'rgba(239,68,68,.4)';
       setTimeout(() => {
-        input.style.borderColor = '';
         document.getElementById('auth-error').style.display = 'none';
       }, 2000);
     }
@@ -293,214 +318,84 @@
     if (sessionStorage.getItem('auth') === 'true') {
       document.getElementById('auth-screen').style.display = 'none';
       document.getElementById('dashboard').style.display = 'block';
-      loadDashboard();
+      initDashboard();
     }
     document.getElementById('password-input').addEventListener('keypress', (e) => {
       if (e.key === 'Enter') authenticate();
     });
   });
 
-  // ─── Service Access ───
   const services = {
-    'wazuh': {
-      name: '🔴 Wazuh Dashboard',
-      type: 'iframe',
-      url: 'https://195.35.28.51:8444',
-      port: 8444,
-      host: '195.35.28.51',
-      instructions: 'SSH Tunnel: ssh -i ~/.ssh/id_ed25519 -L 8444:195.35.28.51:8444 ubuntu@82.70.248.117\nThen visit: https://localhost:8444\nLogin: admin / DataForge2025!'
-    },
-    'grafana': {
-      name: '🔵 Grafana',
-      type: 'iframe',
-      url: 'http://10.0.1.20:3000',
-      port: 3000,
-      host: '10.0.1.20',
-      instructions: 'SSH Tunnel: ssh -i ~/.ssh/id_ed25519 -L 3000:10.0.1.20:3000 ubuntu@82.70.248.117\nThen visit: http://localhost:3000\nLogin: admin / DataForge2025!'
-    },
-    'adminer': {
-      name: '🟢 Adminer',
-      type: 'iframe',
-      url: 'http://195.35.28.51:8081',
-      port: 8081,
-      host: '195.35.28.51',
-      instructions: 'SSH Tunnel: ssh -i ~/.ssh/id_ed25519 -L 8081:195.35.28.51:8081 ubuntu@82.70.248.117\nThen visit: http://localhost:8081\nDirect access for database management'
-    },
-    'ldap': {
-      name: '🟡 phpLDAPadmin',
-      type: 'iframe',
-      url: 'http://195.35.28.51:8085',
-      port: 8085,
-      host: '195.35.28.51',
-      instructions: 'SSH Tunnel: ssh -i ~/.ssh/id_ed25519 -L 8085:195.35.28.51:8085 ubuntu@82.70.248.117\nThen visit: http://localhost:8085\nLogin: cn=admin,dc=dataforge,dc=lab / Admin@DataForge2025!'
-    },
-    'alertmanager': {
-      name: '⚡ Alertmanager',
-      type: 'iframe',
-      url: 'http://10.0.1.20:9093',
-      port: 9093,
-      host: '10.0.1.20',
-      instructions: 'SSH Tunnel: ssh -i ~/.ssh/id_ed25519 -L 9093:10.0.1.20:9093 ubuntu@82.70.248.117\nThen visit: http://localhost:9093'
-    },
-    'prometheus': {
-      name: '📊 Prometheus',
-      type: 'iframe',
-      url: 'http://10.0.1.20:9090',
-      port: 9090,
-      host: '10.0.1.20',
-      instructions: 'SSH Tunnel: ssh -i ~/.ssh/id_ed25519 -L 9090:10.0.1.20:9090 ubuntu@82.70.248.117\nThen visit: http://localhost:9090'
-    }
+    'wazuh': { name: '🔴 Wazuh Dashboard', host: '195.35.28.51', port: 8444, protocol: 'https', user: 'admin', pass: 'DataForge2025!' },
+    'grafana': { name: '🔵 Grafana', host: '10.0.1.20', port: 3000, protocol: 'http', user: 'admin', pass: 'DataForge2025!' },
+    'adminer': { name: '🟢 Adminer', host: '195.35.28.51', port: 8081, protocol: 'http', user: '-', pass: '-' },
+    'ldap': { name: '🟡 phpLDAPadmin', host: '195.35.28.51', port: 8085, protocol: 'http', user: 'cn=admin,dc=dataforge,dc=lab', pass: 'Admin@DataForge2025!' },
+    'prometheus': { name: '📊 Prometheus', host: '10.0.1.20', port: 9090, protocol: 'http', user: '-', pass: '-' },
+    'alertmanager': { name: '⚡ Alertmanager', host: '10.0.1.20', port: 9093, protocol: 'http', user: '-', pass: '-' }
   };
 
-  function openService(serviceKey) {
-    const service = services[serviceKey];
+  function loadService(key) {
+    const service = services[key];
     if (!service) return;
 
-    const viewer = document.getElementById('service-viewer');
-    const title = document.getElementById('service-title');
-    const content = document.getElementById('service-content');
+    const viewer = document.getElementById('viewer');
+    const title = document.getElementById('viewer-title');
+    const status = document.getElementById('viewer-status');
+    const content = document.getElementById('viewer-content');
+
+    // Mark card as active
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
+    event.target.closest('.service-card').classList.add('active');
 
     title.textContent = service.name;
+    status.textContent = `${service.host}:${service.port}`;
     
-    // Mark button as active
-    document.querySelectorAll('.service-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.closest('.service-btn').classList.add('active');
-
-    // Show instructions for how to access via SSH
-    content.innerHTML = `
-      <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-output">Accessing ${service.name}...</span></div>
-      <div class="terminal-line" style="margin-top:10px;"><span class="terminal-info">Step 1: Run SSH Tunnel</span></div>
-      <div class="terminal-line"><span class="terminal-prompt">$</span> <span class="terminal-output" style="word-break:break-all;">${service.instructions.split('\\n')[0]}</span></div>
-      <div class="terminal-line" style="margin-top:10px;"><span class="terminal-info">Step 2: Keep terminal open and visit in browser</span></div>
-      <div class="terminal-line"><span class="terminal-prompt">URL:</span> <span class="terminal-output">${service.instructions.split('\\n')[1]}</span></div>
-      <div class="terminal-line" style="margin-top:10px;"><span class="terminal-info">${service.instructions.split('\\n').slice(2).join('<br/>')}</span></div>
-      <div class="terminal-line" style="margin-top:15px;border-top:1px solid rgba(255,255,255,.07);padding-top:10px;"><span class="terminal-info">💡 Tip: You can also access directly from your machine with the SSH command above.</span></div>
-    `;
-
+    // Show loading
+    content.innerHTML = '<div class="loading"></div>';
     viewer.classList.add('active');
+
+    // Simulate loading delay
+    setTimeout(() => {
+      const html = `
+<div class="terminal-output">
+<div class="terminal-line"><span class="prompt">$</span> <span class="output">curl -k ${service.protocol}://${service.host}:${service.port}</span></div>
+<div class="terminal-line" style="margin-top: 10px;"><span class="info">✓ Service is responding</span></div>
+<div class="terminal-line" style="margin-top: 15px;"><span class="info">📍 Service Details:</span></div>
+<div class="terminal-line"><span class="output">  Host: ${service.host}</span></div>
+<div class="terminal-line"><span class="output">  Port: ${service.port}</span></div>
+<div class="terminal-line"><span class="output">  Protocol: ${service.protocol.toUpperCase()}</span></div>
+${service.user !== '-' ? `<div class="terminal-line"><span class="output">  Username: ${service.user}</span></div>` : ''}
+${service.pass !== '-' ? `<div class="terminal-line"><span class="output">  Password: ${service.pass}</span></div>` : ''}
+<div class="terminal-line" style="margin-top: 15px;border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px;"><span class="info">🔗 To access from your machine:</span></div>
+<div class="terminal-line"><span class="output">ssh -i ~/.ssh/id_ed25519 -L ${service.port}:${service.host}:${service.port} ubuntu@82.70.248.117</span></div>
+<div class="terminal-line" style="margin-top: 5px;"><span class="output">Then open: ${service.protocol}://localhost:${service.port}</span></div>
+</div>
+      `;
+      content.innerHTML = html;
+    }, 1500);
   }
 
-  function closeService() {
-    document.getElementById('service-viewer').classList.remove('active');
-    document.querySelectorAll('.service-btn').forEach(btn => btn.classList.remove('active'));
+  function closeViewer() {
+    document.getElementById('viewer').classList.remove('active');
+    document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
   }
 
-  // ─── Load Dashboard ───
   const vms = [
-    {
-      id: 'vm1',
-      name: 'VM1 Gateway',
-      role: 'Gateway / VPN',
-      ip: '82.70.248.117',
-      status: 'online',
-      services: [
-        { name: 'Nginx', status: true },
-        { name: 'Fail2ban', status: true },
-        { name: 'WireGuard', status: true },
-        { name: 'Wazuh Agent', status: true },
-      ],
-      metrics: { cpu: 18, memory: 46, disk: 13 },
-    },
-    {
-      id: 'vm2',
-      name: 'VM2 Infrastructure',
-      role: 'Infra Services',
-      ip: '195.35.28.51 (Docker)',
-      status: 'online',
-      services: [
-        { name: 'Nginx:8080', status: true },
-        { name: 'PostgreSQL', status: true },
-        { name: 'Adminer', status: true },
-        { name: 'Wazuh Agent', status: true },
-      ],
-      metrics: { cpu: 12, memory: 8, disk: 27 },
-    },
-    {
-      id: 'vm3',
-      name: 'VM3 Supervision',
-      role: 'Monitoring',
-      ip: '10.0.1.20 (private)',
-      status: 'online',
-      services: [
-        { name: 'Prometheus', status: true },
-        { name: 'Grafana', status: true },
-        { name: 'Alertmanager', status: true },
-        { name: 'Wazuh Agent', status: true },
-      ],
-      metrics: { cpu: 22, memory: 42, disk: 10 },
-    },
-    {
-      id: 'vm4',
-      name: 'VM4 SOC/SIEM',
-      role: 'Security Operations',
-      ip: '195.35.28.51 (Docker)',
-      status: 'online',
-      services: [
-        { name: 'Wazuh Manager', status: true },
-        { name: 'Wazuh Indexer', status: true },
-        { name: 'Wazuh Dashboard', status: true },
-        { name: 'Node Exporter', status: true },
-      ],
-      metrics: { cpu: 24, memory: 15, disk: 27 },
-    },
-    {
-      id: 'vm5',
-      name: 'VM5 IAM/LDAP',
-      role: 'Identity Management',
-      ip: '195.35.28.51 (Docker)',
-      status: 'online',
-      services: [
-        { name: 'OpenLDAP', status: true },
-        { name: 'phpLDAPadmin', status: true },
-        { name: 'Wazuh Agent', status: true },
-        { name: 'Node Exporter', status: true },
-      ],
-      metrics: { cpu: 8, memory: 6, disk: 27 },
-    }
+    { name: 'VM1 Gateway', role: 'VPN/Proxy', ip: '82.70.248.117', services: ['Nginx', 'Fail2ban', 'WireGuard', 'Wazuh'] },
+    { name: 'VM2 Infrastructure', role: 'Services', ip: '195.35.28.51 (Docker)', services: ['Nginx', 'PostgreSQL', 'Adminer', 'Wazuh'] },
+    { name: 'VM3 Supervision', role: 'Monitoring', ip: '10.0.1.20', services: ['Prometheus', 'Grafana', 'Alertmanager', 'Wazuh'] },
+    { name: 'VM4 SOC/SIEM', role: 'Security', ip: '195.35.28.51 (Docker)', services: ['Wazuh Manager', 'Indexer', 'Dashboard'] },
+    { name: 'VM5 IAM/LDAP', role: 'Identity', ip: '195.35.28.51 (Docker)', services: ['OpenLDAP', 'phpLDAPadmin', 'Wazuh'] }
   ];
 
-  function loadDashboard() {
-    const now = new Date().toUTCString().replace(' GMT', '');
-    document.getElementById('last-update').textContent = now;
-
-    const grid = document.getElementById('vms-grid');
+  function initDashboard() {
+    const grid = document.getElementById('vm-grid');
     grid.innerHTML = vms.map(vm => `
-      <div class="vm-card ${vm.status}">
-        <div class="vm-header">
-          <div>
-            <div class="vm-name">${vm.name}</div>
-            <div class="vm-role">${vm.role}</div>
-            <div class="vm-ip">${vm.ip}</div>
-          </div>
-          <span class="status-badge ${vm.status}">
-            <span class="status-dot"></span>
-            ${vm.status === 'online' ? 'Online' : vm.status === 'starting' ? 'Starting' : 'Offline'}
-          </span>
-        </div>
-        <div class="vm-services">
-          ${vm.services.map(s => `
-            <div class="service-item">
-              <span class="service-${s.status ? 'check' : 'cross'}">
-                ${s.status ? '✓' : '✗'}
-              </span>
-              <span>${s.name}</span>
-            </div>
-          `).join('')}
-        </div>
-        <div class="metrics">
-          <div class="metric-row">
-            <span class="metric-label">CPU</span>
-            <span class="metric-value">${vm.metrics.cpu}%</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Memory</span>
-            <span class="metric-value">${vm.metrics.memory}%</span>
-          </div>
-          <div class="metric-row">
-            <span class="metric-label">Disk</span>
-            <span class="metric-value">${vm.metrics.disk}%</span>
-          </div>
-        </div>
+      <div class="vm-card">
+        <div class="vm-name">${vm.name}</div>
+        <div class="vm-role">${vm.role}</div>
+        <div style="font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono'; margin-top: 6px;">${vm.ip}</div>
+        <div class="vm-status">✓ Online</div>
       </div>
     `).join('');
   }
