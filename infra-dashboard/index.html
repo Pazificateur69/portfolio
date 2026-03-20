@@ -142,7 +142,8 @@ function openService(name) {
   document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
   event.target.closest('.card').classList.add('active');
   document.getElementById('panel-title').textContent = ['wazuh', 'grafana', 'adminer', 'ldap', 'prometheus', 'alertmanager'].includes(name) ? name.toUpperCase() : name;
-  document.getElementById('frame').src = `/proxy.php?s=${name}`;
+  // Use Cloudflare Worker as proxy gateway
+  document.getElementById('frame').src = `https://dataforge-proxy.workers.dev/?s=${name}`;
   document.getElementById('panel').classList.add('active');
 }
 
