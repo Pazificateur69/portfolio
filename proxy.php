@@ -18,7 +18,7 @@
  */
 
 // Cloudflare tunnel for Oracle private network services
-$CF = 'https://kenny-jun-list-hay.trycloudflare.com';
+$CF = 'https://boost-variation-sculpture-enables.trycloudflare.com';
 
 $BACKENDS = [
     'wazuh'        => 'https://195.35.28.51:8444',
