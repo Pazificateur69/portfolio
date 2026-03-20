@@ -7,7 +7,7 @@
   <title>DataForge</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0b; color: #fafafa; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif; }
+    body { background: #0a0a0b; color: #fafafa; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     
     #auth { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 999; }
     .auth-box { background: #111; border: 1px solid #333; border-radius: 12px; padding: 32px; width: 360px; }
@@ -40,6 +40,7 @@
     .panel-close { background: none; border: none; color: #666; cursor: pointer; font-size: 16px; }
     .panel-content { padding: 16px; }
     .panel-content iframe { width: 100%; height: 600px; border: none; }
+    .loading { padding: 40px; text-align: center; color: #666; }
     
     .footer { padding: 12px 20px; border-top: 1px solid #222; font-size: 10px; color: #666; text-align: center; }
   </style>
@@ -89,7 +90,7 @@
     </div>
     
     <div class="section">
-      <div class="section-title">🔗 Services</div>
+      <div class="section-title">🔗 Services (Click to Load)</div>
       <div class="grid">
         <div class="card" onclick="openService('wazuh')"><div class="card-icon">🔴</div><div class="card-name">Wazuh</div><div class="card-sub">8444</div></div>
         <div class="card" onclick="openService('grafana')"><div class="card-icon">🔵</div><div class="card-name">Grafana</div><div class="card-sub">3000</div></div>
@@ -106,16 +107,24 @@
         <button class="panel-close" onclick="closePanel()">✕</button>
       </div>
       <div class="panel-content">
-        <iframe id="frame"></iframe>
+        <div class="loading">Loading service...</div>
       </div>
     </div>
   </div>
   
-  <div class="footer">DataForge • RNCP AIS • Commit: 54815df</div>
+  <div class="footer">DataForge • RNCP AIS • v7 CORS Proxy</div>
 </div>
 
 <script>
 const PASS = 'DataForge@Infra2025';
+const SERVICES = {
+  'wazuh': 'https://195.35.28.51:8444/',
+  'grafana': 'http://10.0.1.20:3000/',
+  'adminer': 'http://195.35.28.51:8081/',
+  'ldap': 'http://195.35.28.51:8085/',
+  'prometheus': 'http://10.0.1.20:9090/',
+  'alertmanager': 'http://10.0.1.20:9093/'
+};
 
 async function auth(e) {
   e.preventDefault();
@@ -139,11 +148,23 @@ function logout() {
 }
 
 function openService(name) {
+  const targetUrl = SERVICES[name];
+  if (!targetUrl) return;
+  
   document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
   event.target.closest('.card').classList.add('active');
-  document.getElementById('panel-title').textContent = ['wazuh', 'grafana', 'adminer', 'ldap', 'prometheus', 'alertmanager'].includes(name) ? name.toUpperCase() : name;
-  // Use Cloudflare Worker as proxy gateway
-  document.getElementById('frame').src = `/proxy.php?s=${name}`;
+  document.getElementById('panel-title').textContent = name.toUpperCase();
+  
+  // Use allorigins CORS proxy (free, instant, no signup)
+  const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}&raw=true`;
+  const iframe = document.createElement('iframe');
+  iframe.src = proxyUrl;
+  iframe.style.cssText = 'width:100%;height:600px;border:none;';
+  
+  const content = document.getElementById('panel').querySelector('.panel-content');
+  content.innerHTML = '';
+  content.appendChild(iframe);
+  
   document.getElementById('panel').classList.add('active');
 }
 
