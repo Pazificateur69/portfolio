@@ -8,6 +8,8 @@
 // Cloudflare Tunnel (valid HTTPS, no cert warning)
 // Run on VM1: /tmp/cloudflared tunnel --url http://localhost
 $CF = 'https://bless-graphs-bibliographic-nickname.trycloudflare.com';
+// Also catch redirects from VM1 direct IP
+$VM1 = 'https://82.70.248.117';
 
 $BACKENDS = [
     'wazuh'        => $CF . '/wazuh',
@@ -99,6 +101,19 @@ if (preg_match('/^Location:\s*(.+)$/mi', $respHeaders, $loc)) {
             $p = urlencode(substr($location, strlen($backend)) ?: '/');
             header("Location: /proxy.php?s=$svc&path=$p", true, $status ?: 302);
             exit;
+        }
+    }
+
+    // 1b. VM1 direct IP redirect (e.g. https://82.70.248.117/grafana/)
+    if (strpos($location, $VM1) === 0) {
+        $path = substr($location, strlen($VM1));
+        foreach ($BACKENDS as $svc => $backend) {
+            $svcPath = '/' . $svc;
+            if (strpos($path, $svcPath) === 0) {
+                $p = urlencode(substr($path, strlen($svcPath)) ?: '/');
+                header("Location: /proxy.php?s=$svc&path=$p", true, $status ?: 302);
+                exit;
+            }
         }
     }
 
