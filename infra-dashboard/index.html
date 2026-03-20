@@ -384,10 +384,23 @@ function openService(name) {
   event.target.closest('.service-card').classList.add('active');
   document.getElementById('panel-title').textContent = name.toUpperCase() + ' — Live Service';
 
-  // Use VM1 proxy directly (http://82.70.248.117:3000/?s=service)
-  const proxyUrl = 'http://82.70.248.117:3000/?s=' + name;
+  const targetUrl = SERVICES[name];
+  // Use allorigins CORS proxy (proven working)
+  const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(targetUrl);
   const content = document.getElementById('panel').querySelector('.panel-content');
-  content.innerHTML = '<iframe src="' + proxyUrl + '" style="width:100%;height:600px;border:none;border-radius:8px;" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"></iframe>';
+  
+  const iframe = document.createElement('iframe');
+  iframe.src = proxyUrl;
+  iframe.style.cssText = 'width:100%;height:600px;border:none;border-radius:8px;';
+  iframe.sandbox = 'allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation';
+  
+  // Fallback if iframe fails
+  iframe.onerror = function() {
+    content.innerHTML = '<div style="padding:40px;text-align:center;color:#666;"><p>Cannot load iframe. Use SSH tunnel instead:</p><pre style="text-align:left;background:#1a1a1a;padding:12px;border-radius:8px;"><code>ssh -L ' + SERVICES[name].split(':')[2].replace('//','').split(':')[0].split('.').slice(-2).join('.') + ':' + name + ' ubuntu@82.70.248.117</code></pre></div>';
+  };
+  
+  content.innerHTML = '';
+  content.appendChild(iframe);
 
   document.getElementById('panel').classList.add('active');
   document.getElementById('panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
