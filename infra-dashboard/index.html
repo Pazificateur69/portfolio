@@ -142,7 +142,7 @@ function openService(name) {
   document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
   event.target.closest('.card').classList.add('active');
   document.getElementById('panel-title').textContent = ['wazuh', 'grafana', 'adminer', 'ldap', 'prometheus', 'alertmanager'].includes(name) ? name.toUpperCase() : name;
-  document.getElementById('frame').src = `http://82.70.248.117:3000/?s=${name}`;
+  document.getElementById('frame').src = `/proxy.php?s=${name}`;
   document.getElementById('panel').classList.add('active');
 }
 

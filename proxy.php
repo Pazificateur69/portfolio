@@ -5,13 +5,17 @@
  * Services: wazuh, grafana, prometheus, alertmanager, adminer, ldap
  */
 
+// Cloudflare Tunnel (valid HTTPS, no cert warning)
+// Run on VM1: /tmp/cloudflared tunnel --url http://localhost
+$CF = 'https://bless-graphs-bibliographic-nickname.trycloudflare.com';
+
 $BACKENDS = [
-    'wazuh'        => 'https://82.70.248.117/wazuh',
-    'grafana'      => 'https://82.70.248.117/grafana',
-    'prometheus'   => 'https://82.70.248.117/prometheus',
-    'alertmanager' => 'https://82.70.248.117/alertmanager',
-    'adminer'      => 'https://82.70.248.117/adminer',
-    'ldap'         => 'https://82.70.248.117/ldap',
+    'wazuh'        => $CF . '/wazuh',
+    'grafana'      => $CF . '/grafana',
+    'prometheus'   => $CF . '/prometheus',
+    'alertmanager' => $CF . '/alertmanager',
+    'adminer'      => $CF . '/adminer',
+    'ldap'         => $CF . '/ldap',
 ];
 
 // Parse service from ?s= param OR path-based URL via .htaccess
