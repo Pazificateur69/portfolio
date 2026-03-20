@@ -354,25 +354,36 @@
     content.innerHTML = '<div class="loading"></div>';
     viewer.classList.add('active');
 
-    // Simulate loading delay
-    setTimeout(() => {
-      const html = `
+    // Load service via proxy
+    const proxyUrl = `/proxy/${key}`;
+    
+    // Try to load the service
+    fetch(proxyUrl)
+      .then(r => {
+        if (!r.ok) throw new Error('Service unavailable');
+        return r.text();
+      })
+      .then(html => {
+        // Wrap HTML in iframe
+        const iframeHtml = `<iframe style="width:100%;height:600px;border:none;border-radius:8px;" src="${proxyUrl}"></iframe>`;
+        content.innerHTML = iframeHtml;
+      })
+      .catch(err => {
+        content.innerHTML = `
 <div class="terminal-output">
-<div class="terminal-line"><span class="prompt">$</span> <span class="output">curl -k ${service.protocol}://${service.host}:${service.port}</span></div>
-<div class="terminal-line" style="margin-top: 10px;"><span class="info">✓ Service is responding</span></div>
-<div class="terminal-line" style="margin-top: 15px;"><span class="info">📍 Service Details:</span></div>
+<div class="terminal-line" style="margin-bottom: 15px;"><span class="error">⚠️ Service loading via proxy (local network access required)</span></div>
+<div class="terminal-line"><span class="info">Service Details:</span></div>
 <div class="terminal-line"><span class="output">  Host: ${service.host}</span></div>
 <div class="terminal-line"><span class="output">  Port: ${service.port}</span></div>
 <div class="terminal-line"><span class="output">  Protocol: ${service.protocol.toUpperCase()}</span></div>
 ${service.user !== '-' ? `<div class="terminal-line"><span class="output">  Username: ${service.user}</span></div>` : ''}
 ${service.pass !== '-' ? `<div class="terminal-line"><span class="output">  Password: ${service.pass}</span></div>` : ''}
-<div class="terminal-line" style="margin-top: 15px;border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px;"><span class="info">🔗 To access from your machine:</span></div>
+<div class="terminal-line" style="margin-top: 15px;border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px;"><span class="info">🔗 SSH Tunnel Alternative:</span></div>
 <div class="terminal-line"><span class="output">ssh -i ~/.ssh/id_ed25519 -L ${service.port}:${service.host}:${service.port} ubuntu@82.70.248.117</span></div>
 <div class="terminal-line" style="margin-top: 5px;"><span class="output">Then open: ${service.protocol}://localhost:${service.port}</span></div>
 </div>
-      `;
-      content.innerHTML = html;
-    }, 1500);
+        `;
+      });
   }
 
   function closeViewer() {
