@@ -18,7 +18,7 @@
  */
 
 // Cloudflare tunnel for Oracle private network services
-$CF = 'https://bless-graphs-bibliographic-nickname.trycloudflare.com';
+$CF = 'https://kenny-jun-list-hay.trycloudflare.com';
 
 $BACKENDS = [
     'wazuh'        => 'https://195.35.28.51:8444',
