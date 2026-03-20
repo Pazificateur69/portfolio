@@ -1,70 +1,47 @@
 #!/bin/bash
+# DataForge Infrastructure Proxy Setup
+# Run on pazent.fr Hostinger: bash ~/portfolio/setup-proxy.sh
+
 set -e
+WEBROOT="$HOME/domains/pazent.fr/public_html"
 
-echo "🚀 Setting up DataForge Proxy Server on pazent.fr..."
+echo "=== DataForge Proxy Setup ==="
 
-# Check Node.js
-if ! command -v node &> /dev/null; then
-    echo "Installing Node.js v18..."
-    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo bash -
-    sudo apt-get install -y nodejs
-fi
+# 1. Deploy proxy.php
+cp "$(dirname "$0")/proxy.php" "$WEBROOT/proxy.php"
+echo "[+] proxy.php deployed"
 
-# Setup proxy
-cd /home/u736310720
-mkdir -p proxy-server
-cd proxy-server
+# 2. Update .htaccess to route /proxy/* to proxy.php
+HTACCESS="$WEBROOT/.htaccess"
+# Remove any old proxy rules first
+sed -i '/# DATAFORGE PROXY/,/# END DATAFORGE PROXY/d' "$HTACCESS" 2>/dev/null || true
 
-# Copy proxy server
-cp ../portfolio/proxy-server.js .
+# Prepend proxy rules (before existing rules)
+TMP=$(mktemp)
+cat > "$TMP" << 'HTEOF'
+# DATAFORGE PROXY
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^proxy/([a-z]+)(/.*)? /proxy.php [L,QSA]
+</IfModule>
+# END DATAFORGE PROXY
+HTEOF
+cat "$HTACCESS" >> "$TMP" 2>/dev/null || true
+mv "$TMP" "$HTACCESS"
+echo "[+] .htaccess updated"
 
-# Create package.json
-cat > package.json << 'EOF'
-{
-  "name": "dataforge-proxy",
-  "version": "1.0.0",
-  "main": "proxy-server.js",
-  "scripts": { "start": "node proxy-server.js" }
-}
-EOF
+# 3. Set permissions
+chmod 644 "$WEBROOT/proxy.php"
+chmod 644 "$WEBROOT/.htaccess"
+echo "[+] Permissions set"
 
-# Install & start
-npm install 2>/dev/null || true
-pkill -f "node proxy-server" || true
-sleep 1
-
-nohup node proxy-server.js > /tmp/proxy.log 2>&1 &
-sleep 2
-
-# Test
-if curl -s http://localhost:3001/proxy/grafana | head -c 50 > /dev/null; then
-    echo "✓ Proxy server running on port 3001"
-else
-    echo "⚠️ Proxy may still be starting..."
-    cat /tmp/proxy.log
-fi
-
-# Setup nginx
-echo "Configuring Nginx reverse proxy..."
-sudo tee /etc/nginx/conf.d/proxy.conf > /dev/null << 'NGINX'
-server {
-    listen 80;
-    server_name pazent.fr www.pazent.fr;
-
-    location /proxy/ {
-        proxy_pass http://127.0.0.1:3001;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-        proxy_buffering off;
-        proxy_request_buffering off;
-    }
-}
-NGINX
-
-sudo nginx -t && sudo systemctl restart nginx
-echo "✓ Nginx configured"
+# 4. Quick test
 echo ""
-echo "✅ Setup complete! Dashboard at: https://pazent.fr/infra-dashboard/"
+echo "=== Testing proxy ==="
+curl -sk "https://pazent.fr/proxy/prometheus/-/healthy" | head -3 && echo " Prometheus OK" || echo " Prometheus: check VM3"
+curl -sk "https://pazent.fr/proxy/grafana/api/health" | python3 -c "import sys,json; d=json.load(sys.stdin); print(' Grafana', d.get('database','?'))" 2>/dev/null || echo " Grafana: check VM3"
 
+echo ""
+echo "=== Done ==="
+echo "Proxy available at https://pazent.fr/proxy/SERVICE/PATH"
+echo "Services: wazuh, grafana, prometheus, alertmanager, adminer, ldap"

@@ -1,0 +1,42 @@
+name: Deploy Proxy Server to pazent.fr
+
+on:
+  workflow_dispatch: # Manual trigger
+  push:
+    branches: [main]
+    paths:
+      - 'proxy-server.js'
+      - 'package.json'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploy files to pazent.fr
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.PAZENT_SSH_KEY }}
+          REMOTE_HOST: 82.25.113.36
+          REMOTE_USER: u736310720
+          REMOTE_PORT: 65002
+          TARGET: /home/u736310720/proxy-server/
+          SOURCE: "proxy-server.js,package.json"
+          ARGS: "-avz"
+
+      - name: Start proxy server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 82.25.113.36
+          port: 65002
+          username: u736310720
+          key: ${{ secrets.PAZENT_SSH_KEY }}
+          script: |
+            cd ~/proxy-server
+            npm init -y 2>/dev/null || true
+            pkill -f "node proxy-server" || true
+            sleep 1
+            nohup node proxy-server.js > /tmp/proxy.log 2>&1 &
+            sleep 2
+            curl -s http://127.0.0.1:3001/proxy/grafana | head -c 50 > /dev/null && echo "✓ Proxy started" || echo "⚠️ Check logs"
