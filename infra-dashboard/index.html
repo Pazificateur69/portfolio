@@ -1,331 +1,168 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <title>DataForge — Infrastructure</title>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>DataForge</title>
   <style>
-    :root {
-      --bg: #0a0a0b; --surface: #111113; --surface2: #1a1a1d;
-      --border: rgba(255,255,255,0.07); --text: #fafafa; --muted: rgba(250,250,250,0.5);
-      --green: #10b981; --red: #ef4444; --accent: #7c3aed;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; overflow: hidden; }
-    body { background: var(--bg); color: var(--text); font-family: Inter, sans-serif; }
-
-    /* AUTH */
-    #auth { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 9999; background: var(--bg); }
-    .auth-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; width: 360px; }
-    .auth-logo { width: 40px; height: 40px; border-radius: 8px; background: linear-gradient(135deg, #7c3aed, #10b981); display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0b; color: #fafafa; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif; }
+    
+    #auth { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 999; }
+    .auth-box { background: #111; border: 1px solid #333; border-radius: 12px; padding: 32px; width: 360px; }
     .auth-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-    .auth-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
-    .auth-input { width: 100%; padding: 10px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; margin-bottom: 10px; outline: none; transition: border-color .2s; }
-    .auth-input:focus { border-color: rgba(124,58,237,.5); }
-    .auth-btn { width: 100%; padding: 10px; background: linear-gradient(135deg, #7c3aed, #5b21b6); border: none; border-radius: 8px; color: #fff; font-weight: 600; cursor: pointer; font-size: 14px; }
-    .auth-error { color: #ef4444; font-size: 11px; margin-top: 8px; display: none; text-align: center; }
-
-    /* LAYOUT */
-    #app { display: none; height: 100vh; flex-direction: column; }
-    #app.show { display: flex; }
-
-    .header { padding: 10px 16px; border-bottom: 1px solid var(--border); background: rgba(10,10,11,0.95); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-    .header-left { display: flex; align-items: center; gap: 10px; }
-    .logo { width: 26px; height: 26px; border-radius: 6px; background: linear-gradient(135deg, #7c3aed, #10b981); display: flex; align-items: center; justify-content: center; font-size: 13px; }
-    .header-title { font-weight: 700; font-size: 13px; }
-    .header-sub { font-size: 10px; color: var(--muted); }
-    .header-right { display: flex; align-items: center; gap: 12px; }
-    .stat-pill { font-size: 10px; color: var(--muted); }
-    .stat-pill b { color: var(--green); }
-    .btn-logout { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 11px; }
-
-    /* MAIN SPLIT */
-    .layout { flex: 1; display: flex; overflow: hidden; }
-
-    /* SIDEBAR */
-    .sidebar { width: 200px; flex-shrink: 0; border-right: 1px solid var(--border); background: var(--surface); overflow-y: auto; display: flex; flex-direction: column; }
-    .nav-section { padding: 12px 10px 4px; }
-    .nav-label { font-size: 9px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; padding: 0 4px; margin-bottom: 4px; }
-    .nav-item { display: flex; align-items: center; gap: 8px; padding: 8px 8px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; margin-bottom: 2px; transition: all .15s; }
-    .nav-item:hover { background: rgba(124,58,237,.08); border-color: rgba(124,58,237,.15); }
-    .nav-item.active { background: rgba(124,58,237,.15); border-color: rgba(124,58,237,.35); }
-    .nav-icon { font-size: 15px; flex-shrink: 0; }
-    .nav-text { flex: 1; }
-    .nav-name { font-size: 11px; font-weight: 600; }
-    .nav-meta { font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono'; }
-    .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-    .nav-divider { border: none; border-top: 1px solid var(--border); margin: 6px 10px; }
-
-    /* CONTENT */
-    .content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-
-    /* OVERVIEW */
-    #overview { flex: 1; overflow-y: auto; padding: 20px; }
-    .section-title { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; margin-top: 16px; }
-    .section-title:first-child { margin-top: 0; }
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin-bottom: 16px; }
-    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px; border-top: 2px solid var(--accent); }
-    .stat-label { font-size: 9px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
-    .stat-value { font-size: 18px; font-weight: 700; font-family: 'JetBrains Mono'; color: var(--green); }
-    .vms { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px; margin-bottom: 16px; }
-    .vm { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
-    .vm-name { font-weight: 600; font-size: 11px; }
-    .vm-role { font-size: 9px; color: var(--muted); margin-top: 2px; }
-    .vm-ip { font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono'; margin-top: 5px; }
-    .vm-ok { font-size: 10px; color: var(--green); margin-top: 4px; }
-    .cp-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
-    .cp { background: var(--surface); border: 1px solid rgba(16,185,129,.2); border-radius: 6px; padding: 8px; text-align: center; font-size: 10px; font-weight: 600; color: var(--green); font-family: 'JetBrains Mono'; }
-
-    /* IFRAME PANEL */
-    #iframe-panel { flex: 1; display: none; flex-direction: column; overflow: hidden; }
-    #iframe-panel.show { display: flex; }
-
-    .toolbar { padding: 8px 14px; border-bottom: 1px solid var(--border); background: var(--surface2); display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .toolbar-back { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 5px; padding: 4px 10px; cursor: pointer; font-size: 11px; }
-    .toolbar-back:hover { border-color: var(--accent); color: var(--accent); }
-    .toolbar-title { font-size: 12px; font-weight: 600; flex: 1; }
-    .toolbar-url { font-size: 9px; color: var(--muted); font-family: 'JetBrains Mono'; background: var(--bg); padding: 3px 8px; border-radius: 4px; max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .toolbar-open { padding: 4px 10px; border: 1px solid var(--border); border-radius: 5px; background: none; color: var(--text); font-size: 11px; cursor: pointer; }
-    .toolbar-open:hover { border-color: var(--green); color: var(--green); }
-
-    .iframe-wrap { flex: 1; position: relative; background: #fff; }
-    .iframe-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-    .iframe-loader { position: absolute; inset: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; z-index: 5; transition: opacity .3s; }
-    .iframe-loader.hidden { opacity: 0; pointer-events: none; }
-    .spinner { width: 32px; height: 32px; border: 3px solid rgba(124,58,237,.3); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loader-text { font-size: 12px; color: var(--muted); }
-    .loader-creds { font-size: 10px; color: var(--muted); font-family: 'JetBrains Mono'; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; text-align: center; }
+    .auth-sub { font-size: 12px; color: #888; margin-bottom: 20px; }
+    input { width: 100%; padding: 10px 12px; background: #0a0a0b; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 14px; margin-bottom: 10px; outline: none; }
+    button { width: 100%; padding: 10px; background: linear-gradient(135deg, #7c3aed, #5b21b6); border: none; border-radius: 8px; color: #fff; font-weight: 600; cursor: pointer; }
+    .error { color: #f87171; font-size: 11px; margin-top: 8px; display: none; text-align: center; }
+    
+    #dashboard { display: none; }
+    .header { padding: 16px 20px; border-bottom: 1px solid #222; background: #0a0a0b; display: flex; justify-content: space-between; align-items: center; }
+    .header-title { font-weight: 700; font-size: 14px; }
+    .logout { background: none; border: none; color: #f87171; cursor: pointer; font-size: 12px; }
+    
+    .main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+    .section { margin-bottom: 30px; }
+    .section-title { font-size: 11px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+    .card { background: #111; border: 1px solid #222; border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.2s; }
+    .card:hover { border-color: #7c3aed; background: rgba(124, 58, 237, 0.05); }
+    .card.active { border-color: #7c3aed; background: rgba(124, 58, 237, 0.1); }
+    .card-icon { font-size: 24px; margin-bottom: 8px; }
+    .card-name { font-size: 11px; font-weight: 600; }
+    .card-sub { font-size: 9px; color: #666; margin-top: 4px; }
+    
+    .panel { background: #111; border: 1px solid #222; border-radius: 8px; display: none; margin-bottom: 20px; overflow: hidden; }
+    .panel.active { display: block; }
+    .panel-header { padding: 12px 16px; border-bottom: 1px solid #222; background: #0a0a0b; display: flex; justify-content: space-between; align-items: center; }
+    .panel-close { background: none; border: none; color: #666; cursor: pointer; font-size: 16px; }
+    .panel-content { padding: 16px; }
+    .panel-content iframe { width: 100%; height: 600px; border: none; }
+    
+    .footer { padding: 12px 20px; border-top: 1px solid #222; font-size: 10px; color: #666; text-align: center; }
   </style>
 </head>
 <body>
 
 <div id="auth">
   <div class="auth-box">
-    <div class="auth-logo">🔐</div>
-    <div class="auth-title">DataForge Infrastructure</div>
-    <div class="auth-sub">RNCP AIS Niveau 6 — Tableau de bord</div>
-    <form onsubmit="doAuth(event)">
-      <input type="password" id="pwd" class="auth-input" placeholder="Mot de passe..." autocomplete="current-password" />
-      <button type="submit" class="auth-btn">Accéder</button>
+    <div style="font-size: 32px; margin-bottom: 12px;">🔐</div>
+    <div class="auth-title">DataForge</div>
+    <div class="auth-sub">RNCP AIS Infrastructure</div>
+    <form onsubmit="auth(event)">
+      <input type="password" id="pwd" placeholder="Password..." autocomplete="current-password" />
+      <button type="submit">Access</button>
     </form>
-    <div class="auth-error" id="err">Mot de passe incorrect</div>
+    <div class="error" id="err"></div>
   </div>
 </div>
 
-<div id="app">
+<div id="dashboard">
   <div class="header">
-    <div class="header-left">
-      <div class="logo">🏭</div>
-      <div>
-        <div class="header-title">DataForge Industries</div>
-        <div class="header-sub">RNCP AIS Infrastructure</div>
-      </div>
-    </div>
-    <div class="header-right">
-      <span class="stat-pill">VMs <b>5/5</b></span>
-      <span class="stat-pill">Lynis <b>74%</b></span>
-      <span class="stat-pill">Wazuh <b>4 agents</b></span>
-      <button class="btn-logout" onclick="logout()">Logout</button>
-    </div>
+    <div><strong style="font-size: 14px;">DataForge Infrastructure</strong></div>
+    <button class="logout" onclick="logout()">Logout</button>
   </div>
-
-  <div class="layout">
-    <div class="sidebar">
-      <div class="nav-section">
-        <div class="nav-label">Vue d'ensemble</div>
-        <div class="nav-item active" id="nav-home" onclick="showOverview()">
-          <span class="nav-icon">🏠</span>
-          <div class="nav-text"><div class="nav-name">Overview</div><div class="nav-meta">5 VMs actives</div></div>
+  
+  <div class="main">
+    <div class="section">
+      <div class="section-title">📊 Status</div>
+      <div class="grid" style="grid-template-columns: repeat(4, 1fr);">
+        <div class="card" style="cursor: auto; border-color: #222;">
+          <div style="font-size: 11px; color: #666;">VMs</div>
+          <div style="font-size: 16px; font-weight: 700;">5/5</div>
         </div>
-      </div>
-      <hr class="nav-divider">
-      <div class="nav-section">
-        <div class="nav-label">Sécurité</div>
-        <div class="nav-item" id="nav-wazuh" onclick="openService('wazuh')">
-          <span class="nav-icon">🛡️</span>
-          <div class="nav-text"><div class="nav-name">Wazuh SIEM</div><div class="nav-meta">VM4 · :8444</div></div>
-          <div class="nav-dot"></div>
+        <div class="card" style="cursor: auto; border-color: #222;">
+          <div style="font-size: 11px; color: #666;">Services</div>
+          <div style="font-size: 16px; font-weight: 700;">23/24</div>
         </div>
-      </div>
-      <hr class="nav-divider">
-      <div class="nav-section">
-        <div class="nav-label">Supervision</div>
-        <div class="nav-item" id="nav-grafana" onclick="openService('grafana')">
-          <span class="nav-icon">📊</span>
-          <div class="nav-text"><div class="nav-name">Grafana</div><div class="nav-meta">VM3 · :3000</div></div>
-          <div class="nav-dot"></div>
+        <div class="card" style="cursor: auto; border-color: #222;">
+          <div style="font-size: 11px; color: #666;">Wazuh</div>
+          <div style="font-size: 16px; font-weight: 700;">4 agents</div>
         </div>
-        <div class="nav-item" id="nav-prometheus" onclick="openService('prometheus')">
-          <span class="nav-icon">🔥</span>
-          <div class="nav-text"><div class="nav-name">Prometheus</div><div class="nav-meta">VM3 · :9090</div></div>
-          <div class="nav-dot"></div>
-        </div>
-        <div class="nav-item" id="nav-alertmanager" onclick="openService('alertmanager')">
-          <span class="nav-icon">⚡</span>
-          <div class="nav-text"><div class="nav-name">Alertmanager</div><div class="nav-meta">VM3 · :9093</div></div>
-          <div class="nav-dot"></div>
-        </div>
-      </div>
-      <hr class="nav-divider">
-      <div class="nav-section">
-        <div class="nav-label">Infrastructure</div>
-        <div class="nav-item" id="nav-adminer" onclick="openService('adminer')">
-          <span class="nav-icon">🗄️</span>
-          <div class="nav-text"><div class="nav-name">Adminer</div><div class="nav-meta">VM2 · :8081</div></div>
-          <div class="nav-dot"></div>
-        </div>
-        <div class="nav-item" id="nav-ldap" onclick="openService('ldap')">
-          <span class="nav-icon">👥</span>
-          <div class="nav-text"><div class="nav-name">phpLDAPadmin</div><div class="nav-meta">VM5 · :8085</div></div>
-          <div class="nav-dot"></div>
+        <div class="card" style="cursor: auto; border-color: #222;">
+          <div style="font-size: 11px; color: #666;">Lynis</div>
+          <div style="font-size: 16px; font-weight: 700;">74%</div>
         </div>
       </div>
     </div>
-
-    <div class="content">
-      <div id="overview">
-        <div class="section-title">📊 Status</div>
-        <div class="stats">
-          <div class="stat"><div class="stat-label">VMs</div><div class="stat-value">5/5</div></div>
-          <div class="stat"><div class="stat-label">Services</div><div class="stat-value">23</div></div>
-          <div class="stat"><div class="stat-label">Wazuh</div><div class="stat-value">4</div></div>
-          <div class="stat"><div class="stat-label">Lynis</div><div class="stat-value">74%</div></div>
-          <div class="stat"><div class="stat-label">LDAP</div><div class="stat-value">24</div></div>
-          <div class="stat"><div class="stat-label">Uptime</div><div class="stat-value">99.9%</div></div>
-        </div>
-
-        <div class="section-title">🖥️ Virtual Machines</div>
-        <div class="vms">
-          <div class="vm"><div class="vm-name">VM1 — Gateway</div><div class="vm-role">VPN / Reverse Proxy</div><div class="vm-ip">82.70.248.117 (Oracle)</div><div class="vm-ok">✓ Nginx · WireGuard · Fail2ban</div></div>
-          <div class="vm"><div class="vm-name">VM2 — Infrastructure</div><div class="vm-role">Services Docker</div><div class="vm-ip">195.35.28.51 (Plesk)</div><div class="vm-ok">✓ Nginx · PostgreSQL · Adminer</div></div>
-          <div class="vm"><div class="vm-name">VM3 — Supervision</div><div class="vm-role">Monitoring Stack</div><div class="vm-ip">10.0.1.20 (Oracle privé)</div><div class="vm-ok">✓ Prometheus · Grafana · AM</div></div>
-          <div class="vm"><div class="vm-name">VM4 — SOC / SIEM</div><div class="vm-role">Sécurité Wazuh</div><div class="vm-ip">195.35.28.51 (Plesk)</div><div class="vm-ok">✓ Manager · Indexer · Dashboard</div></div>
-          <div class="vm"><div class="vm-name">VM5 — IAM / AD</div><div class="vm-role">Identity & Access</div><div class="vm-ip">195.35.28.51 (Plesk)</div><div class="vm-ok">✓ OpenLDAP · phpLDAPadmin</div></div>
-        </div>
-
-        <div class="section-title">📋 RNCP CP1–CP10</div>
-        <div class="cp-grid">
-          <div class="cp">✅ CP1</div><div class="cp">✅ CP2</div><div class="cp">✅ CP3</div><div class="cp">✅ CP4</div><div class="cp">✅ CP5</div>
-          <div class="cp">✅ CP6</div><div class="cp">✅ CP7</div><div class="cp">✅ CP8</div><div class="cp">✅ CP9</div><div class="cp">✅ CP10</div>
-        </div>
+    
+    <div class="section">
+      <div class="section-title">🔗 Services</div>
+      <div class="grid">
+        <div class="card" onclick="openService('wazuh')"><div class="card-icon">🔴</div><div class="card-name">Wazuh</div><div class="card-sub">8444</div></div>
+        <div class="card" onclick="openService('grafana')"><div class="card-icon">🔵</div><div class="card-name">Grafana</div><div class="card-sub">3000</div></div>
+        <div class="card" onclick="openService('adminer')"><div class="card-icon">🟢</div><div class="card-name">Adminer</div><div class="card-sub">8081</div></div>
+        <div class="card" onclick="openService('ldap')"><div class="card-icon">🟡</div><div class="card-name">LDAP</div><div class="card-sub">8085</div></div>
+        <div class="card" onclick="openService('prometheus')"><div class="card-icon">📊</div><div class="card-name">Prometheus</div><div class="card-sub">9090</div></div>
+        <div class="card" onclick="openService('alertmanager')"><div class="card-icon">⚡</div><div class="card-name">Alertmanager</div><div class="card-sub">9093</div></div>
       </div>
-
-      <div id="iframe-panel">
-        <div class="toolbar">
-          <button class="toolbar-back" onclick="showOverview()">← Retour</button>
-          <span class="toolbar-title" id="t-title">Service</span>
-          <span class="toolbar-url" id="t-url"></span>
-          <button class="toolbar-open" id="t-open" onclick="openTab()">↗ Ouvrir</button>
-        </div>
-        <div class="iframe-wrap">
-          <div class="iframe-loader" id="loader">
-            <div class="spinner"></div>
-            <div class="loader-text" id="loader-text">Connexion en cours...</div>
-            <div class="loader-creds" id="loader-creds"></div>
-          </div>
-          <iframe id="frame" src="" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation"></iframe>
-        </div>
+    </div>
+    
+    <div class="panel" id="panel">
+      <div class="panel-header">
+        <div id="panel-title" style="font-weight: 600; font-size: 12px;"></div>
+        <button class="panel-close" onclick="closePanel()">✕</button>
+      </div>
+      <div class="panel-content">
+        <iframe id="frame"></iframe>
       </div>
     </div>
   </div>
+  
+  <div class="footer">DataForge • RNCP AIS • Commit: 54815df</div>
 </div>
 
 <script>
 const PASS = 'DataForge@Infra2025';
 
-const SVCS = {
-  wazuh:        { name: '🛡️ Wazuh SIEM',   creds: 'admin / DataForge2025!' },
-  grafana:      { name: '📊 Grafana',        creds: 'admin / DataForge2025!' },
-  prometheus:   { name: '🔥 Prometheus',     creds: '' },
-  alertmanager: { name: '⚡ Alertmanager',   creds: '' },
-  adminer:      { name: '🗄️ Adminer',        creds: 'Système: PostgreSQL · Serveur: vm2-postgres' },
-  ldap:         { name: '👥 phpLDAPadmin',   creds: 'cn=admin,dc=dataforge,dc=lab / Admin@DataForge2025!' },
-};
-
-async function sha(s) {
-  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
-  return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2,'0')).join('');
-}
-
-async function doAuth(e) {
+async function auth(e) {
   e.preventDefault();
-  const [h1, h2] = await Promise.all([sha(document.getElementById('pwd').value), sha(PASS)]);
-  if (h1 === h2) {
-    sessionStorage.setItem('df','1');
+  const hash = await sha256(document.getElementById('pwd').value);
+  const correctHash = await sha256(PASS);
+  if (hash === correctHash) {
+    sessionStorage.setItem('auth', '1');
     document.getElementById('auth').style.display = 'none';
-    document.getElementById('app').classList.add('show');
+    document.getElementById('dashboard').style.display = 'block';
   } else {
     const err = document.getElementById('err');
+    err.textContent = 'Incorrect';
     err.style.display = 'block';
-    setTimeout(() => err.style.display = 'none', 2500);
+    setTimeout(() => err.style.display = 'none', 2000);
   }
 }
 
-function logout() { sessionStorage.removeItem('df'); location.reload(); }
-
-let currentSvc = null;
-
-function showOverview() {
-  document.getElementById('overview').style.display = '';
-  document.getElementById('iframe-panel').classList.remove('show');
-  document.getElementById('frame').src = '';
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('nav-home').classList.add('active');
-  currentSvc = null;
+function logout() {
+  sessionStorage.removeItem('auth');
+  location.reload();
 }
 
-function openService(key) {
-  const svc = SVCS[key];
-  if (!svc) return;
-  currentSvc = key;
-
-  document.getElementById('overview').style.display = 'none';
-  document.getElementById('iframe-panel').classList.add('show');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const nav = document.getElementById('nav-' + key);
-  if (nav) nav.classList.add('active');
-
-  const proxyUrl = '/proxy.php?s=' + key;
-  document.getElementById('t-title').textContent = svc.name;
-  document.getElementById('t-url').textContent = 'pazent.fr/proxy.php?s=' + key;
-  document.getElementById('t-open').dataset.url = proxyUrl;
-  document.getElementById('loader-creds').textContent = svc.creds;
-  document.getElementById('loader-text').textContent = 'Connexion à ' + svc.name + '...';
-
-  // Show loader
-  const loader = document.getElementById('loader');
-  loader.classList.remove('hidden');
-
-  const frame = document.getElementById('frame');
-  frame.src = '';
-  setTimeout(() => {
-    frame.src = proxyUrl;
-  }, 100);
-
-  // Hide loader on load
-  frame.onload = () => {
-    setTimeout(() => loader.classList.add('hidden'), 500);
-  };
-
-  // Fallback: hide loader after 15s anyway
-  setTimeout(() => loader.classList.add('hidden'), 15000);
+function openService(name) {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+  event.target.closest('.card').classList.add('active');
+  document.getElementById('panel-title').textContent = ['wazuh', 'grafana', 'adminer', 'ldap', 'prometheus', 'alertmanager'].includes(name) ? name.toUpperCase() : name;
+  document.getElementById('frame').src = `http://82.70.248.117:3000/?s=${name}`;
+  document.getElementById('panel').classList.add('active');
 }
 
-function openTab() {
-  const url = document.getElementById('t-open').dataset.url;
-  if (url) window.open(url, '_blank');
+function closePanel() {
+  document.getElementById('panel').classList.remove('active');
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+}
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
 
 window.addEventListener('load', () => {
-  if (sessionStorage.getItem('df') === '1') {
+  if (sessionStorage.getItem('auth') === '1') {
     document.getElementById('auth').style.display = 'none';
-    document.getElementById('app').classList.add('show');
+    document.getElementById('dashboard').style.display = 'block';
   }
-  document.getElementById('pwd').addEventListener('keypress', e => { if (e.key === 'Enter') doAuth(e); });
 });
 </script>
+
 </body>
 </html>
