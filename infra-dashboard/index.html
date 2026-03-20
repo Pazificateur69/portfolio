@@ -4,57 +4,96 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>DataForge</title>
+  <title>DataForge Infrastructure</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0b; color: #fafafa; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { background: linear-gradient(135deg, #0a0a0b 0%, #111 100%); color: #fafafa; font-family: 'Inter', sans-serif; min-height: 100vh; }
     
-    #auth { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 999; }
-    .auth-box { background: #111; border: 1px solid #333; border-radius: 12px; padding: 32px; width: 360px; }
-    .auth-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-    .auth-sub { font-size: 12px; color: #888; margin-bottom: 20px; }
-    input { width: 100%; padding: 10px 12px; background: #0a0a0b; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 14px; margin-bottom: 10px; outline: none; }
-    button { width: 100%; padding: 10px; background: linear-gradient(135deg, #7c3aed, #5b21b6); border: none; border-radius: 8px; color: #fff; font-weight: 600; cursor: pointer; }
+    #auth { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 999; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+    .auth-box { background: linear-gradient(135deg, #111 0%, #1a1a1d 100%); border: 1px solid #333; border-radius: 16px; padding: 40px; width: 380px; box-shadow: 0 20px 60px rgba(124,58,237,0.1); }
+    .auth-logo { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, #7c3aed, #10b981); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; }
+    .auth-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .auth-sub { font-size: 12px; color: #888; margin-bottom: 24px; }
+    input { width: 100%; padding: 12px 14px; background: #0a0a0b; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 14px; margin-bottom: 12px; outline: none; transition: all 0.2s; }
+    input:focus { border-color: #7c3aed; background: #111; }
+    button { width: 100%; padding: 12px; background: linear-gradient(135deg, #7c3aed, #5b21b6); border: none; border-radius: 8px; color: #fff; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(124,58,237,0.3); }
     .error { color: #f87171; font-size: 11px; margin-top: 8px; display: none; text-align: center; }
     
     #dashboard { display: none; }
-    .header { padding: 16px 20px; border-bottom: 1px solid #222; background: #0a0a0b; display: flex; justify-content: space-between; align-items: center; }
-    .header-title { font-weight: 700; font-size: 14px; }
-    .logout { background: none; border: none; color: #f87171; cursor: pointer; font-size: 12px; }
+    .header { padding: 20px 24px; border-bottom: 1px solid #222; background: linear-gradient(180deg, #0a0a0b 0%, #111 100%); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .header-brand { display: flex; align-items: center; gap: 12px; }
+    .header-logo { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, #7c3aed, #10b981); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+    .header-title { font-weight: 700; font-size: 15px; }
+    .header-sub { font-size: 11px; color: #666; }
+    .logout { background: none; border: none; color: #f87171; cursor: pointer; font-size: 12px; padding: 6px 12px; border-radius: 6px; transition: all 0.2s; }
+    .logout:hover { background: rgba(239,68,68,0.1); }
     
-    .main { padding: 20px; max-width: 1200px; margin: 0 auto; }
-    .section { margin-bottom: 30px; }
-    .section-title { font-size: 11px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+    .main { padding: 28px 24px; max-width: 1400px; margin: 0 auto; }
+    .section { margin-bottom: 40px; }
+    .section-title { font-size: 11px; font-weight: 700; color: #7c3aed; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .section-title::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: #7c3aed; }
     
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-    .card { background: #111; border: 1px solid #222; border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.2s; }
-    .card:hover { border-color: #7c3aed; background: rgba(124, 58, 237, 0.05); }
-    .card.active { border-color: #7c3aed; background: rgba(124, 58, 237, 0.1); }
-    .card-icon { font-size: 24px; margin-bottom: 8px; }
-    .card-name { font-size: 11px; font-weight: 600; }
-    .card-sub { font-size: 9px; color: #666; margin-top: 4px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .stat-card { background: linear-gradient(135deg, #111 0%, #1a1a1d 100%); border: 1px solid #222; border-radius: 10px; padding: 16px; }
+    .stat-label { font-size: 10px; color: #666; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+    .stat-value { font-size: 24px; font-weight: 700; color: #7c3aed; font-family: 'JetBrains Mono'; }
     
-    .panel { background: #111; border: 1px solid #222; border-radius: 8px; display: none; margin-bottom: 20px; overflow: hidden; }
-    .panel.active { display: block; }
-    .panel-header { padding: 12px 16px; border-bottom: 1px solid #222; background: #0a0a0b; display: flex; justify-content: space-between; align-items: center; }
-    .panel-close { background: none; border: none; color: #666; cursor: pointer; font-size: 16px; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 32px; }
+    .service-card { background: linear-gradient(135deg, #111 0%, #1a1a1d 100%); border: 1px solid #222; border-radius: 10px; padding: 14px; cursor: pointer; transition: all 0.3s; }
+    .service-card:hover { border-color: #7c3aed; background: linear-gradient(135deg, #1a1a1d 0%, #222 100%); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(124,58,237,0.1); }
+    .service-card.active { border-color: #7c3aed; background: rgba(124,58,237,0.1); }
+    .service-icon { font-size: 28px; margin-bottom: 8px; }
+    .service-name { font-size: 11px; font-weight: 600; margin-bottom: 4px; }
+    .service-port { font-size: 9px; color: #666; font-family: 'JetBrains Mono'; }
+    
+    .vms-section { background: linear-gradient(135deg, #111 0%, #1a1a1d 100%); border: 1px solid #222; border-radius: 12px; padding: 24px; margin-bottom: 32px; }
+    .vm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+    .vm-card { background: #0a0a0b; border: 1px solid #222; border-radius: 10px; padding: 18px; transition: all 0.3s; position: relative; overflow: hidden; }
+    .vm-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #7c3aed, #10b981, transparent); }
+    .vm-card:hover { border-color: #333; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(124,58,237,0.08); }
+    
+    .vm-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; }
+    .vm-name { font-weight: 700; font-size: 14px; }
+    .vm-role { font-size: 9px; color: #7c3aed; text-transform: uppercase; font-weight: 600; margin-top: 2px; }
+    .vm-status { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #10b981; }
+    .vm-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #10b981; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    
+    .vm-ip { font-size: 10px; color: #666; font-family: 'JetBrains Mono'; margin: 10px 0; }
+    .vm-services { margin: 12px 0; padding: 10px; background: rgba(124,58,237,0.05); border-radius: 6px; }
+    .vm-services-label { font-size: 9px; color: #666; font-weight: 600; margin-bottom: 6px; }
+    .vm-service-item { font-size: 9px; color: #aaa; margin-bottom: 3px; display: flex; align-items: center; gap: 4px; }
+    .vm-service-item::before { content: '✓'; color: #10b981; font-weight: 700; }
+    
+    .vm-links { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+    .vm-link { font-size: 9px; padding: 4px 8px; background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.2); border-radius: 4px; color: #7c3aed; text-decoration: none; cursor: pointer; transition: all 0.2s; }
+    .vm-link:hover { background: rgba(124,58,237,0.2); border-color: #7c3aed; }
+    
+    .panel { background: linear-gradient(135deg, #111 0%, #1a1a1d 100%); border: 1px solid #222; border-radius: 12px; display: none; margin-bottom: 24px; overflow: hidden; }
+    .panel.active { display: block; animation: slideIn 0.3s ease; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    .panel-header { padding: 14px 18px; border-bottom: 1px solid #222; background: #0a0a0b; display: flex; justify-content: space-between; align-items: center; }
+    .panel-title { font-weight: 600; font-size: 12px; }
+    .panel-close { background: none; border: none; color: #666; cursor: pointer; font-size: 16px; transition: all 0.2s; }
+    .panel-close:hover { color: #fff; }
     .panel-content { padding: 16px; }
-    .panel-content iframe { width: 100%; height: 600px; border: none; }
-    .loading { padding: 40px; text-align: center; color: #666; }
+    .panel-content iframe { width: 100%; height: 600px; border: none; border-radius: 8px; }
     
-    .footer { padding: 12px 20px; border-top: 1px solid #222; font-size: 10px; color: #666; text-align: center; }
+    .footer { padding: 16px 24px; border-top: 1px solid #222; font-size: 10px; color: #666; text-align: center; background: #0a0a0b; }
   </style>
 </head>
 <body>
 
 <div id="auth">
   <div class="auth-box">
-    <div style="font-size: 32px; margin-bottom: 12px;">🔐</div>
+    <div class="auth-logo">🔐</div>
     <div class="auth-title">DataForge</div>
-    <div class="auth-sub">RNCP AIS Infrastructure</div>
+    <div class="auth-sub">RNCP AIS Niveau 6 Infrastructure</div>
     <form onsubmit="auth(event)">
       <input type="password" id="pwd" placeholder="Password..." autocomplete="current-password" />
-      <button type="submit">Access</button>
+      <button type="submit">Access Dashboard</button>
     </form>
     <div class="error" id="err"></div>
   </div>
@@ -62,57 +101,233 @@
 
 <div id="dashboard">
   <div class="header">
-    <div><strong style="font-size: 14px;">DataForge Infrastructure</strong></div>
+    <div class="header-brand">
+      <div class="header-logo">🏭</div>
+      <div>
+        <div class="header-title">DataForge Industries</div>
+        <div class="header-sub">RNCP AIS Infrastructure — Alessandro Gagliardi</div>
+      </div>
+    </div>
     <button class="logout" onclick="logout()">Logout</button>
   </div>
   
   <div class="main">
+    <!-- Stats -->
     <div class="section">
-      <div class="section-title">📊 Status</div>
-      <div class="grid" style="grid-template-columns: repeat(4, 1fr);">
-        <div class="card" style="cursor: auto; border-color: #222;">
-          <div style="font-size: 11px; color: #666;">VMs</div>
-          <div style="font-size: 16px; font-weight: 700;">5/5</div>
+      <div class="section-title">📊 Infrastructure Status</div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Virtual Machines</div>
+          <div class="stat-value">5/5</div>
         </div>
-        <div class="card" style="cursor: auto; border-color: #222;">
-          <div style="font-size: 11px; color: #666;">Services</div>
-          <div style="font-size: 16px; font-weight: 700;">23/24</div>
+        <div class="stat-card">
+          <div class="stat-label">Services Active</div>
+          <div class="stat-value">23/24</div>
         </div>
-        <div class="card" style="cursor: auto; border-color: #222;">
-          <div style="font-size: 11px; color: #666;">Wazuh</div>
-          <div style="font-size: 16px; font-weight: 700;">4 agents</div>
+        <div class="stat-card">
+          <div class="stat-label">Wazuh Agents</div>
+          <div class="stat-value">4</div>
         </div>
-        <div class="card" style="cursor: auto; border-color: #222;">
-          <div style="font-size: 11px; color: #666;">Lynis</div>
-          <div style="font-size: 16px; font-weight: 700;">74%</div>
+        <div class="stat-card">
+          <div class="stat-label">Lynis Score</div>
+          <div class="stat-value">74%</div>
         </div>
       </div>
     </div>
-    
+
+    <!-- Services -->
     <div class="section">
-      <div class="section-title">🔗 Services (Click to Load)</div>
-      <div class="grid">
-        <div class="card" onclick="openService('wazuh')"><div class="card-icon">🔴</div><div class="card-name">Wazuh</div><div class="card-sub">8444</div></div>
-        <div class="card" onclick="openService('grafana')"><div class="card-icon">🔵</div><div class="card-name">Grafana</div><div class="card-sub">3000</div></div>
-        <div class="card" onclick="openService('adminer')"><div class="card-icon">🟢</div><div class="card-name">Adminer</div><div class="card-sub">8081</div></div>
-        <div class="card" onclick="openService('ldap')"><div class="card-icon">🟡</div><div class="card-name">LDAP</div><div class="card-sub">8085</div></div>
-        <div class="card" onclick="openService('prometheus')"><div class="card-icon">📊</div><div class="card-name">Prometheus</div><div class="card-sub">9090</div></div>
-        <div class="card" onclick="openService('alertmanager')"><div class="card-icon">⚡</div><div class="card-name">Alertmanager</div><div class="card-sub">9093</div></div>
+      <div class="section-title">🔗 Live Services (Click to Access)</div>
+      <div class="services-grid">
+        <div class="service-card" onclick="openService('wazuh')">
+          <div class="service-icon">🔴</div>
+          <div class="service-name">Wazuh</div>
+          <div class="service-port">SIEM · 8444</div>
+        </div>
+        <div class="service-card" onclick="openService('grafana')">
+          <div class="service-icon">🔵</div>
+          <div class="service-name">Grafana</div>
+          <div class="service-port">Monitoring · 3000</div>
+        </div>
+        <div class="service-card" onclick="openService('adminer')">
+          <div class="service-icon">🟢</div>
+          <div class="service-name">Adminer</div>
+          <div class="service-port">DB Admin · 8081</div>
+        </div>
+        <div class="service-card" onclick="openService('ldap')">
+          <div class="service-icon">🟡</div>
+          <div class="service-name">LDAP Admin</div>
+          <div class="service-port">IAM · 8085</div>
+        </div>
+        <div class="service-card" onclick="openService('prometheus')">
+          <div class="service-icon">📊</div>
+          <div class="service-name">Prometheus</div>
+          <div class="service-port">Metrics · 9090</div>
+        </div>
+        <div class="service-card" onclick="openService('alertmanager')">
+          <div class="service-icon">⚡</div>
+          <div class="service-name">Alertmanager</div>
+          <div class="service-port">Alerts · 9093</div>
+        </div>
       </div>
     </div>
-    
+
+    <!-- Service Panel -->
     <div class="panel" id="panel">
       <div class="panel-header">
-        <div id="panel-title" style="font-weight: 600; font-size: 12px;"></div>
+        <div class="panel-title" id="panel-title"></div>
         <button class="panel-close" onclick="closePanel()">✕</button>
       </div>
       <div class="panel-content">
-        <div class="loading">Loading service...</div>
+        <div style="padding: 40px; text-align: center; color: #666;">Loading service...</div>
+      </div>
+    </div>
+
+    <!-- VMs Detailed -->
+    <div class="section">
+      <div class="section-title">🖥️ Virtual Machines (Detailed)</div>
+      <div class="vms-section">
+        <div class="vm-grid">
+          <!-- VM1 -->
+          <div class="vm-card">
+            <div class="vm-header">
+              <div>
+                <div class="vm-name">VM1 Gateway</div>
+                <div class="vm-role">🌐 Gateway / VPN</div>
+              </div>
+              <div class="vm-status">Online</div>
+            </div>
+            <div class="vm-ip">82.70.248.117 (public)</div>
+            <div class="vm-services">
+              <div class="vm-services-label">Services</div>
+              <div class="vm-service-item">Nginx Reverse Proxy</div>
+              <div class="vm-service-item">WireGuard VPN (51820)</div>
+              <div class="vm-service-item">Fail2ban Protection</div>
+              <div class="vm-service-item">Wazuh Agent</div>
+              <div class="vm-service-item">Node Exporter</div>
+            </div>
+            <div class="vm-links">
+              <a class="vm-link" href="https://pazent-brain.vercel.app?q=VM1%20Gateway" target="_blank">📚 Docs</a>
+              <a class="vm-link" href="https://pazent-brain.vercel.app?q=vm1-gateway" target="_blank">🔧 Config</a>
+            </div>
+          </div>
+
+          <!-- VM2 -->
+          <div class="vm-card">
+            <div class="vm-header">
+              <div>
+                <div class="vm-name">VM2 Infrastructure</div>
+                <div class="vm-role">⚙️ Services</div>
+              </div>
+              <div class="vm-status">Online</div>
+            </div>
+            <div class="vm-ip">195.35.28.51 (Docker/Plesk)</div>
+            <div class="vm-services">
+              <div class="vm-services-label">Services</div>
+              <div class="vm-service-item">Nginx (8080)</div>
+              <div class="vm-service-item">PostgreSQL 15 (5432)</div>
+              <div class="vm-service-item">Adminer (8081)</div>
+              <div class="vm-service-item">Wazuh Agent</div>
+              <div class="vm-service-item">Node Exporter</div>
+            </div>
+            <div class="vm-links">
+              <a class="vm-link" href="https://pazent-brain.vercel.app?q=VM2%20Infrastructure" target="_blank">📚 Docs</a>
+              <a class="vm-link" href="https://pazent-brain.vercel.app?q=vm2-infra" target="_blank">🔧 Config</a>
+            </div>
+          </div>
+
+          <!-- VM3 -->
+          <div class="vm-card">
+            <div class="vm-header">
+              <div>
+                <div class="vm-name">VM3 Supervision</div>
+                <div class="vm-role">📈 Monitoring</div>
+              </div>
+              <div class="vm-status">Online</div>
+            </div>
+            <div class="vm-ip">10.0.1.20 (private)</div>
+            <div class="vm-services">
+              <div class="vm-services-label">Services</div>
+              <div class="vm-service-item">Prometheus (9090)</div>
+              <div class="vm-service-item">Grafana (3000)</div>
+              <div class="vm-service-item">Alertmanager (9093)</div>
+              <div class="vm-service-item">Wazuh Agent</div>
+              <div class="vm-service-item">Node Exporter</div>
+            </div>
+            <div class="vm-links">
+              <a class="vm-link" href="https://pazent-brain.vercel.app?q=VM3%20Supervision" target="_blank">📚 Docs</a>
+              <a class="vm-link" href="https://pazent-brain.vercel.app?q=vm3-supervision" target="_blank">🔧 Config</a>
+            </div>
+          </div>
+
+          <!-- VM4 -->
+          <div class="vm-card">
+            <div class="vm-header">
+              <div>
+                <div class="vm-name">VM4 SOC/SIEM</div>
+                <div class="vm-role">🔴 Security</div>
+              </div>
+              <div class="vm-status">Online</div>
+            </div>
+            <div class="vm-ip">195.35.28.51 (Docker/Plesk)</div>
+            <div class="vm-services">
+              <div class="vm-services-label">Services</div>
+              <div class="vm-service-item">Wazuh Manager (1514)</div>
+              <div class="vm-service-item">Wazuh Indexer (9200)</div>
+              <div class="vm-service-item">Wazuh Dashboard (8444)</div>
+              <div class="vm-service-item">Node Exporter</div>
+            </div>
+            <div class="vm-links">
+              <a class="vm-link" href="https://pazent-brain.vercel.app?q=VM4%20SOC" target="_blank">📚 Docs</a>
+              <a class="vm-link" href="https://pazent-brain.vercel.app?q=vm4-soc" target="_blank">🔧 Config</a>
+            </div>
+          </div>
+
+          <!-- VM5 -->
+          <div class="vm-card">
+            <div class="vm-header">
+              <div>
+                <div class="vm-name">VM5 IAM/LDAP</div>
+                <div class="vm-role">🔑 Identity</div>
+              </div>
+              <div class="vm-status">Online</div>
+            </div>
+            <div class="vm-ip">195.35.28.51 (Docker/Plesk)</div>
+            <div class="vm-services">
+              <div class="vm-services-label">Services</div>
+              <div class="vm-service-item">OpenLDAP (389/636)</div>
+              <div class="vm-service-item">phpLDAPadmin (8085)</div>
+              <div class="vm-service-item">Wazuh Agent</div>
+              <div class="vm-service-item">Node Exporter</div>
+            </div>
+            <div class="vm-links">
+              <a class="vm-link" href="https://pazent-brain.vercel.app?q=VM5%20IAM" target="_blank">📚 Docs</a>
+              <a class="vm-link" href="https://pazent-brain.vercel.app?q=vm5-iam" target="_blank">🔧 Config</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RNCP -->
+    <div class="section">
+      <div class="section-title">📋 RNCP AIS Niveau 6 (CP1-CP10)</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px;">
+        <a href="https://pazent-brain.vercel.app?q=CP1" class="service-card" style="text-align: center; padding: 12px; text-decoration: none;">✅ CP1<br><span style="font-size: 9px; color: #666;">Bonnes pratiques</span></a>
+        <a href="https://pazent-brain.vercel.app?q=CP2" class="service-card" style="text-align: center; padding: 12px; text-decoration: none;">✅ CP2<br><span style="font-size: 9px; color: #666;">Réseau</span></a>
+        <a href="https://pazent-brain.vercel.app?q=CP3" class="service-card" style="text-align: center; padding: 12px; text-decoration: none;">✅ CP3<br><span style="font-size: 9px; color: #666;">Systèmes</span></a>
+        <a href="https://pazent-brain.vercel.app?q=CP4" class="service-card" style="text-align: center; padding: 12px; text-decoration: none;">✅ CP4<br><span style="font-size: 9px; color: #666;">Virtualisation</span></a>
+        <a href="https://pazent-brain.vercel.app?q=CP5" class="service-card" style="text-align: center; padding: 12px; text-decoration: none;">✅ CP5<br><span style="font-size: 9px; color: #666;">Design</span></a>
+        <a href="https://pazent-brain.vercel.app?q=CP6" class="service-card" style="text-align: center; padding: 12px; text-decoration: none;">✅ CP6<br><span style="font-size: 9px; color: #666;">Production</span></a>
+        <a href="https://pazent-brain.vercel.app?q=CP7" class="service-card" style="text-align: center; padding: 12px; text-decoration: none;">✅ CP7<br><span style="font-size: 9px; color: #666;">Sécurité</span></a>
+        <a href="https://pazent-brain.vercel.app?q=CP8" class="service-card" style="text-align: center; padding: 12px; text-decoration: none;">✅ CP8<br><span style="font-size: 9px; color: #666;">Supervision</span></a>
+        <a href="https://pazent-brain.vercel.app?q=CP9" class="service-card" style="text-align: center; padding: 12px; text-decoration: none;">✅ CP9<br><span style="font-size: 9px; color: #666;">Critique</span></a>
+        <a href="https://pazent-brain.vercel.app?q=CP10" class="service-card" style="text-align: center; padding: 12px; text-decoration: none;">✅ CP10<br><span style="font-size: 9px; color: #666;">Évolution</span></a>
       </div>
     </div>
   </div>
   
-  <div class="footer">DataForge • RNCP AIS • v7 CORS Proxy</div>
+  <div class="footer">DataForge Infrastructure Dashboard • RNCP AIS Niveau 6 • v8 Premium</div>
 </div>
 
 <script>
@@ -136,7 +351,7 @@ async function auth(e) {
     document.getElementById('dashboard').style.display = 'block';
   } else {
     const err = document.getElementById('err');
-    err.textContent = 'Incorrect';
+    err.textContent = 'Incorrect password';
     err.style.display = 'block';
     setTimeout(() => err.style.display = 'none', 2000);
   }
@@ -151,26 +366,21 @@ function openService(name) {
   const targetUrl = SERVICES[name];
   if (!targetUrl) return;
   
-  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-  event.target.closest('.card').classList.add('active');
-  document.getElementById('panel-title').textContent = name.toUpperCase();
+  document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
+  event.target.closest('.service-card').classList.add('active');
+  document.getElementById('panel-title').textContent = `${name.toUpperCase()} Service`;
   
-  // Use allorigins CORS proxy (free, instant, no signup)
   const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}&raw=true`;
-  const iframe = document.createElement('iframe');
-  iframe.src = proxyUrl;
-  iframe.style.cssText = 'width:100%;height:600px;border:none;';
-  
   const content = document.getElementById('panel').querySelector('.panel-content');
-  content.innerHTML = '';
-  content.appendChild(iframe);
+  content.innerHTML = `<iframe src="${proxyUrl}"></iframe>`;
   
   document.getElementById('panel').classList.add('active');
+  document.getElementById('panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function closePanel() {
   document.getElementById('panel').classList.remove('active');
-  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
 }
 
 async function sha256(str) {
