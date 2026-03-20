@@ -1,15 +1,15 @@
 <?php
 /**
- * DataForge Infrastructure — Reverse Proxy
- * Usage: /proxy.php?s=SERVICE  (no .htaccess needed)
+ * DataForge Infrastructure — CORS Proxy
+ * Usage: /proxy.php?s=SERVICE[&path=/sub/path]
  * Services: wazuh, grafana, prometheus, alertmanager, adminer, ldap
+ *
+ * Strategy: curl follows redirects internally (FOLLOWLOCATION),
+ * then injects <base href> into HTML so the browser loads
+ * all assets/API calls directly from the CF tunnel (valid Cloudflare cert).
  */
 
-// Cloudflare Tunnel (valid HTTPS, no cert warning)
-// Run on VM1: /tmp/cloudflared tunnel --url http://localhost
 $CF = 'https://bless-graphs-bibliographic-nickname.trycloudflare.com';
-// Also catch redirects from VM1 direct IP
-$VM1 = 'https://82.70.248.117';
 
 $BACKENDS = [
     'wazuh'        => $CF . '/wazuh',
@@ -20,15 +20,15 @@ $BACKENDS = [
     'ldap'         => $CF . '/ldap',
 ];
 
-// Parse service from ?s= param OR path-based URL via .htaccess
+// --- Parse request ---------------------------------------------------------
 $service = $_GET['s'] ?? '';
 $subpath = $_GET['path'] ?? '/';
+if (!$subpath || $subpath[0] !== '/') $subpath = '/' . $subpath;
 
+// Also support path-based routing via .htaccess
 if (!$service) {
-    $uri = strtok($_SERVER['REQUEST_URI'], '?');
-    if (preg_match('#/proxy/([a-z]+)(/.*)#', $uri, $m)) {
-        $service = $m[1];
-        $subpath = $m[2] ?? '/';
+    if (preg_match('#/proxy/([a-z]+)(/.*)#', $_SERVER['REQUEST_URI'], $m)) {
+        $service = $m[1]; $subpath = $m[2] ?? '/';
     }
 }
 
@@ -39,16 +39,16 @@ if (!$service || !isset($BACKENDS[$service])) {
     exit;
 }
 
-// Pass through all query params except s and path
-$params = $_GET;
-unset($params['s'], $params['path']);
-$qs = $params ? '?' . http_build_query($params) : '';
+// Pass through extra query params (except s, path)
+$extra = $_GET;
+unset($extra['s'], $extra['path']);
+$qs = $extra ? '?' . http_build_query($extra) : '';
 
 $target = $BACKENDS[$service] . $subpath . $qs;
 $method = $_SERVER['REQUEST_METHOD'];
 $body   = in_array($method, ['POST','PUT','PATCH']) ? file_get_contents('php://input') : null;
 
-// Forward headers (skip hop-by-hop)
+// --- Forward headers -------------------------------------------------------
 $skip    = ['HOST','ACCEPT-ENCODING','CONNECTION','TRANSFER-ENCODING'];
 $headers = [];
 foreach ($_SERVER as $k => $v) {
@@ -60,25 +60,28 @@ foreach ($_SERVER as $k => $v) {
 if (!empty($_SERVER['CONTENT_TYPE']))   $headers[] = 'Content-Type: '   . $_SERVER['CONTENT_TYPE'];
 if (!empty($_SERVER['CONTENT_LENGTH'])) $headers[] = 'Content-Length: ' . $_SERVER['CONTENT_LENGTH'];
 
+// --- Execute ---------------------------------------------------------------
 $ch = curl_init();
 curl_setopt_array($ch, [
-    CURLOPT_URL            => $target,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_HEADER         => true,
-    CURLOPT_FOLLOWLOCATION => false,
-    CURLOPT_SSL_VERIFYPEER => false,
-    CURLOPT_SSL_VERIFYHOST => false,
-    CURLOPT_CUSTOMREQUEST  => $method,
-    CURLOPT_HTTPHEADER     => $headers,
-    CURLOPT_POSTFIELDS     => $body,
-    CURLOPT_TIMEOUT        => 30,
-    CURLOPT_CONNECTTIMEOUT => 10,
+    CURLOPT_URL             => $target,
+    CURLOPT_RETURNTRANSFER  => true,
+    CURLOPT_HEADER          => true,
+    CURLOPT_FOLLOWLOCATION  => true,   // follow redirects internally
+    CURLOPT_MAXREDIRS       => 8,
+    CURLOPT_SSL_VERIFYPEER  => false,
+    CURLOPT_SSL_VERIFYHOST  => false,
+    CURLOPT_CUSTOMREQUEST   => $method,
+    CURLOPT_HTTPHEADER      => $headers,
+    CURLOPT_POSTFIELDS      => $body,
+    CURLOPT_TIMEOUT         => 30,
+    CURLOPT_CONNECTTIMEOUT  => 10,
 ]);
 
-$raw    = curl_exec($ch);
-$errno  = curl_errno($ch);
-$hSize  = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-$status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$raw     = curl_exec($ch);
+$errno   = curl_errno($ch);
+$hSize   = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+$status  = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$finalUrl= curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 curl_close($ch);
 
 if ($errno || $raw === false) {
@@ -91,75 +94,36 @@ if ($errno || $raw === false) {
 $respHeaders = substr($raw, 0, $hSize);
 $respBody    = substr($raw, $hSize);
 
-// Rewrite Location headers to stay inside proxy
-if (preg_match('/^Location:\s*(.+)$/mi', $respHeaders, $loc)) {
-    $location = trim($loc[1]);
-
-    // 1. Absolute URL matching a backend (e.g. https://CF/grafana/...)
-    foreach ($BACKENDS as $svc => $backend) {
-        if (strpos($location, $backend) === 0) {
-            $p = urlencode(substr($location, strlen($backend)) ?: '/');
-            header("Location: /proxy.php?s=$svc&path=$p", true, $status ?: 302);
-            exit;
-        }
-    }
-
-    // 1b. VM1 direct IP redirect (e.g. https://82.70.248.117/grafana/)
-    if (strpos($location, $VM1) === 0) {
-        $path = substr($location, strlen($VM1));
-        foreach ($BACKENDS as $svc => $backend) {
-            $svcPath = '/' . $svc;
-            if (strpos($path, $svcPath) === 0) {
-                $p = urlencode(substr($path, strlen($svcPath)) ?: '/');
-                header("Location: /proxy.php?s=$svc&path=$p", true, $status ?: 302);
-                exit;
-            }
-        }
-    }
-
-    // 2. Absolute URL matching CF base (e.g. https://CF/prometheus/query)
-    if (strpos($location, $CF) === 0) {
-        $path = substr($location, strlen($CF));
-        foreach ($BACKENDS as $svc => $backend) {
-            $svcPath = parse_url($backend, PHP_URL_PATH);
-            if (strpos($path, $svcPath) === 0) {
-                $p = urlencode(substr($path, strlen($svcPath)) ?: '/');
-                header("Location: /proxy.php?s=$svc&path=$p", true, $status ?: 302);
-                exit;
-            }
-        }
-    }
-
-    // 3. Relative redirect starting with a service path (e.g. /prometheus/query)
-    foreach ($BACKENDS as $svc => $backend) {
-        $svcPath = parse_url($backend, PHP_URL_PATH); // e.g. /prometheus
-        if (strpos($location, $svcPath) === 0) {
-            $p = urlencode(substr($location, strlen($svcPath)) ?: '/');
-            header("Location: /proxy.php?s=$svc&path=$p", true, $status ?: 302);
-            exit;
-        }
-    }
-
-    // 4. Generic relative redirect — stay on current service
-    if (substr($location, 0, 1) === '/') {
-        header("Location: /proxy.php?s=$service&path=" . urlencode($location), true, $status ?: 302);
-        exit;
-    }
-
-    header("Location: $location", true, $status ?: 302);
-    exit;
-}
-
-// Forward safe headers
+// --- Forward safe headers --------------------------------------------------
+$contentType = '';
 $safe = ['content-type','cache-control','last-modified','etag','set-cookie','content-disposition'];
 foreach (explode("\r\n", $respHeaders) as $h) {
     if (!$h || stripos($h, 'HTTP/') === 0) continue;
-    [$name] = explode(':', $h, 2);
-    if (in_array(strtolower(trim($name)), $safe)) header($h, false);
+    [$name, $val] = array_pad(explode(':', $h, 2), 2, '');
+    $nameLower = strtolower(trim($name));
+    if ($nameLower === 'content-type') $contentType = strtolower(trim($val));
+    if (in_array($nameLower, $safe)) header($h, false);
 }
 
+// --- Inject <base href> into HTML so browser loads assets from CF tunnel ---
+if (strpos($contentType, 'text/html') !== false) {
+    // Use final URL (after redirects) as base so relative paths resolve correctly
+    $base = $finalUrl ?: ($BACKENDS[$service] . '/');
+    if (substr($base, -1) !== '/') $base = dirname($base) . '/';
+    $baseTag = '<base href="' . htmlspecialchars($base, ENT_QUOTES) . '">';
+
+    // Inject right after <head> (or prepend if no <head>)
+    if (preg_match('/<head[^>]*>/i', $respBody)) {
+        $respBody = preg_replace('/(<head[^>]*>)/i', '$1' . $baseTag, $respBody, 1);
+    } else {
+        $respBody = $baseTag . $respBody;
+    }
+}
+
+// Allow iframe embedding
 header('X-Frame-Options: ALLOWALL');
-header('Access-Control-Allow-Origin: https://pazent.fr');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Credentials: true');
 header('Content-Security-Policy: frame-ancestors *');
 
 http_response_code($status ?: 200);

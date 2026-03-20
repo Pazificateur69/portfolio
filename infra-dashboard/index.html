@@ -143,7 +143,7 @@ function openService(name) {
   event.target.closest('.card').classList.add('active');
   document.getElementById('panel-title').textContent = ['wazuh', 'grafana', 'adminer', 'ldap', 'prometheus', 'alertmanager'].includes(name) ? name.toUpperCase() : name;
   // Use Cloudflare Worker as proxy gateway
-  document.getElementById('frame').src = `https://dataforge-proxy.workers.dev/?s=${name}`;
+  document.getElementById('frame').src = `/proxy.php?s=${name}`;
   document.getElementById('panel').classList.add('active');
 }
 
