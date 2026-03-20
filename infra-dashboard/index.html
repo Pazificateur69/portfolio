@@ -191,14 +191,27 @@
     <div class="grid-vms" id="vms-grid"></div>
 
     <!-- Quick Links -->
-    <div class="section-title">🔗 Quick Access</div>
+    <div class="section-title">🔗 Quick Access (SSH Jump Required)</div>
     <div class="links-grid">
-      <a href="https://195.35.28.51:8444" class="link-btn" target="_blank">🔴 Wazuh Dashboard</a>
-      <a href="#" class="link-btn" onclick="sshJump('vm3'); return false;">🔵 Grafana (SSH)</a>
-      <a href="https://195.35.28.51:8081" class="link-btn" target="_blank">🟢 Adminer</a>
-      <a href="https://195.35.28.51:8085" class="link-btn" target="_blank">🟡 phpLDAPadmin</a>
-      <a href="https://195.35.28.51:9093" class="link-btn" target="_blank">⚡ Alertmanager</a>
-      <a href="https://pazent-brain.vercel.app" class="link-btn" target="_blank">📚 Documentation</a>
+      <button class="link-btn" onclick="copyCmd('ssh -i ~/.ssh/id_ed25519 -L 8444:195.35.28.51:8444 ubuntu@82.70.248.117')">🔴 Wazuh (8444)</button>
+      <button class="link-btn" onclick="copyCmd('ssh -i ~/.ssh/id_ed25519 -L 3000:10.0.1.20:3000 ubuntu@82.70.248.117')">🔵 Grafana (3000)</button>
+      <button class="link-btn" onclick="copyCmd('ssh -i ~/.ssh/id_ed25519 -L 8081:195.35.28.51:8081 ubuntu@82.70.248.117')">🟢 Adminer (8081)</button>
+      <button class="link-btn" onclick="copyCmd('ssh -i ~/.ssh/id_ed25519 -L 8085:195.35.28.51:8085 ubuntu@82.70.248.117')">🟡 LDAP (8085)</button>
+      <button class="link-btn" onclick="copyCmd('ssh -i ~/.ssh/id_ed25519 -L 9093:10.0.1.20:9093 ubuntu@82.70.248.117')">⚡ Alertmgr (9093)</button>
+      <a href="https://pazent-brain.vercel.app" class="link-btn" target="_blank">📚 Docs (public)</a>
+    </div>
+
+    <!-- SSH Instructions -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:20px;font-size:11px;">
+      <div style="font-weight:600;margin-bottom:8px;color:var(--accent);">SSH Tunnel Instructions</div>
+      <div style="color:var(--muted);margin-bottom:8px;">
+        All services (Wazuh, Grafana, LDAP, etc.) are behind <code style="background:var(--bg);padding:2px 4px;border-radius:3px;">195.35.28.51</code> (private IP) on Plesk.<br/>
+        Use SSH jump tunnels to access them securely. Click buttons above to copy SSH commands.
+      </div>
+      <div style="background:var(--bg);padding:8px;border-radius:6px;font-family:'JetBrains Mono';font-size:10px;color:var(--muted);">
+        Example: <code style="color:var(--green);">ssh -L 8444:195.35.28.51:8444 ubuntu@82.70.248.117</code><br/>
+        Then: <code style="color:var(--green);">https://localhost:8444</code> → Wazuh Dashboard
+      </div>
     </div>
 
     <!-- RNCP Competencies -->
@@ -397,8 +410,19 @@
     `).join('');
   }
 
+  function copyCmd(cmd) {
+    navigator.clipboard.writeText(cmd).then(() => {
+      alert('✓ SSH command copied to clipboard!\n\n' + cmd + '\n\nPaste in terminal and then access via localhost on the mapped port.');
+    }).catch(() => {
+      prompt('Copy this SSH command:', cmd);
+    });
+  }
+
   function sshJump(target) {
-    alert('📊 Grafana via SSH Tunnel:\n\nssh -L 3000:10.0.1.20:3000 ubuntu@82.70.248.117\n\nThen access: http://localhost:3000');
+    const cmds = {
+      'vm3': 'ssh -i ~/.ssh/id_ed25519 -L 3000:10.0.1.20:3000 ubuntu@82.70.248.117'
+    };
+    copyCmd(cmds[target] || 'ssh ubuntu@82.70.248.117');
   }
 </script>
 
