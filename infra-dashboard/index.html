@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>DataForge — Infrastructure Dashboard</title>
+  <title>DataForge — Infrastructure</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -52,16 +52,16 @@
     .service-name { font-size: 11px; font-weight: 600; }
     .service-port { font-size: 9px; color: var(--muted); margin-top: 4px; font-family: 'JetBrains Mono'; }
 
-    .viewer { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: none; margin-bottom: 20px; }
+    .viewer { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; display: none; margin-bottom: 20px; overflow: hidden; }
     .viewer.active { display: block; }
     .viewer-header { padding: 10px 14px; border-bottom: 1px solid var(--border); background: var(--surface2); display: flex; justify-content: space-between; }
     .viewer-title { font-size: 12px; font-weight: 600; }
     .viewer-close { background: none; border: none; color: var(--muted); cursor: pointer; }
     .viewer-content { padding: 14px; font-family: 'JetBrains Mono'; font-size: 11px; max-height: 500px; overflow: auto; }
-    .terminal-line { margin-bottom: 6px; line-height: 1.4; }
+    .terminal-line { margin-bottom: 6px; line-height: 1.4; word-break: break-all; }
     .prompt { color: var(--green); }
     .info { color: #3b82f6; }
-    .output { color: var(--text); word-break: break-all; }
+    .output { color: var(--text); }
 
     .vms { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 20px; }
     .vm { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px; }
@@ -80,8 +80,10 @@
     <div class="auth-logo">🔐</div>
     <div class="auth-title">DataForge</div>
     <div class="auth-sub">RNCP AIS Infrastructure</div>
-    <input type="password" id="pwd" class="auth-input" placeholder="Password..." />
-    <button class="auth-btn" onclick="auth()">Access</button>
+    <form onsubmit="auth(event)">
+      <input type="password" id="pwd" class="auth-input" placeholder="Password..." />
+      <button type="submit" class="auth-btn">Access</button>
+    </form>
     <div class="auth-error" id="err"></div>
   </div>
 </div>
@@ -138,7 +140,7 @@
     </div>
   </div>
 
-  <div class="footer">DataForge Infrastructure • RNCP AIS Niveau 6 • Commit: dfe1b6f</div>
+  <div class="footer">DataForge Infrastructure • RNCP AIS Niveau 6 • Commit: 715e464</div>
 </div>
 
 <script>
@@ -149,7 +151,8 @@ async function hashPwd(p) {
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
 
-async function auth() {
+async function auth(e) {
+  e.preventDefault();
   const pwd = document.getElementById('pwd').value;
   const hash = await hashPwd(pwd);
   const correctHash = await hashPwd(PASS);
@@ -192,29 +195,18 @@ function openService(key) {
   document.querySelectorAll('.service').forEach(s => s.classList.remove('active'));
   event.target.closest('.service').classList.add('active');
   document.getElementById('vtitle').textContent = svc.name;
-  
-  // Load via proxy.php (no .htaccess needed)
-  const proxyUrl = `/proxy.php?s=${key}`;
-
-  // Create iframe
-  const iframeHtml = `<iframe style="width:100%;height:500px;border:none;border-radius:6px;" src="${proxyUrl}" title="${key}"></iframe>`;
-  document.getElementById('vcontent').innerHTML = iframeHtml;
-  
-  // If iframe fails, show instructions
-  document.querySelector('#vcontent iframe').onerror = function() {
-    const html = `
+  const html = `
 <div class="terminal-line"><span class="info">📍 ${svc.name}</span></div>
 <div class="terminal-line"><span class="output">Host: ${svc.host}:${svc.port}</span></div>
 <div class="terminal-line"><span class="output">Protocol: ${svc.protocol.toUpperCase()}</span></div>
 ${svc.user ? `<div class="terminal-line"><span class="output">User: ${svc.user}</span></div>` : ''}
 ${svc.pass ? `<div class="terminal-line"><span class="output">Pass: ${svc.pass}</span></div>` : ''}
-<div class="terminal-line" style="margin-top: 10px; border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px;"><span class="info">🔗 SSH Tunnel:</span></div>
-<div class="terminal-line" style="word-break: break-all;"><span class="prompt">$</span> <span class="output">ssh -i ~/.ssh/id_ed25519 -L ${svc.port}:${svc.host}:${svc.port} ubuntu@82.70.248.117</span></div>
-<div class="terminal-line"><span class="output">Then: ${svc.protocol}://localhost:${svc.port}</span></div>
-    `;
-    document.getElementById('vcontent').innerHTML = html;
-  };
-  
+<div class="terminal-line" style="margin-top: 10px; border-top: 1px solid rgba(255,255,255,.1); padding-top: 10px;"><span class="info">🔗 SSH Tunnel to Access:</span></div>
+<div class="terminal-line"><span class="prompt">$</span> <span class="output">ssh -i ~/.ssh/id_ed25519 -L ${svc.port}:${svc.host}:${svc.port} ubuntu@82.70.248.117</span></div>
+<div class="terminal-line"><span class="output">Then open: ${svc.protocol}://localhost:${svc.port}</span></div>
+<div class="terminal-line" style="margin-top: 10px; color: var(--muted);">Keep terminal open while using the service</div>
+`;
+  document.getElementById('vcontent').innerHTML = html;
   document.getElementById('viewer').classList.add('active');
 }
 
@@ -224,7 +216,6 @@ function closeViewer() {
 }
 
 function init() {
-  // Services
   const servHTML = Object.entries(services).map(([k, v]) => `
 <div class="service" onclick="openService('${k}')">
   <div class="service-icon">${v.name.split(' ')[0]}</div>
@@ -234,7 +225,6 @@ function init() {
   `).join('');
   document.getElementById('services').innerHTML = servHTML;
 
-  // VMs
   const vmHTML = vms.map(vm => `
 <div class="vm">
   <div class="vm-name">${vm.name}</div>
@@ -252,9 +242,6 @@ window.addEventListener('load', () => {
     document.getElementById('dashboard').style.display = 'flex';
     init();
   }
-  document.getElementById('pwd').addEventListener('keypress', e => {
-    if (e.key === 'Enter') auth();
-  });
 });
 </script>
 
