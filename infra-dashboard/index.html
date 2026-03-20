@@ -192,23 +192,26 @@
           <div class="vm-card">
             <div class="vm-header">
               <div>
-                <div class="vm-name">VM1 Gateway</div>
-                <div class="vm-role">🌐 Gateway / VPN</div>
+                <div class="vm-name">VM1 — Gateway</div>
+                <div class="vm-role">🌐 Gateway / VPN / Reverse Proxy</div>
               </div>
               <div class="vm-status">Online</div>
             </div>
-            <div class="vm-ip">82.70.248.117 (public)</div>
+            <div class="vm-ip">📍 82.70.248.117 (Oracle Cloud, eu-marseille-1) · 10.0.0.10 (VCN privé)</div>
+            <div class="vm-ip">🖥️ VM.Standard.E2.1.Micro · 1 OCPU · 1 GB RAM · Ubuntu 22.04</div>
             <div class="vm-services">
-              <div class="vm-services-label">Services</div>
-              <div class="vm-service-item">Nginx Reverse Proxy</div>
-              <div class="vm-service-item">WireGuard VPN (51820)</div>
-              <div class="vm-service-item">Fail2ban Protection</div>
-              <div class="vm-service-item">Wazuh Agent</div>
-              <div class="vm-service-item">Node Exporter</div>
+              <div class="vm-services-label">Services actifs</div>
+              <div class="vm-service-item">Nginx — reverse proxy HTTPS (80/443)</div>
+              <div class="vm-service-item">WireGuard VPN — 10.8.0.0/24 (UDP 51820)</div>
+              <div class="vm-service-item">Fail2ban — protection SSH brute-force</div>
+              <div class="vm-service-item">nftables — pare-feu stateful</div>
+              <div class="vm-service-item">Wazuh Agent — SIEM forwarding → VM4</div>
+              <div class="vm-service-item">Node Exporter — métriques → VM3</div>
             </div>
             <div class="vm-links">
-              <a class="vm-link" href="https://pazent-brain.vercel.app?q=VM1%20Gateway" target="_blank">📚 Docs</a>
-              <a class="vm-link" href="https://pazent-brain.vercel.app?q=vm1-gateway" target="_blank">🔧 Config</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/vms/vm1.md" target="_blank">📚 Notes VM1</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/architecture-globale.md" target="_blank">🏗️ Architecture</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/preuves/compliance.md" target="_blank">🔒 CIS</a>
             </div>
           </div>
 
@@ -216,23 +219,26 @@
           <div class="vm-card">
             <div class="vm-header">
               <div>
-                <div class="vm-name">VM2 Infrastructure</div>
-                <div class="vm-role">⚙️ Services</div>
+                <div class="vm-name">VM2 — Infrastructure</div>
+                <div class="vm-role">⚙️ Services Applicatifs Docker</div>
               </div>
               <div class="vm-status">Online</div>
             </div>
-            <div class="vm-ip">195.35.28.51 (Docker/Plesk)</div>
+            <div class="vm-ip">📍 195.35.28.51 (Plesk Hostinger) · 10.0.1.10 (réseau interne)</div>
+            <div class="vm-ip">🖥️ Docker Engine · userns-remap · ICC disabled · Ubuntu 22.04</div>
             <div class="vm-services">
-              <div class="vm-services-label">Services</div>
-              <div class="vm-service-item">Nginx (8080)</div>
-              <div class="vm-service-item">PostgreSQL 15 (5432)</div>
-              <div class="vm-service-item">Adminer (8081)</div>
-              <div class="vm-service-item">Wazuh Agent</div>
-              <div class="vm-service-item">Node Exporter</div>
+              <div class="vm-services-label">Services actifs</div>
+              <div class="vm-service-item">Nginx — web server (8080)</div>
+              <div class="vm-service-item">PostgreSQL 15 — base de données (5432)</div>
+              <div class="vm-service-item">Adminer — interface DB web (8081)</div>
+              <div class="vm-service-item">Wazuh Agent — SIEM forwarding → VM4</div>
+              <div class="vm-service-item">Node Exporter — métriques → VM3 (9101)</div>
+              <div class="vm-service-item">CIS Benchmark L1 — hardening appliqué</div>
             </div>
             <div class="vm-links">
-              <a class="vm-link" href="https://pazent-brain.vercel.app?q=VM2%20Infrastructure" target="_blank">📚 Docs</a>
-              <a class="vm-link" href="https://pazent-brain.vercel.app?q=vm2-infra" target="_blank">🔧 Config</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/vms/vm2.md" target="_blank">📚 Notes VM2</a>
+              <a class="vm-link" onclick="openService('adminer')" style="cursor:pointer">🗄️ Adminer</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/preuves/compliance.md" target="_blank">🔒 Hardening</a>
             </div>
           </div>
 
@@ -240,23 +246,26 @@
           <div class="vm-card">
             <div class="vm-header">
               <div>
-                <div class="vm-name">VM3 Supervision</div>
-                <div class="vm-role">📈 Monitoring</div>
+                <div class="vm-name">VM3 — Supervision</div>
+                <div class="vm-role">📈 Stack Monitoring</div>
               </div>
               <div class="vm-status">Online</div>
             </div>
-            <div class="vm-ip">10.0.1.20 (private)</div>
+            <div class="vm-ip">📍 10.0.1.20 (Oracle Cloud, réseau privé VCN) · via jump VM1</div>
+            <div class="vm-ip">🖥️ VM.Standard.A1.Flex · 2 OCPU · 12 GB RAM · Ubuntu 22.04</div>
             <div class="vm-services">
-              <div class="vm-services-label">Services</div>
-              <div class="vm-service-item">Prometheus (9090)</div>
-              <div class="vm-service-item">Grafana (3000)</div>
-              <div class="vm-service-item">Alertmanager (9093)</div>
-              <div class="vm-service-item">Wazuh Agent</div>
-              <div class="vm-service-item">Node Exporter</div>
+              <div class="vm-services-label">Services actifs</div>
+              <div class="vm-service-item">Prometheus — scraping métriques (9090) · 15j rétention</div>
+              <div class="vm-service-item">Grafana — 4 dashboards (Overview/Sécu/Docker/TLS)</div>
+              <div class="vm-service-item">Alertmanager — règles alertes (9093)</div>
+              <div class="vm-service-item">Blackbox Exporter — sondes HTTP/TCP/ICMP</div>
+              <div class="vm-service-item">Node Exporter — VM3 locale (9100)</div>
             </div>
             <div class="vm-links">
-              <a class="vm-link" href="https://pazent-brain.vercel.app?q=VM3%20Supervision" target="_blank">📚 Docs</a>
-              <a class="vm-link" href="https://pazent-brain.vercel.app?q=vm3-supervision" target="_blank">🔧 Config</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/vms/vm3.md" target="_blank">📚 Notes VM3</a>
+              <a class="vm-link" onclick="openService('grafana')" style="cursor:pointer">📊 Grafana</a>
+              <a class="vm-link" onclick="openService('prometheus')" style="cursor:pointer">🔥 Prometheus</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/preuves/grafana-dashboards.md" target="_blank">🖼️ Dashboards</a>
             </div>
           </div>
 
@@ -264,22 +273,25 @@
           <div class="vm-card">
             <div class="vm-header">
               <div>
-                <div class="vm-name">VM4 SOC/SIEM</div>
-                <div class="vm-role">🔴 Security</div>
+                <div class="vm-name">VM4 — SOC / SIEM</div>
+                <div class="vm-role">🛡️ Wazuh Security Operations Center</div>
               </div>
               <div class="vm-status">Online</div>
             </div>
-            <div class="vm-ip">195.35.28.51 (Docker/Plesk)</div>
+            <div class="vm-ip">📍 195.35.28.51 (Plesk Hostinger, Docker)</div>
+            <div class="vm-ip">🖥️ Wazuh 4.7.3 · ARM64 · Manager + Indexer + Dashboard</div>
             <div class="vm-services">
-              <div class="vm-services-label">Services</div>
-              <div class="vm-service-item">Wazuh Manager (1514)</div>
-              <div class="vm-service-item">Wazuh Indexer (9200)</div>
-              <div class="vm-service-item">Wazuh Dashboard (8444)</div>
-              <div class="vm-service-item">Node Exporter</div>
+              <div class="vm-services-label">Services actifs</div>
+              <div class="vm-service-item">Wazuh Manager — collecte agents (1514/1515)</div>
+              <div class="vm-service-item">Wazuh Indexer — OpenSearch stockage (9200)</div>
+              <div class="vm-service-item">Wazuh Dashboard — interface SIEM (8444)</div>
+              <div class="vm-service-item">Règles : brute-force SSH, scan ports, FIM, rootkit</div>
+              <div class="vm-service-item">4 agents : VM1/2/3/5 → logs centralisés</div>
             </div>
             <div class="vm-links">
-              <a class="vm-link" href="https://pazent-brain.vercel.app?q=VM4%20SOC" target="_blank">📚 Docs</a>
-              <a class="vm-link" href="https://pazent-brain.vercel.app?q=vm4-soc" target="_blank">🔧 Config</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/vms/vm4.md" target="_blank">📚 Notes VM4</a>
+              <a class="vm-link" onclick="openService('wazuh')" style="cursor:pointer">🔴 Wazuh UI</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/preuves/wazuh-agents.md" target="_blank">👁️ Agents</a>
             </div>
           </div>
 
@@ -287,22 +299,25 @@
           <div class="vm-card">
             <div class="vm-header">
               <div>
-                <div class="vm-name">VM5 IAM/LDAP</div>
-                <div class="vm-role">🔑 Identity</div>
+                <div class="vm-name">VM5 — IAM / Active Directory</div>
+                <div class="vm-role">🔑 Gestion Identités & Accès</div>
               </div>
               <div class="vm-status">Online</div>
             </div>
-            <div class="vm-ip">195.35.28.51 (Docker/Plesk)</div>
+            <div class="vm-ip">📍 195.35.28.51 (Plesk Hostinger, Docker)</div>
+            <div class="vm-ip">🖥️ OpenLDAP 2.6 · dc=dataforge,dc=lab · 24 users · 8 groupes</div>
             <div class="vm-services">
-              <div class="vm-services-label">Services</div>
-              <div class="vm-service-item">OpenLDAP (389/636)</div>
-              <div class="vm-service-item">phpLDAPadmin (8085)</div>
-              <div class="vm-service-item">Wazuh Agent</div>
-              <div class="vm-service-item">Node Exporter</div>
+              <div class="vm-services-label">Services actifs</div>
+              <div class="vm-service-item">OpenLDAP — annuaire LDAP/LDAPS (389/636)</div>
+              <div class="vm-service-item">phpLDAPadmin — interface web (8085)</div>
+              <div class="vm-service-item">OUs : Users / Admins / DevOps / SecOps</div>
+              <div class="vm-service-item">Groupes : sysadmins / devops / monitoring / soc-team</div>
+              <div class="vm-service-item">Auth SSH LDAP via sssd sur VM1/2/3/4</div>
             </div>
             <div class="vm-links">
-              <a class="vm-link" href="https://pazent-brain.vercel.app?q=VM5%20IAM" target="_blank">📚 Docs</a>
-              <a class="vm-link" href="https://pazent-brain.vercel.app?q=vm5-iam" target="_blank">🔧 Config</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/vms/vm5.md" target="_blank">📚 Notes VM5</a>
+              <a class="vm-link" onclick="openService('ldap')" style="cursor:pointer">👥 LDAP Admin</a>
+              <a class="vm-link" href="https://github.com/Pazificateur69/pazent-brain-notes/blob/main/notes/rncp/preuves/ldap-structure.md" target="_blank">🗂️ Structure AD</a>
             </div>
           </div>
         </div>
@@ -363,17 +378,16 @@ function logout() {
 }
 
 function openService(name) {
-  const targetUrl = SERVICES[name];
-  if (!targetUrl) return;
-  
+  if (!SERVICES[name]) return;
+
   document.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
   event.target.closest('.service-card').classList.add('active');
-  document.getElementById('panel-title').textContent = `${name.toUpperCase()} Service`;
-  
-  const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}&raw=true`;
+  document.getElementById('panel-title').textContent = name.toUpperCase() + ' — Live Service';
+
+  const proxyUrl = '/proxy.php?s=' + name;
   const content = document.getElementById('panel').querySelector('.panel-content');
-  content.innerHTML = `<iframe src="${proxyUrl}"></iframe>`;
-  
+  content.innerHTML = '<iframe src="' + proxyUrl + '" style="width:100%;height:600px;border:none;border-radius:8px;" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-top-navigation"></iframe>';
+
   document.getElementById('panel').classList.add('active');
   document.getElementById('panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
