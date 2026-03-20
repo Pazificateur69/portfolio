@@ -92,13 +92,45 @@ $respBody    = substr($raw, $hSize);
 // Rewrite Location headers to stay inside proxy
 if (preg_match('/^Location:\s*(.+)$/mi', $respHeaders, $loc)) {
     $location = trim($loc[1]);
+
+    // 1. Absolute URL matching a backend (e.g. https://CF/grafana/...)
     foreach ($BACKENDS as $svc => $backend) {
         if (strpos($location, $backend) === 0) {
-            $newPath = urlencode(substr($location, strlen($backend)));
-            header("Location: /proxy.php?s=$svc&path=$newPath", true, $status ?: 302);
+            $p = urlencode(substr($location, strlen($backend)) ?: '/');
+            header("Location: /proxy.php?s=$svc&path=$p", true, $status ?: 302);
             exit;
         }
     }
+
+    // 2. Absolute URL matching CF base (e.g. https://CF/prometheus/query)
+    if (strpos($location, $CF) === 0) {
+        $path = substr($location, strlen($CF));
+        foreach ($BACKENDS as $svc => $backend) {
+            $svcPath = parse_url($backend, PHP_URL_PATH);
+            if (strpos($path, $svcPath) === 0) {
+                $p = urlencode(substr($path, strlen($svcPath)) ?: '/');
+                header("Location: /proxy.php?s=$svc&path=$p", true, $status ?: 302);
+                exit;
+            }
+        }
+    }
+
+    // 3. Relative redirect starting with a service path (e.g. /prometheus/query)
+    foreach ($BACKENDS as $svc => $backend) {
+        $svcPath = parse_url($backend, PHP_URL_PATH); // e.g. /prometheus
+        if (strpos($location, $svcPath) === 0) {
+            $p = urlencode(substr($location, strlen($svcPath)) ?: '/');
+            header("Location: /proxy.php?s=$svc&path=$p", true, $status ?: 302);
+            exit;
+        }
+    }
+
+    // 4. Generic relative redirect — stay on current service
+    if (substr($location, 0, 1) === '/') {
+        header("Location: /proxy.php?s=$service&path=" . urlencode($location), true, $status ?: 302);
+        exit;
+    }
+
     header("Location: $location", true, $status ?: 302);
     exit;
 }
