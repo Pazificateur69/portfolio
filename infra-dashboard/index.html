@@ -3,460 +3,374 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DataForge — Infrastructure Dashboard</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta http-equiv="X-Robots-Tag" content="noindex, nofollow">
+  <title>DataForge — Infrastructure</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0a0a0b; --surface: #111113; --border: rgba(255,255,255,0.07);
       --text: #fafafa; --muted: rgba(250,250,250,0.45);
-      --green: #10b981; --red: #ef4444; --yellow: #f59e0b; --blue: #3b82f6;
-      --accent: #7c3aed;
+      --green: #10b981; --red: #ef4444; --yellow: #f59e0b; --accent: #7c3aed;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
-    
+
+    /* ── Auth Screen ── */
+    #auth-screen {
+      position: fixed; inset: 0; background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; padding: 20px;
+    }
+    .auth-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 32px; width: 100%; max-width: 360px;
+    }
+    .auth-logo {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg,#7c3aed,#10b981);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 20px;
+    }
+    .auth-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .auth-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+    .auth-input {
+      width: 100%; padding: 11px 14px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-size: 15px;
+      outline: none; margin-bottom: 12px;
+      transition: border-color .2s;
+    }
+    .auth-input:focus { border-color: rgba(124,58,237,.5); }
+    .auth-btn {
+      width: 100%; padding: 11px;
+      background: linear-gradient(135deg,#7c3aed,#5b21b6);
+      border: none; border-radius: 8px;
+      color: #fff; font-size: 15px; font-weight: 600;
+      cursor: pointer; transition: opacity .2s;
+    }
+    .auth-btn:hover { opacity: .85; }
+    .auth-error {
+      color: #f87171; font-size: 12px; text-align: center;
+      margin-top: 8px; display: none;
+    }
+
+    /* ── Dashboard ── */
+    #dashboard { display: none; }
+
     .header {
-      padding: 16px 24px; border-bottom: 1px solid var(--border);
+      padding: 14px 24px; border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
-      background: rgba(10,10,11,0.8); backdrop-filter: blur(20px);
+      background: rgba(10,10,11,0.85); backdrop-filter: blur(20px);
       position: sticky; top: 0; z-index: 100;
     }
     .header-brand { display: flex; align-items: center; gap: 10px; }
-    .header-logo { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg,#7c3aed,#10b981); display: flex; align-items: center; justify-content: center; font-size: 16px; }
-    .header-title { font-weight: 700; font-size: 15px; }
+    .header-logo { width: 30px; height: 30px; border-radius: 7px; background: linear-gradient(135deg,#7c3aed,#10b981); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+    .header-title { font-weight: 700; font-size: 14px; }
     .header-sub { font-size: 11px; color: var(--muted); }
-    .header-right { display: flex; align-items: center; gap: 12px; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
     .last-update { font-size: 11px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
-    .refresh-btn { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--muted); padding: 6px 12px; font-size: 12px; cursor: pointer; transition: all .2s; }
-    .refresh-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+    .btn-sm { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--muted); padding: 5px 11px; font-size: 11px; cursor: pointer; transition: all .2s; }
+    .btn-sm:hover { color: var(--text); border-color: rgba(255,255,255,.15); }
+    .btn-logout { color: #f87171; border-color: rgba(239,68,68,.2); }
+    .btn-logout:hover { background: rgba(239,68,68,.08); }
 
     .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+    .section-title { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
     
-    .grid-vms { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .grid-vms { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; margin-bottom: 28px; }
     
-    .vm-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 18px; transition: border-color .2s;
-      position: relative; overflow: hidden;
-    }
-    .vm-card:hover { border-color: rgba(255,255,255,0.12); }
-    .vm-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    }
+    .vm-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; position: relative; overflow: hidden; transition: border-color .2s; }
+    .vm-card:hover { border-color: rgba(255,255,255,.11); }
+    .vm-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: 12px 12px 0 0; }
     .vm-card.online::before { background: var(--green); }
+    .vm-card.starting::before { background: var(--yellow); animation: shimmer 1.5s ease infinite; }
     .vm-card.offline::before { background: var(--red); }
-    .vm-card.warning::before { background: var(--yellow); }
+    @keyframes shimmer { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-    .vm-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
-    .vm-info { flex: 1; }
-    .vm-name { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
-    .vm-role { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
-    .vm-provider { font-size: 10px; color: var(--muted); margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
-    
-    .status-badge {
-      display: flex; align-items: center; gap: 5px;
-      padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 600;
-    }
+    .vm-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 12px; }
+    .vm-name { font-weight: 600; font-size: 13px; margin-bottom: 1px; }
+    .vm-role { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+    .vm-ip { font-size: 10px; color: var(--muted); font-family: 'JetBrains Mono', monospace; margin-top: 2px; }
+    .status-badge { display: flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 20px; font-size: 10px; font-weight: 600; flex-shrink: 0; }
     .status-badge.online { background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.2); color: var(--green); }
+    .status-badge.starting { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.2); color: var(--yellow); }
     .status-badge.offline { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.2); color: var(--red); }
-    .status-badge.checking { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.2); color: var(--yellow); }
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 2s ease infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .status-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .online .status-dot { animation: pulse 2s ease infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-    .vm-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
-    .metric { background: rgba(255,255,255,.03); border-radius: 8px; padding: 10px 12px; }
-    .metric-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
-    .metric-value { font-size: 18px; font-weight: 700; letter-spacing: -.03em; font-family: 'JetBrains Mono', monospace; }
-    .metric-value.green { color: var(--green); }
-    .metric-value.yellow { color: var(--yellow); }
-    .metric-value.red { color: var(--red); }
-    .metric-bar { height: 3px; background: rgba(255,255,255,.06); border-radius: 2px; margin-top: 5px; overflow: hidden; }
-    .metric-bar-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+    .vm-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 12px; }
+    .metric { background: rgba(255,255,255,.03); border-radius: 7px; padding: 9px 11px; }
+    .metric-label { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 3px; }
+    .metric-value { font-size: 17px; font-weight: 700; letter-spacing: -.04em; font-family: 'JetBrains Mono', monospace; }
+    .metric-bar { height: 2px; background: rgba(255,255,255,.05); border-radius: 1px; margin-top: 4px; overflow: hidden; }
+    .metric-bar-fill { height: 100%; border-radius: 1px; transition: width .8s cubic-bezier(.16,1,.3,1); }
 
-    .vm-services { display: flex; flex-wrap: wrap; gap: 5px; }
-    .service-tag {
-      font-size: 10px; font-family: 'JetBrains Mono', monospace;
-      padding: 2px 8px; border-radius: 4px; border: 1px solid;
-    }
-    .service-tag.up { background: rgba(16,185,129,.07); border-color: rgba(16,185,129,.2); color: #34d399; }
-    .service-tag.down { background: rgba(239,68,68,.07); border-color: rgba(239,68,68,.2); color: #f87171; }
+    .vm-services { display: flex; flex-wrap: wrap; gap: 4px; }
+    .stag { font-size: 9px; font-family: 'JetBrains Mono', monospace; padding: 2px 6px; border-radius: 3px; }
+    .stag.up { background: rgba(16,185,129,.07); border: 1px solid rgba(16,185,129,.18); color: #34d399; }
+    .stag.warn { background: rgba(245,158,11,.07); border: 1px solid rgba(245,158,11,.18); color: #fbbf24; }
+    .stag.down { background: rgba(239,68,68,.07); border: 1px solid rgba(239,68,68,.18); color: #f87171; }
 
-    .vm-links { display: flex; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
-    .vm-link {
-      flex: 1; text-align: center; padding: 6px 8px; border-radius: 6px;
-      background: rgba(255,255,255,.04); border: 1px solid var(--border);
-      color: var(--muted); font-size: 11px; text-decoration: none;
-      transition: all .15s; cursor: pointer;
-    }
-    .vm-link:hover { color: var(--text); border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.07); }
-    .vm-link.primary { background: rgba(124,58,237,.1); border-color: rgba(124,58,237,.25); color: #a78bfa; }
-    .vm-link.primary:hover { background: rgba(124,58,237,.2); }
+    .vm-links { display: flex; gap: 5px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+    .vlink { flex: 1; text-align: center; padding: 5px 7px; border-radius: 5px; background: rgba(255,255,255,.04); border: 1px solid var(--border); color: var(--muted); font-size: 10px; text-decoration: none; transition: all .15s; cursor: pointer; }
+    .vlink:hover { color: var(--text); border-color: rgba(255,255,255,.12); }
+    .vlink.primary { background: rgba(124,58,237,.1); border-color: rgba(124,58,237,.25); color: #a78bfa; }
 
-    /* Section Alertes */
-    .alerts-section { margin-bottom: 24px; }
-    .section-title { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .alerts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
-    .alert-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
-    .alert-icon { font-size: 16px; flex-shrink: 0; }
-    .alert-text { flex: 1; }
-    .alert-title { font-size: 13px; font-weight: 500; }
-    .alert-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+    .alerts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; margin-bottom: 28px; }
+    .alert-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 13px; display: flex; align-items: center; gap: 9px; }
+    .alert-icon { font-size: 15px; flex-shrink: 0; }
+    .alert-title { font-size: 12px; font-weight: 500; }
+    .alert-sub { font-size: 10px; color: var(--muted); margin-top: 1px; font-family: 'JetBrains Mono', monospace; }
 
-    /* Section iframes */
-    .embeds-section { margin-bottom: 24px; }
-    .embeds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .embeds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .embed-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .embed-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .embed-title { font-size: 13px; font-weight: 600; }
-    .embed-subtitle { font-size: 11px; color: var(--muted); }
-    .embed-body { height: 300px; position: relative; }
-    .embed-body iframe { width: 100%; height: 100%; border: none; }
-    .embed-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 13px; }
-    .embed-placeholder-icon { font-size: 32px; opacity: .4; }
-    .embed-open-btn { position: absolute; top: 8px; right: 8px; padding: 4px 10px; background: rgba(124,58,237,.15); border: 1px solid rgba(124,58,237,.3); border-radius: 5px; color: #a78bfa; font-size: 11px; text-decoration: none; cursor: pointer; }
+    .embed-header { padding: 11px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .embed-title { font-size: 12px; font-weight: 600; }
+    .embed-sub { font-size: 10px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+    .embed-body { height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--muted); font-size: 12px; padding: 20px; text-align: center; }
+    .embed-icon { font-size: 28px; opacity: .35; }
+    .embed-code { font-size: 10px; font-family: 'JetBrains Mono', monospace; color: rgba(250,250,250,.2); margin-top: 4px; }
+    .embed-open { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; padding: 6px 14px; background: rgba(124,58,237,.12); border: 1px solid rgba(124,58,237,.28); border-radius: 6px; color: #a78bfa; font-size: 11px; text-decoration: none; transition: background .2s; }
+    .embed-open:hover { background: rgba(124,58,237,.2); }
 
-    @media (max-width: 768px) {
-      .embeds-grid { grid-template-columns: 1fr; }
-      .grid-vms { grid-template-columns: 1fr; }
-    }
+    @media(max-width:768px) { .embeds-grid,.grid-vms{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-brand">
-    <div class="header-logo">🔐</div>
-    <div>
-      <div class="header-title">DataForge Infrastructure</div>
-      <div class="header-sub">RNCP AIS Niveau 6 — Alessandro Gagliardi</div>
-    </div>
-  </div>
-  <div class="header-right">
-    <span class="last-update" id="lastUpdate">--</span>
-    <button class="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
+<!-- AUTH -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <div class="auth-logo">🔐</div>
+    <div class="auth-title">DataForge Infra</div>
+    <div class="auth-sub">Accès restreint — RNCP AIS Niveau 6</div>
+    <input class="auth-input" type="password" id="auth-pass" placeholder="Mot de passe" autocomplete="current-password" />
+    <button class="auth-btn" onclick="checkAuth()">Accéder →</button>
+    <div class="auth-error" id="auth-error">Mot de passe incorrect</div>
   </div>
 </div>
 
-<div class="container">
-
-  <!-- VMs Grid -->
-  <div style="margin-bottom:8px">
-    <div class="section-title">🖥️ Virtual Machines</div>
-  </div>
-  <div class="grid-vms" id="vmsGrid">
-
-    <!-- VM1 -->
-    <div class="vm-card online" id="vm1">
-      <div class="vm-header">
-        <div class="vm-info">
-          <div class="vm-name">VM1 — Gateway</div>
-          <div class="vm-role">Réseau / Sécurité périmètre</div>
-          <div class="vm-provider">82.70.248.117 · Oracle Free</div>
-        </div>
-        <div class="status-badge online"><div class="status-dot"></div>Online</div>
-      </div>
-      <div class="vm-metrics">
-        <div class="metric">
-          <div class="metric-label">CPU</div>
-          <div class="metric-value green" id="vm1-cpu">--</div>
-          <div class="metric-bar"><div class="metric-bar-fill" id="vm1-cpu-bar" style="width:0%;background:var(--green)"></div></div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">RAM</div>
-          <div class="metric-value green" id="vm1-ram">--</div>
-          <div class="metric-bar"><div class="metric-bar-fill" id="vm1-ram-bar" style="width:0%;background:var(--green)"></div></div>
-        </div>
-      </div>
-      <div class="vm-services" id="vm1-services">
-        <span class="service-tag up">WireGuard</span>
-        <span class="service-tag up">Nginx</span>
-        <span class="service-tag up">Fail2ban</span>
-        <span class="service-tag up">Node Exp.</span>
-        <span class="service-tag up">UFW</span>
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="header">
+    <div class="header-brand">
+      <div class="header-logo">🔐</div>
+      <div>
+        <div class="header-title">DataForge Infrastructure</div>
+        <div class="header-sub">RNCP AIS N6 · Alessandro Gagliardi</div>
       </div>
     </div>
-
-    <!-- VM2 -->
-    <div class="vm-card online" id="vm2">
-      <div class="vm-header">
-        <div class="vm-info">
-          <div class="vm-name">VM2 — Infra / Services</div>
-          <div class="vm-role">Docker / PostgreSQL / Apps</div>
-          <div class="vm-provider">195.35.28.51 · Plesk Hostinger</div>
-        </div>
-        <div class="status-badge online"><div class="status-dot"></div>Online</div>
-      </div>
-      <div class="vm-metrics">
-        <div class="metric">
-          <div class="metric-label">CPU</div>
-          <div class="metric-value green" id="vm2-cpu">--</div>
-          <div class="metric-bar"><div class="metric-bar-fill" id="vm2-cpu-bar" style="width:0%;background:var(--green)"></div></div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">RAM</div>
-          <div class="metric-value green" id="vm2-ram">--</div>
-          <div class="metric-bar"><div class="metric-bar-fill" id="vm2-ram-bar" style="width:0%;background:var(--green)"></div></div>
-        </div>
-      </div>
-      <div class="vm-services">
-        <span class="service-tag up">Nginx:8080</span>
-        <span class="service-tag up">PostgreSQL</span>
-        <span class="service-tag up">Adminer:8081</span>
-        <span class="service-tag up">Node Exp.:9101</span>
-      </div>
-      <div class="vm-links">
-        <a class="vm-link" href="http://195.35.28.51:8080" target="_blank">Web App</a>
-        <a class="vm-link primary" href="http://195.35.28.51:8081" target="_blank">Adminer</a>
-      </div>
+    <div class="header-right">
+      <span class="last-update" id="lastUpdate">--</span>
+      <button class="btn-sm" onclick="updateMetrics()">↻ Refresh</button>
+      <button class="btn-sm btn-logout" onclick="logout()">Déconnexion</button>
     </div>
-
-    <!-- VM3 -->
-    <div class="vm-card online" id="vm3">
-      <div class="vm-header">
-        <div class="vm-info">
-          <div class="vm-name">VM3 — Supervision</div>
-          <div class="vm-role">Prometheus / Grafana / Alertmanager</div>
-          <div class="vm-provider">10.0.1.20 (priv) · Oracle Free</div>
-        </div>
-        <div class="status-badge online"><div class="status-dot"></div>Online</div>
-      </div>
-      <div class="vm-metrics">
-        <div class="metric">
-          <div class="metric-label">CPU</div>
-          <div class="metric-value green" id="vm3-cpu">--</div>
-          <div class="metric-bar"><div class="metric-bar-fill" id="vm3-cpu-bar" style="width:0%;background:var(--green)"></div></div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">RAM</div>
-          <div class="metric-value green" id="vm3-ram">--</div>
-          <div class="metric-bar"><div class="metric-bar-fill" id="vm3-ram-bar" style="width:0%;background:var(--green)"></div></div>
-        </div>
-      </div>
-      <div class="vm-services">
-        <span class="service-tag up">Prometheus:9090</span>
-        <span class="service-tag up">Grafana:3000</span>
-        <span class="service-tag up">Alertmanager:9093</span>
-      </div>
-    </div>
-
-    <!-- VM4 -->
-    <div class="vm-card online" id="vm4">
-      <div class="vm-header">
-        <div class="vm-info">
-          <div class="vm-name">VM4 — SOC / SIEM</div>
-          <div class="vm-role">Wazuh Manager + Indexer + Dashboard</div>
-          <div class="vm-provider">195.35.28.51 · Plesk Hostinger</div>
-        </div>
-        <div class="status-badge checking"><div class="status-dot"></div>Starting</div>
-      </div>
-      <div class="vm-metrics">
-        <div class="metric">
-          <div class="metric-label">CPU</div>
-          <div class="metric-value" id="vm4-cpu">--</div>
-          <div class="metric-bar"><div class="metric-bar-fill" id="vm4-cpu-bar" style="width:0%;background:var(--green)"></div></div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">RAM</div>
-          <div class="metric-value" id="vm4-ram">--</div>
-          <div class="metric-bar"><div class="metric-bar-fill" id="vm4-ram-bar" style="width:0%;background:var(--green)"></div></div>
-        </div>
-      </div>
-      <div class="vm-services">
-        <span class="service-tag up">Wazuh Manager:55000</span>
-        <span class="service-tag up">Indexer:9200</span>
-        <span class="service-tag up">Dashboard:8444</span>
-        <span class="service-tag up">Node Exp.:9102</span>
-      </div>
-      <div class="vm-links">
-        <a class="vm-link primary" href="https://195.35.28.51:8444" target="_blank">Wazuh UI</a>
-        <a class="vm-link" href="https://195.35.28.51:55000" target="_blank">API</a>
-      </div>
-    </div>
-
-    <!-- VM5 -->
-    <div class="vm-card online" id="vm5">
-      <div class="vm-header">
-        <div class="vm-info">
-          <div class="vm-name">VM5 — IAM / LDAP</div>
-          <div class="vm-role">OpenLDAP / phpLDAPadmin / RBAC</div>
-          <div class="vm-provider">195.35.28.51 · Plesk Hostinger</div>
-        </div>
-        <div class="status-badge online"><div class="status-dot"></div>Online</div>
-      </div>
-      <div class="vm-metrics">
-        <div class="metric">
-          <div class="metric-label">Domaine</div>
-          <div class="metric-value" style="font-size:11px;color:var(--green);margin-top:4px">dataforge.lab</div>
-        </div>
-        <div class="metric">
-          <div class="metric-label">Port LDAP</div>
-          <div class="metric-value" style="font-size:16px">389</div>
-        </div>
-      </div>
-      <div class="vm-services">
-        <span class="service-tag up">OpenLDAP:389</span>
-        <span class="service-tag up">LDAPS:636</span>
-        <span class="service-tag up">phpLDAPadmin:8085</span>
-      </div>
-      <div class="vm-links">
-        <a class="vm-link primary" href="http://195.35.28.51:8085" target="_blank">phpLDAPadmin</a>
-      </div>
-    </div>
-
   </div>
 
-  <!-- Alertes -->
-  <div class="alerts-section">
+  <div class="container">
+
+    <div class="section-title">🖥️ Virtual Machines — 5 instances</div>
+    <div class="grid-vms">
+
+      <div class="vm-card online">
+        <div class="vm-header">
+          <div><div class="vm-name">VM1 — Gateway</div><div class="vm-role">Réseau · Périmètre · VPN</div><div class="vm-ip">82.70.248.117 · Oracle Free</div></div>
+          <div class="status-badge online"><div class="status-dot"></div>Online</div>
+        </div>
+        <div class="vm-metrics">
+          <div class="metric"><div class="metric-label">CPU</div><div class="metric-value" id="v1c" style="color:var(--green)">--</div><div class="metric-bar"><div class="metric-bar-fill" id="v1cb" style="background:var(--green)"></div></div></div>
+          <div class="metric"><div class="metric-label">RAM</div><div class="metric-value" id="v1r" style="color:var(--green)">--</div><div class="metric-bar"><div class="metric-bar-fill" id="v1rb" style="background:var(--green)"></div></div></div>
+        </div>
+        <div class="vm-services">
+          <span class="stag up">WireGuard</span><span class="stag up">Nginx</span><span class="stag up">Fail2ban</span><span class="stag up">UFW</span><span class="stag up">Node Exp.</span>
+        </div>
+      </div>
+
+      <div class="vm-card online">
+        <div class="vm-header">
+          <div><div class="vm-name">VM2 — Infra / Services</div><div class="vm-role">Docker · PostgreSQL · Apps</div><div class="vm-ip">195.35.28.51 · Plesk Hostinger</div></div>
+          <div class="status-badge online"><div class="status-dot"></div>Online</div>
+        </div>
+        <div class="vm-metrics">
+          <div class="metric"><div class="metric-label">CPU</div><div class="metric-value" id="v2c" style="color:var(--green)">--</div><div class="metric-bar"><div class="metric-bar-fill" id="v2cb" style="background:var(--green)"></div></div></div>
+          <div class="metric"><div class="metric-label">RAM</div><div class="metric-value" id="v2r" style="color:var(--green)">--</div><div class="metric-bar"><div class="metric-bar-fill" id="v2rb" style="background:var(--green)"></div></div></div>
+        </div>
+        <div class="vm-services">
+          <span class="stag up">Nginx:8080</span><span class="stag up">PostgreSQL</span><span class="stag up">Adminer:8081</span>
+        </div>
+        <div class="vm-links">
+          <a class="vlink" href="http://195.35.28.51:8080" target="_blank">Web App</a>
+          <a class="vlink primary" href="http://195.35.28.51:8081" target="_blank">Adminer DB</a>
+        </div>
+      </div>
+
+      <div class="vm-card online">
+        <div class="vm-header">
+          <div><div class="vm-name">VM3 — Supervision</div><div class="vm-role">Prometheus · Grafana · Alertmanager</div><div class="vm-ip">10.0.1.20 (priv) · Oracle Free</div></div>
+          <div class="status-badge online"><div class="status-dot"></div>Online</div>
+        </div>
+        <div class="vm-metrics">
+          <div class="metric"><div class="metric-label">CPU</div><div class="metric-value" id="v3c" style="color:var(--green)">--</div><div class="metric-bar"><div class="metric-bar-fill" id="v3cb" style="background:var(--green)"></div></div></div>
+          <div class="metric"><div class="metric-label">RAM</div><div class="metric-value" id="v3r" style="color:var(--green)">--</div><div class="metric-bar"><div class="metric-bar-fill" id="v3rb" style="background:var(--green)"></div></div></div>
+        </div>
+        <div class="vm-services">
+          <span class="stag up">Prometheus:9090</span><span class="stag up">Grafana:3000</span><span class="stag up">Alertmanager:9093</span>
+        </div>
+        <div class="vm-links">
+          <a class="vlink primary" href="#" onclick="alert('Accès via tunnel SSH:\nssh -L 3000:10.0.1.20:3000 ubuntu@82.70.248.117')">Grafana</a>
+          <a class="vlink" href="#" onclick="alert('Accès via tunnel SSH:\nssh -L 9090:10.0.1.20:9090 ubuntu@82.70.248.117')">Prometheus</a>
+        </div>
+      </div>
+
+      <div class="vm-card starting">
+        <div class="vm-header">
+          <div><div class="vm-name">VM4 — SOC / SIEM</div><div class="vm-role">Wazuh Manager · Indexer · Dashboard</div><div class="vm-ip">195.35.28.51 · Plesk Hostinger</div></div>
+          <div class="status-badge starting"><div class="status-dot"></div>Starting</div>
+        </div>
+        <div class="vm-metrics">
+          <div class="metric"><div class="metric-label">CPU</div><div class="metric-value" id="v4c" style="color:var(--yellow)">--</div><div class="metric-bar"><div class="metric-bar-fill" id="v4cb" style="background:var(--yellow)"></div></div></div>
+          <div class="metric"><div class="metric-label">RAM</div><div class="metric-value" id="v4r" style="color:var(--yellow)">--</div><div class="metric-bar"><div class="metric-bar-fill" id="v4rb" style="background:var(--yellow)"></div></div></div>
+        </div>
+        <div class="vm-services">
+          <span class="stag up">Manager:55000</span><span class="stag up">Indexer:9200</span><span class="stag warn">Dashboard:8444</span>
+        </div>
+        <div class="vm-links">
+          <a class="vlink primary" href="https://195.35.28.51:8444" target="_blank">Wazuh UI</a>
+          <a class="vlink" href="https://195.35.28.51:55000" target="_blank">API</a>
+        </div>
+      </div>
+
+      <div class="vm-card online">
+        <div class="vm-header">
+          <div><div class="vm-name">VM5 — IAM / LDAP</div><div class="vm-role">OpenLDAP · phpLDAPadmin · RBAC</div><div class="vm-ip">195.35.28.51 · Plesk Hostinger</div></div>
+          <div class="status-badge online"><div class="status-dot"></div>Online</div>
+        </div>
+        <div class="vm-metrics">
+          <div class="metric"><div class="metric-label">Domaine</div><div class="metric-value" style="font-size:10px;color:var(--green);margin-top:5px">dataforge.lab</div></div>
+          <div class="metric"><div class="metric-label">Protocole</div><div class="metric-value" style="font-size:14px">LDAP</div></div>
+        </div>
+        <div class="vm-services">
+          <span class="stag up">LDAP:389</span><span class="stag up">LDAPS:636</span><span class="stag up">phpLDAPadmin:8085</span>
+        </div>
+        <div class="vm-links">
+          <a class="vlink primary" href="http://195.35.28.51:8085" target="_blank">phpLDAPadmin</a>
+        </div>
+      </div>
+
+    </div>
+
     <div class="section-title">🔔 Alertes & Statuts</div>
     <div class="alerts-grid">
-      <div class="alert-item">
-        <span class="alert-icon">✅</span>
-        <div class="alert-text">
-          <div class="alert-title">VM1 — WireGuard VPN actif</div>
-          <div class="alert-sub">Port 51820/UDP · Clé: fL1nWg4Y...</div>
-        </div>
-      </div>
-      <div class="alert-item">
-        <span class="alert-icon">✅</span>
-        <div class="alert-text">
-          <div class="alert-title">VM3 — Prometheus scraping</div>
-          <div class="alert-sub">2 targets actives · VM1 + VM3</div>
-        </div>
-      </div>
-      <div class="alert-item">
-        <span class="alert-icon">⏳</span>
-        <div class="alert-text">
-          <div class="alert-title">VM4 — Wazuh initialisation</div>
-          <div class="alert-sub">Première init peut prendre 5-10 min</div>
-        </div>
-      </div>
-      <div class="alert-item">
-        <span class="alert-icon">⚠️</span>
-        <div class="alert-text">
-          <div class="alert-title">Agents Wazuh non configurés</div>
-          <div class="alert-sub">VM1/VM2/VM3/VM5 à enrôler</div>
-        </div>
-      </div>
-      <div class="alert-item">
-        <span class="alert-icon">⚠️</span>
-        <div class="alert-text">
-          <div class="alert-title">Let's Encrypt non configuré</div>
-          <div class="alert-sub">Domaine réel requis pour TLS</div>
-        </div>
-      </div>
-      <div class="alert-item">
-        <span class="alert-icon">✅</span>
-        <div class="alert-text">
-          <div class="alert-title">Infrastructure RNCP — 5 VMs up</div>
-          <div class="alert-sub">Oracle Free + Plesk · 0-9€/mois</div>
-        </div>
-      </div>
+      <div class="alert-item"><span class="alert-icon">✅</span><div><div class="alert-title">VM1 — WireGuard VPN</div><div class="alert-sub">Port 51820/UDP · fL1nWg4Y...</div></div></div>
+      <div class="alert-item"><span class="alert-icon">✅</span><div><div class="alert-title">VM3 — Prometheus actif</div><div class="alert-sub">VM1:9100 + VM3:9100 scraped</div></div></div>
+      <div class="alert-item"><span class="alert-icon">⏳</span><div><div class="alert-title">VM4 — Wazuh initialisation</div><div class="alert-sub">Premier démarrage ~5-10 min</div></div></div>
+      <div class="alert-item"><span class="alert-icon">⚠️</span><div><div class="alert-title">Agents Wazuh à configurer</div><div class="alert-sub">VM1/VM2/VM3/VM5 à enrôler</div></div></div>
+      <div class="alert-item"><span class="alert-icon">⚠️</span><div><div class="alert-title">TLS Let's Encrypt manquant</div><div class="alert-sub">Domaine réel requis</div></div></div>
+      <div class="alert-item"><span class="alert-icon">🟢</span><div><div class="alert-title">5 VMs déployées</div><div class="alert-sub">Oracle Free + Plesk · ~9€/mois</div></div></div>
     </div>
-  </div>
 
-  <!-- Embeds Grafana + Wazuh -->
-  <div class="embeds-section">
     <div class="section-title">📊 Tableaux de bord</div>
     <div class="embeds-grid">
       <div class="embed-card">
-        <div class="embed-header">
-          <div>
-            <div class="embed-title">Grafana — Infrastructure Overview</div>
-            <div class="embed-subtitle">VM3 · 10.0.1.20:3000 · Prometheus datasource</div>
-          </div>
-        </div>
+        <div class="embed-header"><div><div class="embed-title">Grafana — Infrastructure</div><div class="embed-sub">VM3 · 10.0.1.20:3000 · admin/DataForge2025!</div></div></div>
         <div class="embed-body">
-          <div class="embed-placeholder">
-            <div class="embed-placeholder-icon">📈</div>
-            <div>Grafana accessible via tunnel SSH</div>
-            <code style="font-size:11px;color:rgba(250,250,250,0.3);font-family:monospace">ssh -L 3000:10.0.1.20:3000 ubuntu@82.70.248.117</code>
-          </div>
-          <a class="embed-open-btn" href="https://grafana.com" target="_blank">↗ Ouvrir</a>
+          <div class="embed-icon">📈</div>
+          <div>Accessible via tunnel SSH</div>
+          <div class="embed-code">ssh -L 3000:10.0.1.20:3000 ubuntu@82.70.248.117</div>
+          <a class="embed-open" href="http://10.0.1.20:3000" target="_blank">↗ Ouvrir Grafana</a>
         </div>
       </div>
-
       <div class="embed-card">
-        <div class="embed-header">
-          <div>
-            <div class="embed-title">Wazuh — Security Events</div>
-            <div class="embed-subtitle">VM4 · 195.35.28.51:8444 · admin/DataForge2025!</div>
-          </div>
-        </div>
+        <div class="embed-header"><div><div class="embed-title">Wazuh — Security Dashboard</div><div class="embed-sub">VM4 · 195.35.28.51:8444 · admin/DataForge2025!</div></div></div>
         <div class="embed-body">
-          <div class="embed-placeholder">
-            <div class="embed-placeholder-icon">🛡️</div>
-            <div>Wazuh Dashboard (HTTPS auto-signé)</div>
-            <code style="font-size:11px;color:rgba(250,250,250,0.3);font-family:monospace">https://195.35.28.51:8444</code>
-          </div>
-          <a class="embed-open-btn" href="https://195.35.28.51:8444" target="_blank">↗ Ouvrir</a>
+          <div class="embed-icon">🛡️</div>
+          <div>HTTPS auto-signé (accepter le cert)</div>
+          <div class="embed-code">https://195.35.28.51:8444</div>
+          <a class="embed-open" href="https://195.35.28.51:8444" target="_blank">↗ Ouvrir Wazuh</a>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <div style="text-align:center;padding:20px 0;color:rgba(250,250,250,0.2);font-size:12px">
-    DataForge Industries · RNCP37680 AIS Niveau 6 · Guardia Cybersecurity School Lyon · Alessandro Gagliardi
-  </div>
+    <div style="text-align:center;padding:24px 0;color:rgba(250,250,250,.15);font-size:11px">
+      DataForge Industries · RNCP37680 AIS Niveau 6 · Guardia Cybersecurity School Lyon
+    </div>
 
+  </div>
 </div>
 
 <script>
-// Simulated metrics (à remplacer par vraie API Prometheus)
-const vmData = {
-  vm1: { cpu: 12, ram: 45, uptime: '2d 3h' },
-  vm2: { cpu: 8, ram: 35, uptime: '1h 12m' },
-  vm3: { cpu: 18, ram: 72, uptime: '1h 8m' },
-  vm4: { cpu: 45, ram: 80, uptime: '1h 5m' },
-  vm5: { cpu: 5, ram: 28, uptime: '1h 10m' },
+// ── Auth ──────────────────────────────────────────────────────────────────────
+const PASS_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'; // "password" SHA256
+// Mot de passe: DataForge2025! → hash ci-dessous
+const CORRECT_HASH = 'a3d9e4f8b2c1e6d7f5a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0';
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+async function checkAuth() {
+  const pass = document.getElementById('auth-pass').value;
+  const hash = await sha256(pass);
+  // Mot de passe: DataForge@Infra2025
+  const target = await sha256('DataForge@Infra2025');
+  if (hash === target) {
+    sessionStorage.setItem('df_auth', hash);
+    document.getElementById('auth-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    updateMetrics();
+    setInterval(updateMetrics, 30000);
+  } else {
+    document.getElementById('auth-error').style.display = 'block';
+    document.getElementById('auth-pass').value = '';
+    setTimeout(() => document.getElementById('auth-error').style.display='none', 3000);
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('df_auth');
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('auth-screen').style.display = 'flex';
+  document.getElementById('auth-pass').value = '';
+}
+
+// Auto-login si session active
+(async()=>{
+  const stored = sessionStorage.getItem('df_auth');
+  if (stored) {
+    const target = await sha256('DataForge@Infra2025');
+    if (stored === target) {
+      document.getElementById('auth-screen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      updateMetrics();
+      setInterval(updateMetrics, 30000);
+    }
+  }
+})();
+
+document.getElementById('auth-pass').addEventListener('keydown', e => { if(e.key==='Enter') checkAuth(); });
+
+// ── Métriques simulées ────────────────────────────────────────────────────────
+const vmMetrics = {
+  v1: { cpu: 12, ram: 45 }, v2: { cpu: 8, ram: 35 },
+  v3: { cpu: 18, ram: 72 }, v4: { cpu: 55, ram: 82 }, v5: { cpu: 5, ram: 28 }
 };
 
-function getColor(val) {
-  if (val < 60) return 'var(--green)';
-  if (val < 80) return 'var(--yellow)';
-  return 'var(--red)';
-}
-function getClass(val) {
-  if (val < 60) return 'green';
-  if (val < 80) return 'yellow';
-  return 'red';
-}
+function colorFor(v) { return v < 60 ? 'var(--green)' : v < 80 ? 'var(--yellow)' : 'var(--red)'; }
 
 function updateMetrics() {
-  Object.entries(vmData).forEach(([vm, data]) => {
-    // Simulate small variations
-    const cpu = Math.max(2, Math.min(95, data.cpu + (Math.random() - 0.5) * 4));
-    const ram = Math.max(10, Math.min(95, data.ram + (Math.random() - 0.5) * 2));
-    
-    const cpuEl = document.getElementById(`${vm}-cpu`);
-    const ramEl = document.getElementById(`${vm}-ram`);
-    const cpuBar = document.getElementById(`${vm}-cpu-bar`);
-    const ramBar = document.getElementById(`${vm}-ram-bar`);
-    
-    if (cpuEl) {
-      cpuEl.textContent = cpu.toFixed(1) + '%';
-      cpuEl.className = 'metric-value ' + getClass(cpu);
-      cpuBar.style.width = cpu + '%';
-      cpuBar.style.background = getColor(cpu);
-    }
-    if (ramEl) {
-      ramEl.textContent = ram.toFixed(1) + '%';
-      ramEl.className = 'metric-value ' + getClass(ram);
-      ramBar.style.width = ram + '%';
-      ramBar.style.background = getColor(ram);
-    }
+  Object.entries(vmMetrics).forEach(([id, m]) => {
+    const cpu = Math.max(2, Math.min(95, m.cpu + (Math.random()-.5)*5));
+    const ram = Math.max(10, Math.min(95, m.ram + (Math.random()-.5)*2));
+    const ce = document.getElementById(id+'c'), re = document.getElementById(id+'r');
+    const cb = document.getElementById(id+'cb'), rb = document.getElementById(id+'rb');
+    if(ce){ ce.textContent=cpu.toFixed(1)+'%'; ce.style.color=colorFor(cpu); cb.style.width=cpu+'%'; cb.style.background=colorFor(cpu); }
+    if(re){ re.textContent=ram.toFixed(1)+'%'; re.style.color=colorFor(ram); rb.style.width=ram+'%'; rb.style.background=colorFor(ram); }
   });
-  
-  document.getElementById('lastUpdate').textContent = 'Updated: ' + new Date().toLocaleTimeString('fr-FR');
+  document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('fr-FR');
 }
-
-function refreshAll() {
-  updateMetrics();
-}
-
-// Init + auto-refresh toutes les 30s
-updateMetrics();
-setInterval(updateMetrics, 30000);
 </script>
 </body>
 </html>
