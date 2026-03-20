@@ -193,11 +193,11 @@ function openService(key) {
   event.target.closest('.service').classList.add('active');
   document.getElementById('vtitle').textContent = svc.name;
   
-  // Try to load via proxy
-  const proxyUrl = `/proxy.php/${key}/`;
-  
+  // Load via proxy.php (no .htaccess needed)
+  const proxyUrl = `/proxy.php?s=${key}`;
+
   // Create iframe
-  const iframeHtml = `<iframe style="width:100%;height:500px;border:none;border-radius:6px;" src="${proxyUrl}"></iframe>`;
+  const iframeHtml = `<iframe style="width:100%;height:500px;border:none;border-radius:6px;" src="${proxyUrl}" title="${key}"></iframe>`;
   document.getElementById('vcontent').innerHTML = iframeHtml;
   
   // If iframe fails, show instructions
